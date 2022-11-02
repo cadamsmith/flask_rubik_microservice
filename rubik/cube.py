@@ -21,7 +21,7 @@ class Cube:
         assert (isinstance(facesCode, str))
         
         # make sure "cube code" is 54 chars long
-        assert (len(facesCode) is 54)
+        assert (len(facesCode) == 54)
         
         # make sure is over alphabet [brgoyw]
         assert (not bool(re.search('[^brgoyw]', facesCode)))
@@ -37,4 +37,4 @@ class Cube:
             color = CubeColor(letter)
             colorDistributions[color] += 1
         
-        assert (len(set(colorDistributions.values())) is 1)
+        assert (len(set(colorDistributions.values())) == 1)
