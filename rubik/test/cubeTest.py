@@ -1,14 +1,26 @@
 
+import itertools
 from unittest import TestCase
 from rubik.cube import Cube
+from rubik.cubelet import Cubelet
 
 class CubeTest(TestCase):
     
     ## __init__ - POSITIVE TESTS
     
+    # if valid cubelet faces are provided as input, a cube should be instantiated
     def test_cube_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
         cube = Cube('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         self.assertIsInstance(cube, Cube)
+    
+    # if valid cubelet faces are provided as input, the NxNxN cube should have all N^3 cubelets present
+    def test_cube_init_10020_ShouldHaveAllCubeletsToFillCube(self):
+        
+        cube = Cube('obwgbrbyorgryrwgrrggwbgygrbbywboooorowyoyrgobygywwbyww')
+        
+        for i, j, k in itertools.product(*[range(3)] * 3):
+            cubelet = cube.cubelets[i, j, k]
+            self.assertIsInstance(cubelet, Cubelet)
     
     ## __init__ - NEGATIVE TESTS
     
