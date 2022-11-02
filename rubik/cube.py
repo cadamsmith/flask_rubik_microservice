@@ -38,3 +38,10 @@ class Cube:
             colorDistributions[color] += 1
         
         assert (len(set(colorDistributions.values())) == 1)
+        
+        # make sure there are no 2 center cubelet faces with same colo
+        centerColors = set(map(lambda letter: CubeColor(letter), [
+            facesCode[5], facesCode[14], facesCode[23], facesCode[32], facesCode[41], facesCode[50]
+        ]))
+        
+        assert (len(centerColors) == len(CubeColor))
