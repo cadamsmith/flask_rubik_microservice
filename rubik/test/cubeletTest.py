@@ -6,7 +6,7 @@ from rubik.cubeFace import CubeFace
 
 class CubeletTest(TestCase):
     
-    # __init__ - POSITIVE TESTS
+    ## __init__ - POSITIVE TESTS
     
     # there should be only 6 cube faces (by nature of a cube)
     def test_cubelet_init_10010_ShouldInstantiateCubeForValidInput(self):
@@ -128,7 +128,7 @@ class CubeletTest(TestCase):
         
         self.assertEqual(actual, expected)
         
-    # __init__ - NEGATIVE TESTS
+    ## __init__ - NEGATIVE TESTS
     
     # supplying a dictionary with non-CubeFace keys should throw exception
     def test_cubelet_init_20010_ShouldThrowExceptionForInvalidParamKeys(self):
@@ -164,3 +164,29 @@ class CubeletTest(TestCase):
         
         with self.assertRaises(Exception):
             Cubelet(faces)
+            
+    ## rotate - NEGATIVE TESTS
+    
+    # supplying no direction param should throw exception
+    def test_cubelet_rotate_20010_ShouldThrowExceptionForNonSuppliedDirectionParam(self):
+        
+        faces = {
+            CubeFace.UP : CubeColor.BLUE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        with self.assertRaises(Exception):
+            cubelet.rotate()
+    
+    # supplying non-CubeRotationDirection param should throw exception
+    def test_cubelet_rotate_20020_ShouldThrowExceptionForInvalidDirectionParam(self):
+        
+        faces = {
+            CubeFace.UP : CubeColor.BLUE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        with self.assertRaises(Exception):
+            cubelet.rotate(2.46)
