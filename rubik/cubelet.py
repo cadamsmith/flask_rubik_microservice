@@ -29,9 +29,9 @@ class Cubelet:
         elif direction is CubeRotationDirection.BACKWARD:
             self.__rotateBackward__()
         elif direction is CubeRotationDirection.LEFTWARD:
-            self.__rotateLeftward()
+            self.__rotateLeftward__()
         elif direction is CubeRotationDirection.RIGHTWARD:
-            self.__rotateRightward()
+            self.__rotateRightward__()
         
     def __rotateForward__(self):
         
