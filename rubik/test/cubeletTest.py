@@ -269,6 +269,32 @@ class CubeletTest(TestCase):
         with self.assertRaises(Exception):
             Cubelet(faces)
             
+    ## rotate - POSITIVE TESTS
+    
+    # a normal cubelet should rotate forward correctly
+    def test_cubelet_rotate_10010_ShouldRotateForwardCorrectly(self):
+        
+        faces = {
+            CubeFace.UP: CubeColor.BLUE,
+            CubeFace.FRONT: CubeColor.ORANGE,
+            CubeFace.RIGHT: CubeColor.YELLOW
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        for face in list(CubeFace):
+            expectedColor = None
+            
+            if face is CubeFace.FRONT:
+                expectedColor = CubeColor.BLUE
+            elif face is CubeFace.DOWN:
+                expectedColor = CubeColor.ORANGE
+            elif face is CubeFace.RIGHT:
+                expectedColor = CubeColor.YELLOW
+                
+            actualColor = cubelet.faces[face]
+            self.assertEqual(actualColor, expectedColor)
+            
     ## rotate - NEGATIVE TESTS
     
     # supplying no direction param should throw exception
