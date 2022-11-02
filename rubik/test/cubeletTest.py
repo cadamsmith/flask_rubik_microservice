@@ -43,6 +43,90 @@ class CubeletTest(TestCase):
             actual = cubelet.faces[face]
             
             self.assertEqual(actual, expected)
+    
+    # front face should be colored correctly if supplied in param faces
+    def test_cubelet_init_10040_ShouldColorFrontFaceIfSupplied(self):
+        
+        faces = {
+            CubeFace.FRONT : CubeColor.GREEN
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = CubeColor.GREEN
+        actual = cubelet.faces[CubeFace.FRONT]
+        
+        self.assertEqual(actual, expected)
+    
+    # back face should be colored correctly if supplied in param faces
+    def test_cubelet_init_10050_ShouldColorBackFaceIfSupplied(self):
+        
+        faces = {
+            CubeFace.BACK : CubeColor.RED
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = CubeColor.RED
+        actual = cubelet.faces[CubeFace.BACK]
+        
+        self.assertEqual(actual, expected)
+    
+    # left face should be colored correctly if supplied in param faces
+    def test_cubelet_init_10060_ShouldColorLeftFaceIfSupplied(self):
+        
+        faces = {
+            CubeFace.LEFT : CubeColor.YELLOW
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = CubeColor.YELLOW
+        actual = cubelet.faces[CubeFace.LEFT]
+        
+        self.assertEqual(actual, expected)
+    
+    # right face should be colored correctly if supplied in param faces
+    def test_cubelet_init_10070_ShouldColorRightFaceIfSupplied(self):
+        
+        faces = {
+            CubeFace.RIGHT : CubeColor.WHITE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = CubeColor.WHITE
+        actual = cubelet.faces[CubeFace.RIGHT]
+        
+        self.assertEqual(actual, expected)
+    
+    # up face should be colored correctly if supplied in param faces
+    def test_cubelet_init_10080_ShouldColorUpFaceIfSupplied(self):
+        
+        faces = {
+            CubeFace.UP : CubeColor.BLUE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = CubeColor.BLUE
+        actual = cubelet.faces[CubeFace.UP]
+        
+        self.assertEqual(actual, expected)
+    
+    # down face should be colored correctly if supplied in param faces
+    def test_cubelet_init_10090_ShouldColorDownFaceIfSupplied(self):
+        
+        faces = {
+            CubeFace.DOWN : CubeColor.ORANGE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = CubeColor.ORANGE
+        actual = cubelet.faces[CubeFace.DOWN]
+        
+        self.assertEqual(actual, expected)
         
     # __init__ - NEGATIVE TESTS
     
@@ -67,7 +151,8 @@ class CubeletTest(TestCase):
         
         with self.assertRaises(Exception):
             Cubelet(faces)
-            
+
+    # supplying more than 3 colored faces should throw exception
     def test_cubelet_init_20030_ShouldThrowExceptionForMoreThanThreeColoredFaces(self):
         
         faces = {
