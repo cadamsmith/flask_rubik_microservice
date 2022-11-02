@@ -509,6 +509,24 @@ class CubeletTest(TestCase):
             actualColor = cubelet.faces[face]
             
             self.assertEqual(actualColor, expectedColor)
+    
+    # a cubelet should end up unchanged by a backward rotation followed by a forward rotation
+    def test_cubelet_rotate_10140_ShouldNotChangeCubeletOnBackwardThenForwardRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.LEFT: CubeColor.WHITE,
+            CubeFace.FRONT: CubeColor.ORANGE
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.BACKWARD)
+        cubelet.rotate(CubeRotationDirection.FORWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
             
     ## rotate - NEGATIVE TESTS
     
