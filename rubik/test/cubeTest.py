@@ -51,3 +51,17 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             Cube(faces)
+            
+    # supplying a string param with an uneven distribution of colors should throw exception
+    def test_cube_init_20080_ShouldThrowExceptionForStringParamWithUnevenColorDistribution(self):
+        faces = 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy'
+        
+        with self.assertRaises(Exception):
+            Cube(faces)
+            
+    # supplying a string param with non-unique center cubelet face colors should throw exception
+    def test_cube_init_20090_ShouldThrowExceptionForStringParamWithNonUniqueCenterFaceColors(self):
+        faces = 'gyyogroywgrygrorbwryygggbwwbwowoboybrbgoywwooyggrwrbbr'
+        
+        with self.assertRaises(Exception):
+            Cube(faces)
