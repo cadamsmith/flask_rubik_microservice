@@ -366,15 +366,15 @@ class CubeletTest(TestCase):
     # a cubelet with only left face colored should not be affected by forward rotation
     def test_cubelet_rotate_10050_ShouldNotChangeCubeletWithOnlyLeftColoredOnForwardRotation(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFace.LEFT: CubeColor.WHITE
-        }
+        })
         
-        cubelet = Cubelet(faces)
+        oldFaces = cubelet.faces
         cubelet.rotate(CubeRotationDirection.FORWARD)
         
         for face in list(CubeFace):
-            expectedColor = faces[face]
+            expectedColor = oldFaces[face]
             actualColor = cubelet.faces[face]
             
             self.assertEqual(actualColor, expectedColor)
