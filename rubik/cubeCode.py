@@ -6,9 +6,10 @@ from rubik.cubeFacePosition import CubeFacePosition
 class CubeCode:
     
     CODE_LENGTH = 54
-    CUBE_SIZE = 3 
     
-    FACE_ORDER = [
+    CUBE_WIDTH = 3
+    
+    FACE_POSITION_ORDER = [
         CubeFacePosition.FRONT,
         CubeFacePosition.RIGHT,
         CubeFacePosition.BACK,

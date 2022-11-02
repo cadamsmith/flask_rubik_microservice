@@ -19,6 +19,13 @@ class Cubelet:
         
         self.faces.update(cubeData)
         
+    def setFaceColor(self, facePosition, color):
+        # make sure that the facePosition is a FacePosition and color is a CubeColor
+        assert (isinstance(facePosition, CubeFacePosition))
+        assert (isinstance(color, CubeColor))
+        
+        self.faces[facePosition] = color
+        
     def rotate(self, direction):
         
         # make sure direction is a CubeRotationDirection

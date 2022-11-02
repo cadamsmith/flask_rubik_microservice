@@ -23,7 +23,7 @@ class CubeTest(TestCase):
         code = CubeCode('obwgbrbyorgryrwgrrggwbgygrbbywboooorowyoyrgobygywwbyww')
         
         cube = Cube(code)
-        for i, j, k in itertools.product(*[range(Cube.SIZE)] * 3):
+        for i, j, k in itertools.product(*[range(code.CUBE_WIDTH)] * 3):
             cubelet = cube.cubelets[i, j, k]
             self.assertIsInstance(cubelet, Cubelet)
     
