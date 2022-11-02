@@ -28,4 +28,14 @@ class Cube:
                 self.cubelets[coords].setFaceColor(facePosition, color)
                 
                 codeIndex += 1
-            
+                
+    def toCode(self):
+        
+        codeText = ''
+        
+        for facePosition in CubeCode.FACE_POSITION_ORDER:
+            for coords in CubeCode.FACE_COORD_MAPPINGS[facePosition]:
+                color = self.cubelets[coords][facePosition]
+                codeText += color.value
+                
+        return CubeCode(codeText)            

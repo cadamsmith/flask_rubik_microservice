@@ -82,17 +82,3 @@ class CubeCode:
         assert (len(centerColors) == len(CubeColor))
         
         self.text = codeText
-        
-    @staticmethod
-    def fromCube(cube):
-        # make sure supplied param is a Cube
-        assert (isinstance(cube, Cube))
-        
-        codeText = ''
-        
-        for facePosition in CubeCode.FACE_POSITION_ORDER:
-            for coords in CubeCode.FACE_COORD_MAPPINGS[facePosition]:
-                color = cube.cubelets[coords][facePosition]
-                codeText += color.value
-                
-        return CubeCode(codeText)
