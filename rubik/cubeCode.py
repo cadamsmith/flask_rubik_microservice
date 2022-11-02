@@ -2,7 +2,6 @@
 import re
 from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
-from rubik.cube import Cube
 
 class CubeCode:
     
