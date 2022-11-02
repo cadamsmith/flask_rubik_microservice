@@ -297,6 +297,72 @@ class CubeletTest(TestCase):
             actualColor = cubelet.faces[face]
             self.assertEqual(actualColor, expectedColor)
             
+    # a normal cubelet should rotate backward correctly
+    def test_cubelet_rotate_10020_ShouldRotateBackwardCorrectly(self):
+        
+        faces = {
+            CubeFace.UP: CubeColor.ORANGE
+        }
+        
+        cubelet = Cubelet(faces)
+        cubelet.rotate(CubeRotationDirection.BACKWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = None
+            
+            if face is CubeFace.BACK:
+                expectedColor = CubeColor.ORANGE
+                
+            actualColor = cubelet.faces[face]
+            self.assertEqual(actualColor, expectedColor)
+            
+    # a normal cubelet should rotate leftward correctly
+    def test_cubelet_rotate_10030_ShouldRotateLeftwardCorrectly(self):
+        
+        faces = {
+            CubeFace.LEFT: CubeColor.ORANGE,
+            CubeFace.FRONT: CubeColor.GREEN,
+            CubeFace.RIGHT: CubeColor.WHITE
+        }
+        
+        cubelet = Cubelet(faces)
+        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = None
+            
+            if face is CubeFace.FRONT:
+                expectedColor = CubeColor.GREEN
+            elif face is CubeFace.DOWN:
+                expectedColor = CubeColor.ORANGE
+            elif face is CubeFace.RIGHT:
+                expectedColor = CubeColor.WHITE
+                
+            actualColor = cubelet.faces[face]
+            self.assertEqual(actualColor, expectedColor)
+            
+    # a normal cubelet should rotate rightward correctly
+    def test_cubelet_rotate_10040_ShouldRotateRightwardCorrectly(self):
+        
+        faces = {
+            CubeFace.FRONT: CubeColor.RED,
+            CubeFace.DOWN: CubeColor.BLUE
+        }
+        
+        cubelet = Cubelet(faces)
+        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = None
+            
+            if face is CubeFace.FRONT:
+                expectedColor = CubeColor.RED
+            elif face is CubeFace.LEFT:
+                expectedColor = CubeColor.BLUE
+                
+            actualColor = cubelet.faces[face]
+            self.assertEqual(actualColor, expectedColor)
+            
     ## rotate - NEGATIVE TESTS
     
     # supplying no direction param should throw exception
