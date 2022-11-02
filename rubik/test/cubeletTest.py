@@ -128,6 +128,94 @@ class CubeletTest(TestCase):
         
         self.assertEqual(actual, expected)
         
+    # front face should not be colored if not supplied in param faces
+    def test_cubelet_init_10100_ShouldNotColorFrontFaceIfNotSupplied(self):
+        
+        faces = {
+            CubeFace.UP : CubeColor.BLUE,
+            CubeFace.LEFT : CubeColor.YELLOW
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = None
+        actual = cubelet.faces[CubeFace.FRONT]
+        
+        self.assertEqual(actual, expected)
+    
+    # back face should not be colored if not supplied in param faces
+    def test_cubelet_init_10110_ShouldNotColorBackFaceIfNotSupplied(self):
+        
+        faces = {
+            CubeFace.UP : CubeColor.BLUE,
+            CubeFace.LEFT : CubeColor.YELLOW
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = None
+        actual = cubelet.faces[CubeFace.BACK]
+        
+        self.assertEqual(actual, expected)
+    
+    # left face should not be colored if not supplied in param faces
+    def test_cubelet_init_10120_ShouldNotColorLeftFaceIfNotSupplied(self):
+        
+        faces = {
+            CubeFace.RIGHT : CubeColor.WHITE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = None
+        actual = cubelet.faces[CubeFace.LEFT]
+        
+        self.assertEqual(actual, expected)
+    
+    # right face should not be colored if not supplied in param faces
+    def test_cubelet_init_10130_ShouldNotColorRightFaceIfNotSupplied(self):
+        
+        faces = {
+            CubeFace.LEFT : CubeColor.ORANGE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = None
+        actual = cubelet.faces[CubeFace.RIGHT]
+        
+        self.assertEqual(actual, expected)
+    
+    # up face should not be colored if not supplied in param faces
+    def test_cubelet_init_10140_ShouldNotColorUpFaceIfNotSupplied(self):
+        
+        faces = {
+            CubeFace.RIGHT : CubeColor.GREEN
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = None
+        actual = cubelet.faces[CubeFace.UP]
+        
+        self.assertEqual(actual, expected)
+    
+    # down face should not be colored if not supplied in param faces
+    def test_cubelet_init_10150_ShouldNotColorDownFaceIfNotSupplied(self):
+        
+        faces = {
+            CubeFace.UP: CubeColor.RED,
+            CubeFace.FRONT: CubeColor.BLUE,
+            CubeFace.LEFT: CubeColor.WHITE
+        }
+        
+        cubelet = Cubelet(faces)
+        
+        expected = None
+        actual = cubelet.faces[CubeFace.DOWN]
+        
+        self.assertEqual(actual, expected)
+        
     ## __init__ - NEGATIVE TESTS
     
     # supplying a dictionary with non-CubeFace keys should throw exception
