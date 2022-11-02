@@ -10,16 +10,7 @@ class Cube:
     Rubik's cube
     '''
 
-    def __init__(self, cubeData):
-        # make sure supplied param is either a string or dictionary
-        assert (isinstance(cubeData, str) or isinstance(cubeData, dict))
-        
-        if isinstance(cubeData, str):
-            self.__initFromCubeCode__(cubeData)
-        elif isinstance(cubeData, dict):
-            pass
-        
-    def __initFromCubeCode__(self, cubeCode):
+    def __init__(self, cubeCode):
         # make sure supplied param is a string
         assert (isinstance(cubeCode, str))
         
@@ -48,5 +39,4 @@ class Cube:
         ]))
         
         assert (len(centerColors) == len(CubeColor))
-        
         
