@@ -10,7 +10,7 @@ class CubeletTest(TestCase):
     ## __init__ - POSITIVE TESTS
     
     # if valid cube faces are provided as input, a cube should be instantiated
-    def test_cubelet_init_10010_ShouldInstantiateCubeForValidInput(self):
+    def test_cubelet_init_10010_ShouldInstantiateCubeletForValidInput(self):
     
         faces = {
             CubeFacePosition.UP: CubeColor.RED,
