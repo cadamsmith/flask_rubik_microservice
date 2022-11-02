@@ -215,6 +215,20 @@ class CubeletTest(TestCase):
         actual = cubelet.faces[CubeFace.DOWN]
         
         self.assertEqual(actual, expected)
+    
+    # more than one face should be able to be colored
+    def test_cubelet_init_10160_ShouldSetColorFacesCorrectly(self):
+        
+        faces = {
+            CubeFace.DOWN: CubeColor.WHITE,
+            CubeFace.RIGHT: CubeColor.BLUE,
+            CubeFace.LEFT: CubeColor.WHITE
+        }
+        
+        # see if all 3 faces were colored correctly
+        for face, color in faces.items():
+            actual = Cubelet[face.key()]
+            self.assertEqual(actual, color)
         
     ## __init__ - NEGATIVE TESTS
     
