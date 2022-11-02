@@ -3,6 +3,7 @@ from unittest import TestCase
 from rubik.cubelet import Cubelet
 from rubik.cubeColor import CubeColor
 from rubik.cubeFace import CubeFace
+from rubik.cubeRotationDirection import CubeRotationDirection
 
 class CubeletTest(TestCase):
     
@@ -281,6 +282,7 @@ class CubeletTest(TestCase):
         }
         
         cubelet = Cubelet(faces)
+        cubelet.rotate(CubeRotationDirection.FORWARD)
         
         for face in list(CubeFace):
             expectedColor = None

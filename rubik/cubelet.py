@@ -37,3 +37,5 @@ class Cubelet:
         self.faces[CubeFace.BACK] = self.faces[CubeFace.DOWN]
         self.faces[CubeFace.DOWN] = temp
         
+        print(self.faces)
+        
