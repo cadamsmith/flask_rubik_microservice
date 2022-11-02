@@ -19,7 +19,7 @@ class FaceRotationDirectionTest(TestCase):
     def test_faceRotationDirection_10010_ShouldCorrectlyParseClockwiseDirectionCode(self):
         directionCode = 'CW'
         
-        expected = FaceRotationDirection.FORWARD
+        expected = FaceRotationDirection.CLOCKWISE
         actual = FaceRotationDirection(directionCode)
         
         self.assertEqual(expected, actual)
@@ -28,7 +28,7 @@ class FaceRotationDirectionTest(TestCase):
     def test_faceRotationDirection_10020_ShouldCorrectlyParseCounterClockwiseDirectionCode(self):
         directionCode = 'CCW'
         
-        expected = FaceRotationDirection.BACKWARD
+        expected = FaceRotationDirection.COUNTERCLOCKWISE
         actual = FaceRotationDirection(directionCode)
         
         self.assertEqual(expected, actual)
