@@ -8,7 +8,7 @@ class CubeletTest(TestCase):
     
     ## __init__ - POSITIVE TESTS
     
-    # there should be only 6 cube faces (by nature of a cube)
+    # if valid cube faces are provided as input, a cube should be instantiated
     def test_cubelet_init_10010_ShouldInstantiateCubeForValidInput(self):
     
         faces = {
