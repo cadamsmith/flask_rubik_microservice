@@ -33,7 +33,7 @@ class CubeTest(TestCase):
         code = CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         cube = Cube(code)
         
-        newCode = CubeCode.fromCube(cube)
+        newCode = cube.toCode()
         self.assertEqual(newCode.text, code.text)
         
     # solved cube should have all cublets setup correctly
@@ -42,7 +42,7 @@ class CubeTest(TestCase):
         code = CubeCode('bwgbbgrgoybwrrbgybbygwggyoowyryooywwoooryrwrrgoygwbbwr')
         cube = Cube(code)
         
-        newCode = CubeCode.fromCube(cube)
+        newCode = cube.toCode()
         self.assertEqual(newCode.text, code.text)
         
     # solved cube should have all cublets setup correctly
@@ -51,7 +51,7 @@ class CubeTest(TestCase):
         code = CubeCode('gybwbrwgwrgbbryoyrwbrbgrygbwwygorobogwroyyooygwbowryog')
         cube = Cube(code)
         
-        newCode = CubeCode.fromCube(cube)
+        newCode = cube.toCode()
         self.assertEqual(newCode.text, code.text)
     
     ## __init__ - NEGATIVE TESTS
