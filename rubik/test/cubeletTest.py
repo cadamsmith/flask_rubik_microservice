@@ -332,7 +332,7 @@ class CubeletTest(TestCase):
             expectedColor = None
             
             if face is CubeFace.LEFT:
-                expectedColor = CubeColor.ORANGE
+                expectedColor = CubeColor.GREEN
             elif face is CubeFace.BACK:
                 expectedColor = CubeColor.ORANGE
             elif face is CubeFace.DOWN:
