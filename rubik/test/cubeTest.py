@@ -24,7 +24,7 @@ class CubeTest(TestCase):
     
     ## __init__ - NEGATIVE TESTS
     
-    # supplying a param not a dictionary or a string should throw exception
+    # supplying a non-string param should throw exception
     def test_cube_init_20010_ShouldThrowExceptionForInvalidParamType(self):
         with self.assertRaises(Exception):
             Cube(2.3)
