@@ -382,15 +382,15 @@ class CubeletTest(TestCase):
     # a cubelet with only left face colored should not be affected by backward rotation
     def test_cubelet_rotate_10060_ShouldNotChangeCubeletWithOnlyLeftColoredOnBackwardRotation(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFace.LEFT: CubeColor.GREEN
-        }
+        })
         
-        cubelet = Cubelet(faces)
+        oldFaces = cubelet.faces
         cubelet.rotate(CubeRotationDirection.BACKWARD)
         
         for face in list(CubeFace):
-            expectedColor = faces[face]
+            expectedColor = oldFaces[face]
             actualColor = cubelet.faces[face]
             
             self.assertEqual(actualColor, expectedColor)
@@ -398,15 +398,15 @@ class CubeletTest(TestCase):
     # a cubelet with only right face colored should not be affected by forward rotation
     def test_cubelet_rotate_10070_ShouldNotChangeCubeletWithOnlyRightColoredOnForwardRotation(self):
         
-        faces = {
-            CubeFace.RIGHT: CubeColor.BLUE
-        }
+        cubelet = Cubelet({
+            CubeFace.RIGHT: CubeColor.RED
+        })
         
-        cubelet = Cubelet(faces)
+        oldFaces = cubelet.faces
         cubelet.rotate(CubeRotationDirection.FORWARD)
         
         for face in list(CubeFace):
-            expectedColor = faces[face]
+            expectedColor = oldFaces[face]
             actualColor = cubelet.faces[face]
             
             self.assertEqual(actualColor, expectedColor)
@@ -414,15 +414,15 @@ class CubeletTest(TestCase):
     # a cubelet with only right face colored should not be affected by backward rotation
     def test_cubelet_rotate_10080_ShouldNotChangeCubeletWithOnlyRightColoredOnBackwardRotation(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFace.RIGHT: CubeColor.ORANGE
-        }
+        })
         
-        cubelet = Cubelet(faces)
+        oldFaces = cubelet.faces
         cubelet.rotate(CubeRotationDirection.BACKWARD)
         
         for face in list(CubeFace):
-            expectedColor = faces[face]
+            expectedColor = oldFaces[face]
             actualColor = cubelet.faces[face]
             
             self.assertEqual(actualColor, expectedColor)
