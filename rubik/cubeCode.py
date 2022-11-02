@@ -76,7 +76,7 @@ class CubeCode:
         assert (len(set(colorDistributions.values())) == 1)
         
         # make sure there are no 2 center cubelet faces with same color
-        centerColors = set(map(lambda index: CubeColor(codeText(index)), CubeCode.CENTER_CUBELET_INDICES))
+        centerColors = set(map(lambda index: CubeColor(codeText(index)), [4, 13, 22, 31, 40, 49]))
         assert (len(centerColors) == len(CubeColor))
         
         self.text = codeText
