@@ -322,7 +322,7 @@ class CubeletTest(TestCase):
         faces = {
             CubeFace.LEFT: CubeColor.ORANGE,
             CubeFace.FRONT: CubeColor.GREEN,
-            CubeFace.RIGHT: CubeColor.WHITE
+            CubeFace.DOWN: CubeColor.WHITE
         }
         
         cubelet = Cubelet(faces)
@@ -331,11 +331,11 @@ class CubeletTest(TestCase):
         for face in list(CubeFace):
             expectedColor = None
             
-            if face is CubeFace.FRONT:
-                expectedColor = CubeColor.GREEN
-            elif face is CubeFace.DOWN:
+            if face is CubeFace.LEFT:
                 expectedColor = CubeColor.ORANGE
-            elif face is CubeFace.RIGHT:
+            elif face is CubeFace.BACK:
+                expectedColor = CubeColor.ORANGE
+            elif face is CubeFace.DOWN:
                 expectedColor = CubeColor.WHITE
                 
             actualColor = cubelet.faces[face]
