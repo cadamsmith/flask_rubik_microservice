@@ -61,7 +61,7 @@ class CubeTest(TestCase):
             
     # supplying a string param with non-unique center cubelet face colors should throw exception
     def test_cube_init_20090_ShouldThrowExceptionForStringParamWithNonUniqueCenterFaceColors(self):
-        faces = 'gyyogroywgrygrorbwryygggbwwbwowoboybrbgoywwooyggrwrbbr'
+        faces = 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr'
         
         with self.assertRaises(Exception):
             Cube(faces)
