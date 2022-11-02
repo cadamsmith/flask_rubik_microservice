@@ -49,5 +49,5 @@ class CubeTest(TestCase):
     def test_cube_init_20070_ShouldThrowExceptionForStringParamNotContainingEveryColor(self):
         faces = 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg'
         
-        for color in list(CubeColor):
-            self.assertTrue(faces.__contains__(color.value))
+        with self.assertRaises(Exception):
+            Cube(faces)
