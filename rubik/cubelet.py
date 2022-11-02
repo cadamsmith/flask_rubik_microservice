@@ -9,6 +9,9 @@ class Cubelet:
         # initialize all faces to no color
         self.faces = {s: None for s in CubeFace}
         
+        # make sure that no more than 3 cubelet faces are colored
+        assert (len(faces) <= 3)
+        
         # make sure that the param faces is a dictionary with CubeFace keys and CubeColor values
         assert (all(isinstance(face, CubeFace) for face in faces.keys()))
         assert (all(isinstance(color, CubeColor) for color in faces.values()))
