@@ -27,6 +27,33 @@ class CubeTest(TestCase):
             cubelet = cube.cubelets[i, j, k]
             self.assertIsInstance(cubelet, Cubelet)
     
+    # solved cube should have all cublets setup correctly
+    def test_cube_init_10030_ShouldSetupSolvedCubeCorrectly(self):
+        
+        code = CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
+        cube = Cube(code)
+        
+        newCode = CubeCode.fromCube(cube)
+        self.assertEqual(newCode.text, code.text)
+        
+    # solved cube should have all cublets setup correctly
+    def test_cube_init_10040_ShouldSetupUnsolvedCubeCorrectly(self):
+        
+        code = CubeCode('bwgbbgrgoybwrrbgybbygwggyoowyryooywwoooryrwrrgoygwbbwr')
+        cube = Cube(code)
+        
+        newCode = CubeCode.fromCube(cube)
+        self.assertEqual(newCode.text, code.text)
+        
+    # solved cube should have all cublets setup correctly
+    def test_cube_init_10040_ShouldSetupAnotherUnsolvedCubeCorrectly(self):
+        
+        code = CubeCode('gybwbrwgwrgbbryoyrwbrbgrygbwwygorobogwroyyooygwbowryog')
+        cube = Cube(code)
+        
+        newCode = CubeCode.fromCube(cube)
+        self.assertEqual(newCode.text, code.text)
+    
     ## __init__ - NEGATIVE TESTS
     
     # supplying invalid cube code should throw exception
