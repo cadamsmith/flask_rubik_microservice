@@ -6,7 +6,7 @@ from rubik.cubeFacePosition import CubeFacePosition
 class CubeCode:
     
     CODE_LENGTH = 54
-    CUBE_SIZE = 3
+    CUBE_SIZE = 3 
     
     FACE_ORDER = [
         CubeFacePosition.FRONT,
@@ -76,7 +76,7 @@ class CubeCode:
         assert (len(set(colorDistributions.values())) == 1)
         
         # make sure there are no 2 center cubelet faces with same color
-        centerColors = set(map(lambda index: CubeColor(codeText(index)), self.CENTER_CUBELET_INDICES))
+        centerColors = set(map(lambda index: CubeColor(codeText(index)), CubeCode.CENTER_CUBELET_INDICES))
         assert (len(centerColors) == len(CubeColor))
         
         self.text = codeText
