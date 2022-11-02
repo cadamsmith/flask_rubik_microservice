@@ -11,6 +11,8 @@ class Cube:
 
     SIZE = 3
     CODE_LENGTH = 54
+    
+    cubelets = {}
 
     def __init__(self, cubeCode):
         # make sure supplied param is a string
