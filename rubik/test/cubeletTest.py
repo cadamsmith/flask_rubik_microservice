@@ -225,9 +225,11 @@ class CubeletTest(TestCase):
             CubeFace.LEFT: CubeColor.WHITE
         }
         
+        cubelet = Cubelet(faces)
+        
         # see if all 3 faces were colored correctly
         for face, color in faces.items():
-            actual = Cubelet[face]
+            actual = cubelet.faces[face]
             self.assertEqual(actual, color)
         
     ## __init__ - NEGATIVE TESTS
