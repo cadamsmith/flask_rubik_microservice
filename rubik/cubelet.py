@@ -5,19 +5,19 @@ from rubik.cubeRotationDirection import CubeRotationDirection
 
 class Cubelet:
 
-    def __init__(self, faces = {}):
+    def __init__(self, cubeData = {}):
         
-        # initialize all faces to no color
+        # initialize all cubeData to no color
         self.faces = {cf: None for cf in CubeFacePosition}
         
-        # make sure that no more than 3 cubelet faces are colored
-        assert (len(faces) <= 3)
+        # make sure that no more than 3 cubelet cubeData are colored
+        assert (len(cubeData) <= 3)
         
-        # make sure that the param faces is a dictionary with CubeFacePosition keys and CubeColor values
-        assert (all(isinstance(face, CubeFacePosition) for face in faces.keys()))
-        assert (all(isinstance(color, CubeColor) for color in faces.values()))
+        # make sure that the param cubeData is a dictionary with CubeFacePosition keys and CubeColor values
+        assert (all(isinstance(face, CubeFacePosition) for face in cubeData.keys()))
+        assert (all(isinstance(color, CubeColor) for color in cubeData.values()))
         
-        self.faces.update(faces)
+        self.faces.update(cubeData)
         
     def rotate(self, direction):
         

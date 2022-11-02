@@ -7,13 +7,13 @@ class Cube:
     Rubik's cube
     '''
 
-    def __init__(self, faces):
+    def __init__(self, cubeData):
         # make sure supplied param is either a string or dictionary
-        assert (isinstance(faces, str) or isinstance(faces, dict))
+        assert (isinstance(cubeData, str) or isinstance(cubeData, dict))
         
-        if isinstance(faces, str):
-            self.__initFromCubeCode__(faces)
-        elif isinstance(faces, dict):
+        if isinstance(cubeData, str):
+            self.__initFromCubeCode__(cubeData)
+        elif isinstance(cubeData, dict):
             pass
         
     def __initFromCubeCode__(self, cubeCode):
