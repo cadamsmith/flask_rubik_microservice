@@ -27,7 +27,7 @@ class CubeTest(TestCase):
             cubelet = cube.cubelets[i, j, k]
             self.assertIsInstance(cubelet, Cubelet)
     
-    # solved cube should have all cublets setup correctly
+    # solved cube should have all cubelets setup correctly
     def test_cube_init_10030_ShouldSetupSolvedCubeCorrectly(self):
         
         code = CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
@@ -36,7 +36,7 @@ class CubeTest(TestCase):
         newCode = cube.toCode()
         self.assertEqual(newCode.text, code.text)
         
-    # solved cube should have all cublets setup correctly
+    # solved cube should have all cubelets setup correctly
     def test_cube_init_10040_ShouldSetupUnsolvedCubeCorrectly(self):
         
         code = CubeCode('bwgbbgrgoybwrrbgybbygwggyoowyryooywwoooryrwrrgoygwbbwr')
@@ -45,10 +45,10 @@ class CubeTest(TestCase):
         newCode = cube.toCode()
         self.assertEqual(newCode.text, code.text)
         
-    # solved cube should have all cublets setup correctly
-    def test_cube_init_10040_ShouldSetupAnotherUnsolvedCubeCorrectly(self):
+    # solved cube should have all cubelets setup correctly
+    def test_cube_init_10050_ShouldSetupAnotherUnsolvedCubeCorrectly(self):
         
-        code = CubeCode('gybwbrwgwrgbbryoyrwbrbgrygbwwygorobogwroyyooygwbowryog')
+        code = CubeCode('bbrybggbrbwrrrbgooyyoygwborgborooyrowgbrygyowywwywwggw')
         cube = Cube(code)
         
         newCode = cube.toCode()
