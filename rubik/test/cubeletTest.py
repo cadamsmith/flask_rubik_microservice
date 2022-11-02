@@ -528,6 +528,42 @@ class CubeletTest(TestCase):
             
             self.assertEqual(actualColor, expectedColor)
             
+    # a cubelet should end up unchanged by a leftward rotation followed by a rightward rotation
+    def test_cubelet_rotate_10150_ShouldNotChangeCubeletOnLeftwardThenRightwardRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.RIGHT: CubeColor.RED,
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
+            
+    # a cubelet should end up unchanged by a rightward rotation followed by a leftward rotation
+    def test_cubelet_rotate_10160_ShouldNotChangeCubeletOnRightwardThenLeftawrdRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.LEFT: CubeColor.BLUE,
+            CubeFace.FRONT: CubeColor.RED,
+            CubeFace.DOWN: CubeColor.YELLOW
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
+            
     ## rotate - NEGATIVE TESTS
     
     # supplying no direction param should throw exception
