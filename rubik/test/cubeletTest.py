@@ -19,6 +19,18 @@ class CubeletTest(TestCase):
         
         cubelet = Cubelet(faces)
         self.assertIsInstance(cubelet, Cubelet)
+    
+    # instantiating with no supplied params should create uncolored cubelet
+    def test_cubelet_init_10020_ShouldCreateUncoloredCubeletForUnsuppliedParam(self):
+        
+        cubelet = Cubelet()
+        
+        # see if all faces are non-colored
+        for face in list(CubeFace):
+            expected = None
+            actual = cubelet.faces[face]
+            
+            self.assertEqual(actual, expected)
         
     # __init__ - NEGATIVE TESTS
     
