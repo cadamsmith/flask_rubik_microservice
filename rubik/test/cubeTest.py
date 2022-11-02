@@ -1,9 +1,14 @@
 
 from unittest import TestCase
 from rubik.cube import Cube
-from rubik.cubeColor import CubeColor
 
 class CubeTest(TestCase):
+    
+    ## __init__ - POSITIVE TESTS
+    
+    def test_cube_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
+        cube = Cube('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
+        self.assertIsInstance(cube, Cube)
     
     ## __init__ - NEGATIVE TESTS
     
