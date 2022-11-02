@@ -1,6 +1,7 @@
 
 from rubik.cubeFace import CubeFace
 from rubik.cubeColor import CubeColor
+from rubik.cubeRotationDirection import CubeRotationDirection
 
 class Cubelet:
 
@@ -17,3 +18,8 @@ class Cubelet:
         assert (all(isinstance(color, CubeColor) for color in faces.values()))
         
         self.faces.update(faces)
+        
+    def rotate(self, direction):
+        
+        # make sure direction is a CubeRotationDirection
+        assert (isinstance(direction, CubeRotationDirection))
