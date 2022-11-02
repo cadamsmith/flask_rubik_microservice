@@ -1,3 +1,6 @@
+
+from rubik.cubeColor import CubeColor
+
 class Cube:
     '''
     Rubik's cube
@@ -18,3 +21,7 @@ class Cube:
         
         # make sure "cube code" is 54 chars long
         assert (len(str) is 54)
+        
+        # make sure contains every color
+        for color in list(CubeColor):
+            assert (faces.__contains__(color.value))
