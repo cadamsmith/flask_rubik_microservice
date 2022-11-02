@@ -2,7 +2,7 @@
 from enum import Enum, unique
 
 @unique
-class CubeFace(Enum):
+class CubeFacePosition(Enum):
     FRONT = 'F'
     BACK = 'B'
     LEFT = 'L'
