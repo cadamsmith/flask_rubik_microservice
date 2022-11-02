@@ -7,7 +7,7 @@ class Cubelet:
     def __init__(self, faces = {}):
         
         # initialize all faces to no color
-        self.faces = {s: None for s in CubeFace}
+        self.faces = {cf: None for cf in CubeFace}
         
         # make sure that no more than 3 cubelet faces are colored
         assert (len(faces) <= 3)
