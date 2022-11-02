@@ -35,7 +35,7 @@ class Cube:
         
         for facePosition in CubeCode.FACE_POSITION_ORDER:
             for coords in CubeCode.FACE_COORD_MAPPINGS[facePosition]:
-                color = self.cubelets.faces[coords][facePosition]
+                color = self.cubelets[coords].faces[facePosition]
                 codeText += color.value
                 
         return CubeCode(codeText)            
