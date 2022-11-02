@@ -53,19 +53,19 @@ class Cubelet:
         
     def __rotateLeftward__(self):
         
-        temp = self.faces[CubeFace.FRONT]
+        temp = self.faces[CubeFace.UP]
         
-        self.faces[CubeFace.FRONT] = self.faces[CubeFace.RIGHT]
-        self.faces[CubeFace.RIGHT] = self.faces[CubeFace.BACK]
-        self.faces[CubeFace.BACK] = self.faces[CubeFace.LEFT]
+        self.faces[CubeFace.UP] = self.faces[CubeFace.RIGHT]
+        self.faces[CubeFace.RIGHT] = self.faces[CubeFace.DOWN]
+        self.faces[CubeFace.DOWN] = self.faces[CubeFace.LEFT]
         self.faces[CubeFace.LEFT] = temp
         
     def __rotateRightward__(self):
         
-        temp = self.faces[CubeFace.FRONT]
+        temp = self.faces[CubeFace.UP]
         
-        self.faces[CubeFace.FRONT] = self.faces[CubeFace.LEFT]
-        self.faces[CubeFace.LEFT] = self.faces[CubeFace.BACK]
-        self.faces[CubeFace.BACK] = self.faces[CubeFace.RIGHT]
+        self.faces[CubeFace.UP] = self.faces[CubeFace.LEFT]
+        self.faces[CubeFace.LEFT] = self.faces[CubeFace.DOWN]
+        self.faces[CubeFace.DOWN] = self.faces[CubeFace.RIGHT]
         self.faces[CubeFace.RIGHT] = temp
         
