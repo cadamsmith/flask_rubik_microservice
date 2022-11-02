@@ -67,3 +67,15 @@ class CubeletTest(TestCase):
         
         with self.assertRaises(Exception):
             Cubelet(faces)
+            
+    def test_cubelet_init_20030_ShouldThrowExceptionForMoreThanThreeColoredFaces(self):
+        
+        faces = {
+            CubeFace.UP: CubeColor.RED,
+            CubeFace.DOWN: CubeColor.RED,
+            CubeFace.LEFT: CubeColor.RED,
+            CubeFace.RIGHT: CubeColor.RED
+        }
+        
+        with self.assertRaises(Exception):
+            Cubelet(faces)
