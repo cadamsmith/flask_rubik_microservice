@@ -427,6 +427,70 @@ class CubeletTest(TestCase):
             
             self.assertEqual(actualColor, expectedColor)
             
+    # a cubelet with only up face colored should not be affected by leftward rotation
+    def test_cubelet_rotate_10090_ShouldNotChangeCubeletWithOnlyUpFaceColoredOnLeftwardRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.UP: CubeColor.RED
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
+            
+    # a cubelet with only up face colored should not be affected by rightward rotation
+    def test_cubelet_rotate_10100_ShouldNotChangeCubeletWithOnlyUpFaceColoredOnRightwardRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.UP: CubeColor.BLUE
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
+            
+    # a cubelet with only down face colored should not be affected by leftward rotation
+    def test_cubelet_rotate_10110_ShouldNotChangeCubeletWithOnlyDownFaceColoredOnLeftwardRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.DOWN: CubeColor.YELLOW
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
+            
+    # a cubelet with only down face colored should not be affected by rightward rotation
+    def test_cubelet_rotate_10120_ShouldNotChangeCubeletWithOnlyDownFaceColoredOnRightwardRotation(self):
+        
+        cubelet = Cubelet({
+            CubeFace.DOWN: CubeColor.GREEN
+        })
+        
+        oldFaces = cubelet.faces
+        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        
+        for face in list(CubeFace):
+            expectedColor = oldFaces[face]
+            actualColor = cubelet.faces[face]
+            
+            self.assertEqual(actualColor, expectedColor)
+            
     ## rotate - NEGATIVE TESTS
     
     # supplying no direction param should throw exception
