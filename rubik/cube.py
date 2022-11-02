@@ -3,6 +3,9 @@ import re
 from rubik.cubeColor import CubeColor
 
 class Cube:
+    SIZE = 3
+    CODE_LENGTH = 54
+    
     '''
     Rubik's cube
     '''
@@ -21,7 +24,7 @@ class Cube:
         assert (isinstance(cubeCode, str))
         
         # make sure "cube code" is 54 chars long
-        assert (len(cubeCode) == 54)
+        assert (len(cubeCode) == Cube.CODE_LENGTH)
         
         # make sure is over alphabet [brgoyw]
         assert (not bool(re.search('[^brgoyw]', cubeCode)))
@@ -45,3 +48,5 @@ class Cube:
         ]))
         
         assert (len(centerColors) == len(CubeColor))
+        
+        

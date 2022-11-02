@@ -18,7 +18,7 @@ class CubeTest(TestCase):
         
         cube = Cube('obwgbrbyorgryrwgrrggwbgygrbbywboooorowyoyrgobygywwbyww')
         
-        for i, j, k in itertools.product(*[range(3)] * 3):
+        for i, j, k in itertools.product(*[range(Cube.SIZE)] * 3):
             cubelet = cube.cubelets[i, j, k]
             self.assertIsInstance(cubelet, Cubelet)
     
