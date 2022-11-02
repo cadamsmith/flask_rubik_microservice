@@ -23,3 +23,17 @@ class Cubelet:
         
         # make sure direction is a CubeRotationDirection
         assert (isinstance(direction, CubeRotationDirection))
+        
+        self.__rotateForward__()
+        
+        
+        
+    def __rotateForward__(self):
+        
+        temp = self.faces[CubeFace.FRONT]
+        
+        self.faces[CubeFace.FRONT] = self.faces[CubeFace.UP]
+        self.faces[CubeFace.UP] = self.faces[CubeFace.BACK]
+        self.faces[CubeFace.BACK] = self.faces[CubeFace.DOWN]
+        self.faces[CubeFace.DOWN] = temp
+        
