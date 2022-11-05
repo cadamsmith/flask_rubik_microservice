@@ -88,10 +88,6 @@ class Cube:
         for facePosition in CubeCode.FACE_POSITION_ORDER:
             for coords in CubeCode.FACE_COORD_MAPPINGS[facePosition]:
                 color = self.cubelets[coords].faces[facePosition]
-                
-                if color is CubeColor:
-                    codeText += color.value
-                else:
-                    codeText += '%'
+                codeText += '#' if color is None else color.value
                 
         return CubeCode(codeText)            

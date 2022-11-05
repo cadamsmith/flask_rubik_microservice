@@ -61,7 +61,7 @@ class CubeCode:
         assert (len(codeText) == self.CODE_LENGTH)
         
         # make sure is over alphabet [brgoyw]
-        assert (not bool(re.search('[^brgoyw]', codeText)))
+        assert (not bool(re.search('[^brgoyw#]', codeText)))
         
         # make sure contains every color
         for color in list(CubeColor):

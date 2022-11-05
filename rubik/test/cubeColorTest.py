@@ -6,9 +6,9 @@ class CubeColorTest(TestCase):
     
     # GENERAL TESTS
     
-    # there should be only 6 cube colors
-    def test_cubeColor_00010_ShouldHaveExactlySixColors(self):
-        expected = 6
+    # there should be only 7 cube colors
+    def test_cubeColor_00010_ShouldHaveExactlySevenColors(self):
+        expected = 7
         actual = len(list(CubeColor))
         
         self.assertEqual(expected, actual)

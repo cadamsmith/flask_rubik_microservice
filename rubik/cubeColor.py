@@ -9,3 +9,4 @@ class CubeColor(Enum):
     ORANGE = 'o'
     YELLOW = 'y'
     WHITE = 'w'
+    NONE = '#'
