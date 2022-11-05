@@ -44,6 +44,9 @@ class Cube:
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
         
+        if facePosition is CubeFacePosition.FRONT:
+            self.__rotateFrontFace(direction)
+        
     def __rotateFrontFace(self, direction: FaceRotationDirection):
         # make sure supplied params are the right types
         assert (isinstance(direction, FaceRotationDirection))
