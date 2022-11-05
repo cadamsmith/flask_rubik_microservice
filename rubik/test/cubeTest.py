@@ -384,10 +384,10 @@ class CubeTest(TestCase):
     def test_cube_rotateFace_10070_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
         
         cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
-        expected = CubeCode('bbbbbbbbbyrryrryrrgggggggggoowoowoowyyyyyyooorrrwwwwww')
+        expected = 'bbbbbbbbbyrryrryrrgggggggggoowoowoowyyyyyyooorrrwwwwww'
         
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
-        actual = cube.toCode()
+        actual = cube.toCode().text
         
         self.assertEqual(actual, expected)
     
@@ -395,10 +395,10 @@ class CubeTest(TestCase):
     def test_cube_rotateFace_10071_ShouldBackClockwiseRotateSolvedCubeCorrectly(self):
         
         cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
-        expected = CubeCode('bbbbbbbbbrrwrrwrrwgggggggggyooyooyoorrryyyyyywwwwwwooo')
+        expected = 'bbbbbbbbbrrwrrwrrwgggggggggyooyooyoorrryyyyyywwwwwwooo'
         
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
-        actual = cube.toCode()
+        actual = cube.toCode().text
         
         self.assertEqual(actual, expected)
         
@@ -406,10 +406,10 @@ class CubeTest(TestCase):
     def test_cube_rotateFace_10072_ShouldLeftClockwiseRotateSolvedCubeCorrectly(self):
         
         cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
-        expected = CubeCode('ybbybbybbrrrrrrrrrggwggwggwooooooooogyygyygyybwwbwwbww')
+        expected = 'ybbybbybbrrrrrrrrrggwggwggwooooooooogyygyygyybwwbwwbww'
         
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
-        actual = cube.toCode()
+        actual = cube.toCode().text
         
         self.assertEqual(actual, expected)
         
@@ -417,10 +417,10 @@ class CubeTest(TestCase):
     def test_cube_rotateFace_10073_ShouldRightClockwiseRotateSolvedCubeCorrectly(self):
         
         cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
-        expected = CubeCode('bbwbbwbbwrrrrrrrrryggyggyggoooooooooyybyybyybwwgwwgwwg')
+        expected = 'bbwbbwbbwrrrrrrrrryggyggyggoooooooooyybyybyybwwgwwgwwg'
         
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
-        actual = cube.toCode()
+        actual = cube.toCode().text
         
         self.assertEqual(actual, expected)
         
@@ -428,10 +428,10 @@ class CubeTest(TestCase):
     def test_cube_rotateFace_10074_ShouldUpClockwiseRotateSolvedCubeCorrectly(self):
         
         cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
-        expected = CubeCode('rrrbbbbbbgggrrrrrroooggggggbbbooooooyyyyyyyyywwwwwwwww')
+        expected = 'rrrbbbbbbgggrrrrrroooggggggbbbooooooyyyyyyyyywwwwwwwww'
         
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-        actual = cube.toCode()
+        actual = cube.toCode().text
         
         self.assertEqual(actual, expected)
         
@@ -439,10 +439,10 @@ class CubeTest(TestCase):
     def test_cube_rotateFace_10075_ShouldDownClockwiseRotateSolvedCubeCorrectly(self):
         
         cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
-        expected = CubeCode('bbbbbbooorrrrrrbbbggggggrrroooooogggyyyyyyyyywwwwwwwww')
+        expected = 'bbbbbbooorrrrrrbbbggggggrrroooooogggyyyyyyyyywwwwwwwww'
         
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
-        actual = cube.toCode()
+        actual = cube.toCode().text
         
         self.assertEqual(actual, expected)
             
