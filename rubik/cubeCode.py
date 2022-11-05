@@ -64,7 +64,7 @@ class CubeCode:
         assert (not bool(re.search('[^brgoyw#]', codeText)))
         
         # make sure contains every color
-        for color in list(CubeColor):
+        for color in CubeColor.getFaceColors():
             assert (codeText.__contains__(color.value))
             
         # make sure contains even distribution of colors

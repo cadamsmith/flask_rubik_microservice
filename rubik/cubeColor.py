@@ -10,3 +10,13 @@ class CubeColor(Enum):
     YELLOW = 'y'
     WHITE = 'w'
     NONE = '#'
+    
+    def getFaceColors(self):
+        return [
+            self.BLUE,
+            self.RED,
+            self.GREEN,
+            self.ORANGE,
+            self.YELLOW,
+            self.WHITE
+        ]
