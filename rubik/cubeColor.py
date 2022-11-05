@@ -11,12 +11,13 @@ class CubeColor(Enum):
     WHITE = 'w'
     NONE = '#'
     
-    def getFaceColors(self):
+    @staticmethod
+    def getFaceColors():
         return [
-            self.BLUE,
-            self.RED,
-            self.GREEN,
-            self.ORANGE,
-            self.YELLOW,
-            self.WHITE
+            CubeColor.BLUE,
+            CubeColor.RED,
+            CubeColor.GREEN,
+            CubeColor.ORANGE,
+            CubeColor.YELLOW,
+            CubeColor.WHITE
         ]
