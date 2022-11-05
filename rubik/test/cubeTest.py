@@ -100,7 +100,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -113,7 +113,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -126,7 +126,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -139,7 +139,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -152,7 +152,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -165,7 +165,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -178,7 +178,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -191,7 +191,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -204,7 +204,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -217,7 +217,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -230,7 +230,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
@@ -243,7 +243,7 @@ class CubeTest(TestCase):
         cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE)
         
-        centerCoords = {1, 1, 1}
+        centerCoords = (1, 1, 1)
         actual = cube.cubelets[centerCoords]
         
         self.assertEqual(actual, expected)
