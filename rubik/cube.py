@@ -67,7 +67,7 @@ class Cube:
         coordTransform = cubeletRotationDirection = None
         
         if direction is FaceRotationDirection.CLOCKWISE:
-            coordTransform = lambda x, y, z : (2 - y, x, z)
+            coordTransform = lambda x, y, z : (y, 2 - x, z)
             cubeletRotationDirection = CubeRotationDirection.RIGHTWARD
         
         alteredCubelets = {}
