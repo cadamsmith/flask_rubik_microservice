@@ -29,6 +29,9 @@ class Cube:
                 
                 codeIndex += 1
                 
+    def rotateFace(self):
+        pass
+                
     def toCode(self):
         
         codeText = ''

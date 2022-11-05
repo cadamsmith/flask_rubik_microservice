@@ -4,6 +4,8 @@ from unittest import TestCase
 from rubik.cube import Cube
 from rubik.cubelet import Cubelet
 from rubik.cubeCode import CubeCode
+from rubik.cubeFacePosition import CubeFacePosition
+from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeTest(TestCase):
     
@@ -65,3 +67,46 @@ class CubeTest(TestCase):
     def test_cube_init_20020_ShouldThrowExceptionForNonSuppliedCubeCode(self):
         with self.assertRaises(Exception):
             Cube()
+            
+    ## rotate - NEGATIVE TESTS
+    
+    # supplying neither cube face position or face rotation direction should throw exception
+    def test_cube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
+        
+        cube = Cube(CubeCode('bbrybggbrbwrrrbgooyyoygwborgborooyrowgbrygyowywwywwggw'))
+        
+        with self.assertRaises(Exception):
+            cube.rotateFace()
+    
+    # supplying only cube face position should throw exception
+    def test_cube_rotateFace_20020_ShouldThrowExceptionForOnlyCubeFacePositionSupplied(self):
+        
+        cube = Cube(CubeCode('yygrbwowbwrrgrbryoyrgogwgrwyoboowrywrgbgyyobobbwowggby'))
+        
+        with self.assertRaises(Exception):
+            cube.rotateFace(CubeFacePosition.DOWN)
+            
+    # supplying only face rotation direction should throw exception
+    def test_cube_rotateFace_20030_ShouldThrowExceptionForOnlyFaceRotationDirectionSupplied(self):
+        
+        cube = Cube(CubeCode('yygbbowwyrwbgrroyrwrgbgrbooyobgoybyorwrwygoowgbgrwgwby'))
+        
+        with self.assertRaises(Exception):
+            cube.rotateFace(FaceRotationDirection.CLOCKWISE)
+            
+    # supplying invalid cube face position should throw exception
+    def test_cube_rotateFace_20040_ShouldThrowExceptionForInvalidCubeFacePosition(self):
+        
+        cube = Cube(CubeCode('gwwwboryrgrygrrybrobwygybybogyooowgbgwbryborrwbgwwoogy'))
+        
+        with self.assertRaises(Exception):
+            cube.rotateFace("DOWN", FaceRotationDirection.COUNTERCLOCKWISE)
+            
+    # supplying invalid face rotation direction should throw exception
+    def test_cube_rotateFace_20050_ShouldThrowExceptionForInvalidFaceRotationDirection(self):
+        
+        cube = Cube(CubeCode('orywbwwgrgorrrgwoyybyygrbyorbbyobwwggrboyywgorobgwwgbo'))
+        
+        with self.assertRaises(Exception):
+            cube.rotateFace(CubeFacePosition.RIGHT, False)
+        
