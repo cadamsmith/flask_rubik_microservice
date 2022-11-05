@@ -3,6 +3,8 @@ import itertools
 from rubik.cubeColor import CubeColor
 from rubik.cubelet import Cubelet
 from rubik.cubeCode import CubeCode
+from rubik.cubeFacePosition import CubeFacePosition
+from rubik.faceRotationDirection import FaceRotationDirection
 
 class Cube:
     '''
@@ -29,8 +31,10 @@ class Cube:
                 
                 codeIndex += 1
                 
-    def rotateFace(self):
-        pass
+    def rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+        # make sure supplied params are the right types
+        assert (isinstance(facePosition, CubeFacePosition))
+        assert (isinstance(direction, FaceRotationDirection))
                 
     def toCode(self):
         
