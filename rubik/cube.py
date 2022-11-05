@@ -67,7 +67,7 @@ class Cube:
         coordTransform = cubeletRotationDirection = None
         
         if direction is FaceRotationDirection.CLOCKWISE:
-            coordTransform = lambda x, y, z : (y, 2 - x, z)
+            coordTransform = lambda x, y, z : (2 - y, x, z)
             cubeletRotationDirection = CubeRotationDirection.RIGHTWARD
         
         alteredCubelets = {}
@@ -87,7 +87,11 @@ class Cube:
         
         for facePosition in CubeCode.FACE_POSITION_ORDER:
             for coords in CubeCode.FACE_COORD_MAPPINGS[facePosition]:
-                color = self.cubelets[coords].faces[facePosition]
-                codeText += color.value
+                color = self.cubelets[coords].faces[facePosition]codeText
+                
+                if color is CubeColor:
+                    codeText += color.value
+                else:
+                    codeText += '%'
                 
         return CubeCode(codeText)            
