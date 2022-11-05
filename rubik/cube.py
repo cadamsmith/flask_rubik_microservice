@@ -13,6 +13,12 @@ class Cube:
     
     cubelets = {}
     
+    FRONT_FACE_CUBELET_COORDS = [
+        (0, 0, 0), (1, 0, 0), (2, 0, 0),
+        (0, 1, 0), (1, 1, 0), (2, 1, 0),
+        (0, 2, 0), (1, 2, 0), (2, 2, 0)
+    ]
+    
     FACE_CENTER_CUBELET_COORDS = [(1, 1, 0), (1, 1, 2), (0, 1, 1), (2, 1, 1), (1, 0, 1), (1, 2, 1)]
 
     def __init__(self, cubeCode):
@@ -37,6 +43,30 @@ class Cube:
         # make sure supplied params are the right types
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
+        
+    def __rotateFrontFace(self, direction: FaceRotationDirection):
+        # make sure supplied params are the right types
+        assert (isinstance(direction, FaceRotationDirection))
+        
+        # x,y <-> x,y
+        # ----------
+        # 0,0 <-> 2,0
+        # 1,0 <-> 2,1
+        # 2,0 <-> 2,2
+        # 0,1 <-> 1,0
+        # 1,1 <-> 1,1
+        # 2,1 <-> 1,2
+        # 0,2 <-> 0,0
+        # 1,2 <-> 0,1
+        # 2,2 <-> 0,2
+        
+        alteredCubelets = {}
+        
+        if direction is FaceRotationDirection.CLOCKWISE:
+            for x, y, z in self.FRONT_FACE_CUBELET_COORDS:
+                alteredCubelets[x, y, z] = self.cubelets[2 - y, x, z]
+        
+        self.cubelets.update(alteredCubelets)
                 
     def toCode(self):
         
