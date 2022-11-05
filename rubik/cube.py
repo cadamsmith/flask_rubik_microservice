@@ -5,6 +5,7 @@ from rubik.cubelet import Cubelet
 from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
+from rubik.cubeRotationDirection import CubeRotationDirection
 
 class Cube:
     '''
@@ -63,11 +64,23 @@ class Cube:
         # 1,2 <-> 0,1
         # 2,2 <-> 0,2
         
+        coordTransform = cubeletRotationDirection = None
+        
+        if direction is FaceRotationDirection.CLOCKWISE:
+            coordTransform = lambda (x, y, z) : (2 - y, x, z)
+            cubeletRotationDirection = CubeRotationDirection.RIGHTWARD
+        elif direction is FaceRotationDirection.COUNTERCLOCKWISE:
+            coordTransform = lambda (x, y, z) : (y, 2 - x, z)
+            cubeletRotationDirection = CubeRotationDirection.LEFTWARD
+        
         alteredCubelets = {}
         
         if direction is FaceRotationDirection.CLOCKWISE:
-            for x, y, z in self.FRONT_FACE_CUBELET_COORDS:
-                alteredCubelets[x, y, z] = self.cubelets[2 - y, x, z]
+            for coord in self.FRONT_FACE_CUBELET_COORDS:
+                newCoord = coordTransform(coord)
+                
+                alteredCubelets[newCoord] = self.cubelets[coord]
+                alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         self.cubelets.update(alteredCubelets)
                 
