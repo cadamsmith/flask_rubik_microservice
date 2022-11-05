@@ -65,7 +65,34 @@ class CubeTest(TestCase):
         with self.assertRaises(Exception):
             Cube()
             
-    ## rotate - NEGATIVE TESTS
+    ## rotateFace - POSITIVE TESTS
+    
+    # rotating same face twice, but in alternating directions should result in unchanged cube
+    def test_cube_rotateFace_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
+        
+        initCode = CubeCode('rybybrygyoyrbrwrrygggogybggwbwrobwogorywyobgwowbbwwroo')
+        cube = Cube(initCode)
+        
+        cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
+        cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE)
+        
+        newCode = cube.toCode()
+        self.assertEqual(newCode.text, initCode.text)
+    
+    # rotating same face in same direction 4 times should result in unchanged cube
+    def test_cube_rotateFace_10020_ShouldBeUnchangedAfterFourIdenticalRotations(self):
+        
+        initCode = CubeCode('wrbbbwyyrywbbrgwywobrwggggggorooryrbyowwyrgyorbbgwooyo')
+        cube = Cube(initCode)
+        
+        numRotations = 4
+        for _ in range(numRotations):
+            cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
+        
+        newCode = cube.toCode()
+        self.assertEqual(newCode.text, initCode.text)
+            
+    ## rotateFace - NEGATIVE TESTS
     
     # supplying neither cube face position or face rotation direction should throw exception
     def test_cube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
