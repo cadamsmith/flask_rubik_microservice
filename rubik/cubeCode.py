@@ -68,7 +68,7 @@ class CubeCode:
             assert (codeText.__contains__(color.value))
             
         # make sure contains even distribution of colors
-        colorDistributions = {c: 0 for c in CubeColor}
+        colorDistributions = {c: 0 for c in CubeColor.getFaceColors()}
         
         for letter in codeText:
             color = CubeColor(letter)
