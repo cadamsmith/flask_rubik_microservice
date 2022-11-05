@@ -12,6 +12,8 @@ class Cube:
     '''
     
     cubelets = {}
+    
+    FACE_CENTER_CUBELET_COORDS = [(1, 1, 0), (1, 1, 2), (0, 1, 1), (2, 1, 1), (1, 0, 1), (1, 2, 1)]
 
     def __init__(self, cubeCode):
         # make sure supplied param is a valid CubeCode
