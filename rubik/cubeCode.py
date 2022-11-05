@@ -51,7 +51,7 @@ class CubeCode:
         ],
     }
     
-    CENTER_CUBELET_INDICES = [4, 13, 22, 31, 40, 49]
+    FACE_CENTER_INDICES = [4, 13, 22, 31, 40, 49]
     
     def __init__(self, codeText):
         # make sure supplied param is a string
@@ -77,7 +77,7 @@ class CubeCode:
         assert (len(set(colorDistributions.values())) == 1)
         
         # make sure there are no 2 center cubelet faces with same color
-        centerColors = set(map(lambda index: CubeColor(codeText[index]), CubeCode.CENTER_CUBELET_INDICES))
+        centerColors = set(map(lambda index: CubeColor(codeText[index]), self.FACE_CENTER_INDICES))
         assert (len(centerColors) == len(CubeColor))
         
         self.text = codeText
