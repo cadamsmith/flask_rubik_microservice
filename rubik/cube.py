@@ -73,10 +73,10 @@ class Cube:
         alteredCubelets = {}
         
         if direction is FaceRotationDirection.CLOCKWISE:
-            for coord in self.FRONT_FACE_CUBELET_COORDS:
-                newCoord = coordTransform(coord)
+            for (x, y, z) in self.FRONT_FACE_CUBELET_COORDS:
+                newCoord = coordTransform(x, y, z)
                 
-                alteredCubelets[newCoord] = self.cubelets[coord]
+                alteredCubelets[newCoord] = self.cubelets[x, y, z]
                 alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         self.cubelets.update(alteredCubelets)
