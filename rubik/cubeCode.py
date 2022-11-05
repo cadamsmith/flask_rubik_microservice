@@ -78,6 +78,6 @@ class CubeCode:
         
         # make sure there are no 2 center cubelet faces with same color
         centerColors = set(map(lambda index: CubeColor(codeText[index]), self.FACE_CENTER_INDICES))
-        assert (len(centerColors) == len(CubeColor))
+        assert (len(centerColors) == len(CubeColor.getFaceColors()))
         
         self.text = codeText
