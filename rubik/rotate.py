@@ -1,4 +1,7 @@
-import rubik.cube as rubik
+
+ERROR_MISSING_CUBE = 'error: missing cube'
+ERROR_INVALID_CUBE = 'error: invalid cube'
+ERROR_INVALID_DIR = 'error: invalid rotation'
 
 def _rotate(parms):
     """Return rotated cube""" 
