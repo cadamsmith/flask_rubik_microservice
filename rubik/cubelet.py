@@ -32,15 +32,15 @@ class Cubelet:
         assert (isinstance(direction, CubeRotationDirection))
         
         if direction is CubeRotationDirection.FLIP_FORWARD:
-            self.__rotateForward__()
+            self.__flipForward__()
         elif direction is CubeRotationDirection.FLIP_BACKWARD:
-            self.__rotateBackward__()
+            self.__flipBackward__()
         elif direction is CubeRotationDirection.FLIP_LEFTWARD:
-            self.__rotateLeftward__()
+            self.__flipLeftward__()
         elif direction is CubeRotationDirection.FLIP_RIGHTWARD:
-            self.__rotateRightward__()
+            self.__flipRightward__()
         
-    def __rotateForward__(self):
+    def __flipForward__(self):
         
         temp = self.faces[CubeFacePosition.UP]
         
@@ -49,7 +49,7 @@ class Cubelet:
         self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.FRONT]
         self.faces[CubeFacePosition.FRONT] = temp
         
-    def __rotateBackward__(self):
+    def __flipBackward__(self):
         
         temp = self.faces[CubeFacePosition.UP]
         
@@ -58,7 +58,7 @@ class Cubelet:
         self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.BACK]
         self.faces[CubeFacePosition.BACK] = temp
         
-    def __rotateLeftward__(self):
+    def __flipLeftward__(self):
         
         temp = self.faces[CubeFacePosition.UP]
         
@@ -67,7 +67,7 @@ class Cubelet:
         self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.LEFT]
         self.faces[CubeFacePosition.LEFT] = temp
         
-    def __rotateRightward__(self):
+    def __flipRightward__(self):
         
         temp = self.faces[CubeFacePosition.UP]
         
