@@ -9,3 +9,8 @@ class CubeFacePosition(Enum):
     RIGHT = 'R'
     UP = 'U'
     DOWN = 'D'
+    
+    @classmethod
+    def hasValue(cls, value):
+        return value in cls._value2member_map_ 
+
