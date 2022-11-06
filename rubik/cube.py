@@ -53,6 +53,8 @@ class Cube:
         
         if facePosition is CubeFacePosition.FRONT:
             self.__rotateFrontFace(direction)
+        elif facePosition is CubeFacePosition.BACK:
+            self.__rotateBackFace(direction)
         
     def __rotateFrontFace(self, direction: FaceRotationDirection):
         # make sure supplied params are the right types
