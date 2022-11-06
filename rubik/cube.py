@@ -126,7 +126,7 @@ class Cube:
             
         elif direction is FaceRotationDirection.COUNTERCLOCKWISE:
             coordTransform = lambda x, y, z : (2 - y, x, z)
-            cubeletRotationDirection = cubeletRotationDirection.FLIP_RIGHTWARD
+            cubeletRotationDirection = CubeRotationDirection.FLIP_RIGHTWARD
         
         alteredCubelets = {}
         
