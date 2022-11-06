@@ -26,7 +26,7 @@ class RotateTest(TestCase):
         self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
         
     # supplying empty string dir param should result in error status
-    def test_rotate_20021_ShouldErrorOnEmptyStringDir(self):
+    def test_rotate_20030_ShouldErrorOnEmptyStringDir(self):
         result = rotate._rotate({
             'op': 'rotate',
             'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
@@ -38,7 +38,7 @@ class RotateTest(TestCase):
         
     # supplying string dir param with one character should result in error status if the character
     # is an invalid rotational code
-    def test_rotate_20022_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
+    def test_rotate_20040_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
         result = rotate._rotate({
             'op': 'rotate',
             'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
@@ -50,7 +50,7 @@ class RotateTest(TestCase):
         
     # supplying string dir param with multiple characters should result in error status
     # if any of the characters are invalid rotational codes
-    def test_rotate_20023_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
+    def test_rotate_20050_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
         result = rotate._rotate({
             'op': 'rotate',
             'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
@@ -59,4 +59,76 @@ class RotateTest(TestCase):
         
         self.assertIn('status', result)
         self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
+        
+    # supplying non-string cube should result in error status
+    def test_rotate_20630_ShouldErrorOnNonStringCube(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': False,
+            'dir': 'l'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    # supplying string cube not 54 chars long should result in error status
+    def test_rotate_20070_ShouldErrorOnCubeWithInvalidLength(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'ooyyyyyyyyyw',
+            'dir': 'l'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+        
+    # supplying a string cube not over the alphabet [brgoyw] should throw exception
+    def test_rotate_20080_ShouldErrorOnCubeContainingNonColorChars(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor',
+            'dir': 'b'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    # supplying a string cube not containing every color code should throw exception
+    def test_rotate_20090_ShouldErrorOnCubeNotContainingEveryColor(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg',
+            'dir': 'R'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+            
+    # supplying a string cube with an uneven distribution of colors should throw exception
+    def test_rotate_init_20100_ShouldErrorOnCubeWithUnevenColorDistribution(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy',
+            'dir': 'd'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+            
+    # supplying a string cube with non-unique center cubelet face colors should throw exception
+    def test_rotate_init_20110_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr',
+            'dir': 'U'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
         
