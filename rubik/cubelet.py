@@ -39,6 +39,10 @@ class Cubelet:
             self.__flipLeftward__()
         elif direction is CubeRotationDirection.FLIP_RIGHTWARD:
             self.__flipRightward__()
+        elif direction is CubeRotationDirection.SPIN_LEFTWARD:
+            self.__spinLeftward__()
+        elif direction is CubeRotationDirection.SPIN_RIGHTWARD:
+            self.__spinRightward__()
         
     def __flipForward__(self):
         
@@ -74,5 +78,23 @@ class Cubelet:
         self.faces[CubeFacePosition.UP] = self.faces[CubeFacePosition.LEFT]
         self.faces[CubeFacePosition.LEFT] = self.faces[CubeFacePosition.DOWN]
         self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.RIGHT]
+        self.faces[CubeFacePosition.RIGHT] = temp
+        
+    def __spinLeftward__(self):
+        
+        temp = self.faces[CubeFacePosition.FRONT]
+        
+        self.faces[CubeFacePosition.FRONT] = self.faces[CubeFacePosition.RIGHT]
+        self.faces[CubeFacePosition.RIGHT] = self.faces[CubeFacePosition.BACK]
+        self.faces[CubeFacePosition.BACK] = self.faces[CubeFacePosition.LEFT]
+        self.faces[CubeFacePosition.LEFT] = temp
+        
+    def __spinRightward__(self):
+        
+        temp = self.faces[CubeFacePosition.FRONT]
+        
+        self.faces[CubeFacePosition.FRONT] = self.faces[CubeFacePosition.LEFT]
+        self.faces[CubeFacePosition.LEFT] = self.faces[CubeFacePosition.BACK]
+        self.faces[CubeFacePosition.BACK] = self.faces[CubeFacePosition.RIGHT]
         self.faces[CubeFacePosition.RIGHT] = temp
         
