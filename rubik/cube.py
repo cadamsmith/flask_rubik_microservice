@@ -20,6 +20,12 @@ class Cube:
         (0, 2, 0), (1, 2, 0), (2, 2, 0)
     ]
     
+    BACK_FACE_CUBELET_COORDS = [
+        (0, 0, 2), (1, 0, 2), (2, 0, 2),
+        (0, 1, 2), (1, 1, 2), (2, 1, 2),
+        (0, 2, 2), (1, 2, 2), (2, 2, 2)
+    ]
+    
     FACE_CENTER_CUBELET_COORDS = [(1, 1, 0), (1, 1, 2), (0, 1, 1), (2, 1, 1), (1, 0, 1), (1, 2, 1)]
 
     def __init__(self, cubeCode):
@@ -106,7 +112,7 @@ class Cube:
         alteredCubelets = {}
         
         if direction is FaceRotationDirection.CLOCKWISE:
-            for (x, y, z) in self.FRONT_FACE_CUBELET_COORDS:
+            for (x, y, z) in self.BACK_FACE_CUBELET_COORDS:
                 newCoord = coordTransform(x, y, z)
                 
                 alteredCubelets[newCoord] = self.cubelets[x, y, z]
