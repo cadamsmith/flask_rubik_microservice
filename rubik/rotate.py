@@ -25,7 +25,7 @@ def _rotate(params):
         
         # validate it is over alphabet [FfRrBbLlUuDd]
         for char in dir:
-            if not CubeFacePosition.hasValue(char.toupper()):
+            if not CubeFacePosition.hasValue(char.upper()):
                 return __invalidDirError__()
     
     result = {}
