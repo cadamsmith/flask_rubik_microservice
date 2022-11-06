@@ -140,15 +140,17 @@ class Cube:
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (x, 2 - z, y)
             cubeletRotationDirection = CubeRotationDirection.FLIP_FORWARD
+        elif direction is FaceRotationDirection.COUNTERCLOCKWISE:
+            coordTransform = lambda x, y, z : (x, z, 2 - y)
+            cubeletRotationDirection = CubeRotationDirection.FLIP_BACKWARD
         
         alteredCubelets = {}
         
-        if direction is FaceRotationDirection.CLOCKWISE:
-            for (x, y, z) in self.LEFT_FACE_CUBELET_COORDS:
-                newCoord = coordTransform(x, y, z)
-                
-                alteredCubelets[newCoord] = self.cubelets[x, y, z]
-                alteredCubelets[newCoord].rotate(cubeletRotationDirection)
+        for (x, y, z) in self.LEFT_FACE_CUBELET_COORDS:
+            newCoord = coordTransform(x, y, z)
+            
+            alteredCubelets[newCoord] = self.cubelets[x, y, z]
+            alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         self.cubelets.update(alteredCubelets)
         
@@ -161,15 +163,17 @@ class Cube:
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (x, z, 2 - y)
             cubeletRotationDirection = CubeRotationDirection.FLIP_BACKWARD
+        elif direction is FaceRotationDirection.COUNTERCLOCKWISE:
+            coordTransform = lambda x, y, z : (x, 2 - z, y)
+            cubeletRotationDirection = CubeRotationDirection.FLIP_FORWARD
         
         alteredCubelets = {}
         
-        if direction is FaceRotationDirection.CLOCKWISE:
-            for (x, y, z) in self.RIGHT_FACE_CUBELET_COORDS:
-                newCoord = coordTransform(x, y, z)
-                
-                alteredCubelets[newCoord] = self.cubelets[x, y, z]
-                alteredCubelets[newCoord].rotate(cubeletRotationDirection)
+        for (x, y, z) in self.RIGHT_FACE_CUBELET_COORDS:
+            newCoord = coordTransform(x, y, z)
+            
+            alteredCubelets[newCoord] = self.cubelets[x, y, z]
+            alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         self.cubelets.update(alteredCubelets)
         
@@ -182,15 +186,17 @@ class Cube:
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (z, y, 2 - x)
             cubeletRotationDirection = CubeRotationDirection.SPIN_LEFTWARD
+        elif direction is FaceRotationDirection.CLOCKWISE:
+            coordTransform = lambda x, y, z : (2 - z, y, x)
+            cubeletRotationDirection = CubeRotationDirection.SPIN_RIGHTWARD
         
         alteredCubelets = {}
         
-        if direction is FaceRotationDirection.CLOCKWISE:
-            for (x, y, z) in self.UP_FACE_CUBELET_COORDS:
-                newCoord = coordTransform(x, y, z)
-                
-                alteredCubelets[newCoord] = self.cubelets[x, y, z]
-                alteredCubelets[newCoord].rotate(cubeletRotationDirection)
+        for (x, y, z) in self.UP_FACE_CUBELET_COORDS:
+            newCoord = coordTransform(x, y, z)
+            
+            alteredCubelets[newCoord] = self.cubelets[x, y, z]
+            alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         self.cubelets.update(alteredCubelets)
         
@@ -203,15 +209,17 @@ class Cube:
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (2 - z, y, x)
             cubeletRotationDirection = CubeRotationDirection.SPIN_RIGHTWARD
+        elif direction is FaceRotationDirection.CLOCKWISE:
+            coordTransform = lambda x, y, z : (z, y, 2 - x)
+            cubeletRotationDirection = CubeRotationDirection.SPIN_LEFTWARD
         
         alteredCubelets = {}
         
-        if direction is FaceRotationDirection.CLOCKWISE:
-            for (x, y, z) in self.DOWN_FACE_CUBELET_COORDS:
-                newCoord = coordTransform(x, y, z)
-                
-                alteredCubelets[newCoord] = self.cubelets[x, y, z]
-                alteredCubelets[newCoord].rotate(cubeletRotationDirection)
+        for (x, y, z) in self.DOWN_FACE_CUBELET_COORDS:
+            newCoord = coordTransform(x, y, z)
+            
+            alteredCubelets[newCoord] = self.cubelets[x, y, z]
+            alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         self.cubelets.update(alteredCubelets)
                 
