@@ -55,22 +55,11 @@ class Cube:
             self.__rotateFrontFace(direction)
         elif facePosition is CubeFacePosition.BACK:
             self.__rotateBackFace(direction)
+        elif facePosition is CubeFacePosition.LEFT:
         
     def __rotateFrontFace(self, direction: FaceRotationDirection):
         # make sure supplied params are the right types
         assert (isinstance(direction, FaceRotationDirection))
-        
-        # x,y <-> x,y
-        # ----------
-        # 0,0 <-> 2,0
-        # 1,0 <-> 2,1
-        # 2,0 <-> 2,2
-        # 0,1 <-> 1,0
-        # 1,1 <-> 1,1
-        # 2,1 <-> 1,2
-        # 0,2 <-> 0,0
-        # 1,2 <-> 0,1
-        # 2,2 <-> 0,2
         
         coordTransform = cubeletRotationDirection = None
         
@@ -93,23 +82,32 @@ class Cube:
         # make sure supplied params are the right types
         assert (isinstance(direction, FaceRotationDirection))
         
-        # x,y <-> x,y
-        # ----------
-        # 2,0 <-> 0,0
-        # 2,1 <-> 1,0
-        # 2,2 <-> 2,0
-        # 1,0 <-> 0,1
-        # 1,1 <-> 1,1
-        # 1,2 <-> 2,1
-        # 0,0 <-> 0,2
-        # 0,1 <-> 1,2
-        # 0,2 <-> 2,2
-        
         coordTransform = cubeletRotationDirection = None
         
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (y, 2 - x, z)
             cubeletRotationDirection = CubeRotationDirection.LEFTWARD
+        
+        alteredCubelets = {}
+        
+        if direction is FaceRotationDirection.CLOCKWISE:
+            for (x, y, z) in self.BACK_FACE_CUBELET_COORDS:
+                newCoord = coordTransform(x, y, z)
+                
+                alteredCubelets[newCoord] = self.cubelets[x, y, z]
+                alteredCubelets[newCoord].rotate(cubeletRotationDirection)
+        
+        self.cubelets.update(alteredCubelets)
+        
+    def __rotateLeftFace(self, direction: FaceRotationDirection):
+        # make sure supplied params are the right types
+        assert (isinstance(direction, FaceRotationDirection))
+        
+        coordTransform = cubeletRotationDirection = None
+        
+        if direction is FaceRotationDirection.CLOCKWISE:
+            coordTransform = lambda x, y, z : (x, z, 2 - y)
+            cubeletRotationDirection = CubeRotationDirection.FORWARD
         
         alteredCubelets = {}
         
