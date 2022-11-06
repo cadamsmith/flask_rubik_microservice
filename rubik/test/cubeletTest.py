@@ -282,7 +282,7 @@ class CubeletTest(TestCase):
         }
         
         cubelet = Cubelet(faces)
-        cubelet.rotate(CubeRotationDirection.FORWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = None
@@ -305,7 +305,7 @@ class CubeletTest(TestCase):
         }
         
         cubelet = Cubelet(faces)
-        cubelet.rotate(CubeRotationDirection.BACKWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = None
@@ -326,7 +326,7 @@ class CubeletTest(TestCase):
         }
         
         cubelet = Cubelet(faces)
-        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = None
@@ -350,7 +350,7 @@ class CubeletTest(TestCase):
         }
         
         cubelet = Cubelet(faces)
-        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = None
@@ -371,7 +371,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.FORWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -387,7 +387,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.BACKWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -403,7 +403,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.FORWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -419,7 +419,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.BACKWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -435,7 +435,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -451,7 +451,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -467,7 +467,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -483,7 +483,7 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -501,8 +501,8 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.FORWARD)
-        cubelet.rotate(CubeRotationDirection.BACKWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -519,8 +519,8 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.BACKWARD)
-        cubelet.rotate(CubeRotationDirection.FORWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -536,8 +536,8 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.LEFTWARD)
-        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
@@ -555,8 +555,8 @@ class CubeletTest(TestCase):
         })
         
         oldFaces = cubelet.faces
-        cubelet.rotate(CubeRotationDirection.RIGHTWARD)
-        cubelet.rotate(CubeRotationDirection.LEFTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
+        cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]

@@ -72,7 +72,7 @@ class Cube:
         
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (2 - y, x, z)
-            cubeletRotationDirection = CubeRotationDirection.RIGHTWARD
+            cubeletRotationDirection = CubeRotationDirection.FLIP_RIGHTWARD
         
         alteredCubelets = {}
         
@@ -93,7 +93,7 @@ class Cube:
         
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (y, 2 - x, z)
-            cubeletRotationDirection = CubeRotationDirection.LEFTWARD
+            cubeletRotationDirection = CubeRotationDirection.FLIP_LEFTWARD
         
         alteredCubelets = {}
         
@@ -114,7 +114,7 @@ class Cube:
         
         if direction is FaceRotationDirection.CLOCKWISE:
             coordTransform = lambda x, y, z : (x, 2 - z, y)
-            cubeletRotationDirection = CubeRotationDirection.FORWARD
+            cubeletRotationDirection = CubeRotationDirection.FLIP_FORWARD
         
         alteredCubelets = {}
         

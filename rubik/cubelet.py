@@ -31,13 +31,13 @@ class Cubelet:
         # make sure direction is a CubeRotationDirection
         assert (isinstance(direction, CubeRotationDirection))
         
-        if direction is CubeRotationDirection.FORWARD:
+        if direction is CubeRotationDirection.FLIP_FORWARD:
             self.__rotateForward__()
-        elif direction is CubeRotationDirection.BACKWARD:
+        elif direction is CubeRotationDirection.FLIP_BACKWARD:
             self.__rotateBackward__()
-        elif direction is CubeRotationDirection.LEFTWARD:
+        elif direction is CubeRotationDirection.FLIP_LEFTWARD:
             self.__rotateLeftward__()
-        elif direction is CubeRotationDirection.RIGHTWARD:
+        elif direction is CubeRotationDirection.FLIP_RIGHTWARD:
             self.__rotateRightward__()
         
     def __rotateForward__(self):
