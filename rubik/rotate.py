@@ -1,5 +1,6 @@
 
 from rubik.cubeFacePosition import CubeFacePosition
+from rubik.cubeCode import CubeCode
 
 ERROR_MISSING_CUBE = 'error: missing cube'
 ERROR_INVALID_CUBE = 'error: invalid cube'
@@ -11,6 +12,12 @@ def _rotate(params):
     # validate that 'cube' param exists
     if 'cube' not in params:
         return __missingCubeError__()
+    
+    cube = params['cube']
+    
+    # validate that 'cube' param
+    if not CubeCode.isValid(cube):
+        return __invalidCubeError__()
     
     # by default, rotation taken to be front clockwise
     dir = 'F'

@@ -21,30 +21,47 @@ class CubeCode:
     FACE_CENTER_INDICES = [4, 13, 22, 31, 40, 49]
     
     def __init__(self, codeText):
-        # make sure supplied param is a string
-        assert (isinstance(codeText, str))
+        # make sure supplied param is a valid cube code text
+        assert self.isValid(codeText)
         
-        # make sure "cube code" is 54 chars long
-        assert (len(codeText) == self.CODE_LENGTH)
+        self.text = codeText
+    
+    @classmethod
+    def isValid(cls, codeText):
         
-        # make sure is over alphabet [brgoyw]
-        assert (not bool(re.search('[^brgoyw]', codeText)))
+        # check if supplied code text is a string
+        if not isinstance(codeText, str):
+            return False
         
-        # make sure contains every color
+        # check if code text is 54 chars long
+        if len(codeText) != cls.CODE_LENGTH:
+            return False
+        
+        # check if it's over alphabet [brgoyw]
+        if bool(re.search('[^brgoyw]', codeText)):
+            return False
+        
+        # check if it contains every color
         for color in CubeColor.getFaceColors():
-            assert (codeText.__contains__(color.value))
-            
-        # make sure contains even distribution of colors
+            if not codeText.__contains__(color.value):
+                return False
+        
+        # check if it contains even distribution of colors
         colorDistributions = {c: 0 for c in CubeColor.getFaceColors()}
         
         for letter in codeText:
             color = CubeColor(letter)
             colorDistributions[color] += 1
         
-        assert (len(set(colorDistributions.values())) == 1)
+        if not len(set(colorDistributions.values())) == 1:
+            return False
         
-        # make sure there are no 2 center cubelet faces with same color
-        centerColors = set(map(lambda index: CubeColor(codeText[index]), self.FACE_CENTER_INDICES))
-        assert (len(centerColors) == len(CubeColor.getFaceColors()))
+        # check if the center cubelet faces have unique colors
+        centerColors = set(map(lambda index: CubeColor(codeText[index]), cls.FACE_CENTER_INDICES))
         
-        self.text = codeText
+        if not len(centerColors) == len(CubeColor.getFaceColors()):
+            return False
+        
+        # congrats, its a valid cube code
+        return True
+    
