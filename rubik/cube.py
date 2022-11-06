@@ -14,47 +14,39 @@ class Cube:
     
     cubelets = {}
     
-    # coordinates of all cubelets that make up front face
-    FRONT_FACE_CUBELET_COORDS = [
-        (0, 0, 0), (1, 0, 0), (2, 0, 0),
-        (0, 1, 0), (1, 1, 0), (2, 1, 0),
-        (0, 2, 0), (1, 2, 0), (2, 2, 0)
-    ]
-    
-    # coordinates of all cubelets that make up back face
-    BACK_FACE_CUBELET_COORDS = [
-        (0, 0, 2), (1, 0, 2), (2, 0, 2),
-        (0, 1, 2), (1, 1, 2), (2, 1, 2),
-        (0, 2, 2), (1, 2, 2), (2, 2, 2)
-    ]
-    
-    # coordinates of all cubelets that make up left face
-    LEFT_FACE_CUBELET_COORDS = [
-        (0, 0, 0), (0, 1, 0), (0, 2, 0),
-        (0, 0, 1), (0, 1, 1), (0, 2, 1),
-        (0, 0, 2), (0, 1, 2), (0, 2, 2)
-    ]
-    
-    # coordinates of all cubelets that make up right face
-    RIGHT_FACE_CUBELET_COORDS = [
-        (2, 0, 0), (2, 1, 0), (2, 2, 0),
-        (2, 0, 1), (2, 1, 1), (2, 2, 1),
-        (2, 0, 2), (2, 1, 2), (2, 2, 2)
-    ]
-    
-    # coordinates of all cubelets that make up up face
-    UP_FACE_CUBELET_COORDS = [
-        (0, 0, 0), (1, 0, 0), (2, 0, 0),
-        (0, 0, 1), (1, 0, 1), (2, 0, 1),
-        (0, 0, 2), (1, 0, 2), (2, 0, 2)
-    ]
-    
-    # coordinates of all cubelets that make up back face
-    DOWN_FACE_CUBELET_COORDS = [
-        (0, 2, 0), (1, 2, 0), (2, 2, 0),
-        (0, 2, 1), (1, 2, 1), (2, 2, 1),
-        (0, 2, 2), (1, 2, 2), (2, 2, 2)
-    ]
+    # coords of the cubelets that make up each cube face
+    CUBELET_COORDS = {
+        CubeFacePosition.FRONT: [
+            (0, 0, 0), (1, 0, 0), (2, 0, 0),
+            (0, 1, 0), (1, 1, 0), (2, 1, 0),
+            (0, 2, 0), (1, 2, 0), (2, 2, 0),
+        ],
+        CubeFacePosition.RIGHT: [
+            (2, 0, 0), (2, 0, 1), (2, 0, 2),
+            (2, 1, 0), (2, 1, 1), (2, 1, 2),
+            (2, 2, 0), (2, 2, 1), (2, 2, 2),
+        ],
+        CubeFacePosition.BACK: [
+            (2, 0, 2), (1, 0, 2), (0, 0, 2),
+            (2, 1, 2), (1, 1, 2), (0, 1, 2),
+            (2, 2, 2), (1, 2, 2), (0, 2, 2),
+        ],
+        CubeFacePosition.LEFT: [
+            (0, 0, 2), (0, 0, 1), (0, 0, 0),
+            (0, 1, 2), (0, 1, 1), (0, 1, 0),
+            (0, 2, 2), (0, 2, 1), (0, 2, 0),
+        ],
+        CubeFacePosition.UP: [
+            (0, 0, 2), (1, 0, 2), (2, 0, 2),
+            (0, 0, 1), (1, 0, 1), (2, 0, 1),
+            (0, 0, 0), (1, 0, 0), (2, 0, 0),
+        ],
+        CubeFacePosition.DOWN: [
+            (0, 2, 0), (1, 2, 0), (2, 2, 0),
+            (0, 2, 1), (1, 2, 1), (2, 2, 1),
+            (0, 2, 2), (1, 2, 2), (2, 2, 2),
+        ],
+    }
     
     # coordinates of all of the center cubelets in each cube face
     FACE_CENTER_CUBELET_COORDS = [(1, 1, 0), (1, 1, 2), (0, 1, 1), (2, 1, 1), (1, 0, 1), (1, 2, 1)]
@@ -71,7 +63,7 @@ class Cube:
         
         codeIndex = 0
         for facePosition in cubeCode.FACE_POSITION_ORDER:
-            for coords in cubeCode.FACE_COORD_MAPPINGS[facePosition]:
+            for coords in Cube.CUBELET_COORDS[facePosition]:
                 color = CubeColor(cubeCode.text[codeIndex])
                 self.cubelets[coords].setFaceColor(facePosition, color)
                 
@@ -114,7 +106,7 @@ class Cube:
         alteredCubelets = {}
         
         # for each cubelet in front face
-        for (x, y, z) in self.FRONT_FACE_CUBELET_COORDS:
+        for (x, y, z) in Cube.CUBELET_COORDS[CubeFacePosition.FRONT]:
             
             # figure out where the cubelet will go to
             newCoord = coordTransform(x, y, z)
@@ -145,7 +137,7 @@ class Cube:
         alteredCubelets = {}
         
         # for each cubelet in back face
-        for (x, y, z) in self.BACK_FACE_CUBELET_COORDS:
+        for (x, y, z) in Cube.CUBELET_COORDS[CubeFacePosition.BACK]:
             
             # figure out where the cubelet will go to
             newCoord = coordTransform(x, y, z)
@@ -176,7 +168,7 @@ class Cube:
         alteredCubelets = {}
         
         # for each cubelet in left face
-        for (x, y, z) in self.LEFT_FACE_CUBELET_COORDS:
+        for (x, y, z) in Cube.CUBELET_COORDS[CubeFacePosition.LEFT]:
             
             # figure out where the cubelet will go to
             newCoord = coordTransform(x, y, z)
@@ -207,7 +199,7 @@ class Cube:
         alteredCubelets = {}
         
         # for each cubelet in right face
-        for (x, y, z) in self.RIGHT_FACE_CUBELET_COORDS:
+        for (x, y, z) in Cube.CUBELET_COORDS[CubeFacePosition.RIGHT]:
             
             # figure out where the cubelet will go to
             newCoord = coordTransform(x, y, z)
@@ -238,7 +230,7 @@ class Cube:
         alteredCubelets = {}
         
         # for each cubelet in up face
-        for (x, y, z) in self.UP_FACE_CUBELET_COORDS:
+        for (x, y, z) in Cube.CUBELET_COORDS[CubeFacePosition.UP]:
             
             # figure out where the cubelet will go to
             newCoord = coordTransform(x, y, z)
@@ -269,7 +261,7 @@ class Cube:
         alteredCubelets = {}
         
         # for each cubelet in down face
-        for (x, y, z) in self.DOWN_FACE_CUBELET_COORDS:
+        for (x, y, z) in Cube.CUBELET_COORDS[CubeFacePosition.DOWN]:
             
             # figure out where the cubelet will go to
             newCoord = coordTransform(x, y, z)
@@ -286,7 +278,7 @@ class Cube:
         codeText = ''
         
         for facePosition in CubeCode.FACE_POSITION_ORDER:
-            for coords in CubeCode.FACE_COORD_MAPPINGS[facePosition]:
+            for coords in Cube.CUBELET_COORDS[facePosition]:
                 color = self.cubelets[coords].faces[facePosition]
                 codeText += '#' if color is None else color.value
                 
