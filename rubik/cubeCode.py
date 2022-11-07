@@ -4,6 +4,7 @@ from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
 
 class CubeCode:
+    '''represents a code supplied to create a Cube instance'''
     
     CODE_LENGTH = 54
     

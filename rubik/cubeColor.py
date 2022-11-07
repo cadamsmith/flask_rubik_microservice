@@ -3,6 +3,8 @@ from enum import Enum, unique
 
 @unique
 class CubeColor(Enum):
+    '''represents one of the colors on the outside of the cube'''
+    
     BLUE = 'b'
     RED = 'r'
     GREEN = 'g'

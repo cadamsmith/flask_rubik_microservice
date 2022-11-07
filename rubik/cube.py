@@ -8,9 +8,7 @@ from rubik.faceRotationDirection import FaceRotationDirection
 from rubik.cubeRotationDirection import CubeRotationDirection
 
 class Cube:
-    '''
-    Rubik's cube
-    '''
+    '''Represents a 3x3x3 Rubik's cube'''
     
     cubelets = {}
     
