@@ -55,7 +55,7 @@ def _rotate(params):
         )
         
         # determine which cube face to rotate
-        facePosition = CubeFacePosition[rotationCode.upper()]
+        facePosition = CubeFacePosition(rotationCode.upper())
         
         cube.rotateFace(facePosition, direction)
     
