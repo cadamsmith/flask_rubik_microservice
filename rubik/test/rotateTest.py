@@ -5,35 +5,6 @@ class RotateTest(TestCase):
     
     # rotate - POSITIVE TESTS
     
-    # rotating same face twice, but in alternating directions should result in unchanged cube
-    def test_rotate_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
-        
-        cubeCodeText = 'orbbbgrogwybwrywoyyoorgrobygybgoyrrgwwogyowbrybrwwgbwg'
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': cubeCodeText,
-            'dir': 'Rr'
-        })
-        
-        self.assertIn('cube', result)
-        self.assertEqual(result['cube'], cubeCodeText)
-    
-    # rotating same face in same direction 4 times should result in unchanged cube
-    def test_rotate_10020_ShouldBeUnchangedAfterFourIdenticalRotations(self):
-        
-        cubeCodeText = 'orbbbgrogwybwrywoyyoorgrobygybgoyrrgwwogyowbrybrwwgbwg'
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': cubeCodeText,
-            'dir': 'UUUU'
-        })
-        
-        self.assertIn('cube', result)
-        self.assertEqual(result['cube'], cubeCodeText)
-    
-    
     # rotating a solved cube front clockwise should work correctly
     def test_rotate_10030_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
         
@@ -369,6 +340,34 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
+        
+    # rotating same face twice, but in alternating directions should result in unchanged cube
+    def test_rotate_10070_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
+        
+        cubeCodeText = 'orbbbgrogwybwrywoyyoorgrobygybgoyrrgwwogyowbrybrwwgbwg'
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': cubeCodeText,
+            'dir': 'Rr'
+        })
+        
+        self.assertIn('cube', result)
+        self.assertEqual(result['cube'], cubeCodeText)
+    
+    # rotating same face in same direction 4 times should result in unchanged cube
+    def test_rotate_10080_ShouldBeUnchangedAfterFourIdenticalRotations(self):
+        
+        cubeCodeText = 'orbbbgrogwybwrywoyyoorgrobygybgoyrrgwwogyowbrybrwwgbwg'
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': cubeCodeText,
+            'dir': 'UUUU'
+        })
+        
+        self.assertIn('cube', result)
+        self.assertEqual(result['cube'], cubeCodeText)
     
     # rotate - NEGATIVE TESTS
     
