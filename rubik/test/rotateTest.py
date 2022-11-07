@@ -5,6 +5,34 @@ class RotateTest(TestCase):
     
     # rotate - POSITIVE TESTS
     
+    def test_rotate_10010_ShouldReturnStatusOKForValidParams(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'wrobbobgygwrwrwgoybgorgwbggyboboywyrgywoygbbwyorrwyrro',
+            'dir': 'FlDlDU'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], 'ok')
+        
+    def test_rotate_10020_ShouldFrontClockwiseRotateWhenDirectionNotSupplied(self):
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'orgwbrwbgobwbrwwobrgrogworgyowrogrobbybbyygyyowrgwyygy'
+        })
+        
+        frontClockwiseResult = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'orgwbrwbgobwbrwwobrgrogworgyowrogrobbybbyygyyowrgwyygy',
+            'dir': 'F'
+        })
+        
+        self.assertIn('cube', result)
+        self.assertIn('cube', frontClockwiseResult)
+        self.assertEqual(result['cube'], frontClockwiseResult['cube'])
+    
     # rotating a solved cube front clockwise should work correctly
     def test_rotate_10030_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
         
