@@ -15,6 +15,28 @@ class SolveTest(TestCase):
         
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
+        
+    # an already solved cube should give no solve directions
+    def test_solve_10020_ASolvedCubeShouldYieldNoSolveDirections(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'
+        })
+        
+        self.assertIn(result, 'rotations')
+        self.assertEqual(result['rotations'], '')
+    
+    # a cube with a bottom cross should give no solve directions
+    def test_solve_10030_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy'
+        })
+        
+        self.assertIn(result, 'rotations')
+        self.assertEqual(result['rotations'], '')
     
     # solve - NEGATIVE TESTS
     
