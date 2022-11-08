@@ -16,6 +16,8 @@ class CubeSolver():
         
         directions = self.__transformFromUpDaisyToDownCross(directions)
         
+        directions = self.__optimizeDirections(directions)
+        
         return directions
     
     def __hasDownCross(self):
@@ -137,5 +139,40 @@ class CubeSolver():
         directions.append((CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE))
         
         return directions
+    
+    def __optimizeDirections(self, directions):
         
+        if len(directions) < 2:
+            return directions
+        
+        (lastFace, lastDirection) = directions[0]
+        repeatCount = 1
+        
+        for (face, direction) in directions[1:]:
+            
+            # rotating a face clockwise then counterclockwise, or vice versa
+            if lastFace == face and lastDirection != direction:
+                # accomplishes nothing, remove these
+                directions = directions[:-2]
+                continue
+            
+            if lastFace == face and lastDirection == direction:
+                repeatCount += 1
+            else:
+                repeatCount = 1
+            
+            if repeatCount == 3:
+                replacementDirection = (
+                    FaceRotationDirection.CLOCKWISE
+                    if lastDirection is FaceRotationDirection.COUNTERCLOCKWISE
+                    else FaceRotationDirection.COUNTERCLOCKWISE
+                )
+                
+                directions = directions[:3]
+                directions.append((face, replacementDirection))
+                
+            
+            (lastFace, lastDirection) = (face, direction)
+            
+        return directions
         
