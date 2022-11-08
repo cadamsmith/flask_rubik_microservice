@@ -143,5 +143,5 @@ class CubeSolver():
             (lastFace, lastDirection) = (face, direction)
             newDirections.append((face, direction))
             
-        return directions
+        return newDirections
         
