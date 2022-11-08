@@ -29,10 +29,10 @@ class CubeSolver():
         
         while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.FRONT]:
             
-            direction = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
-            self.cube.rotateFace(direction)
-            directions.push(direction)
+            self.cube.rotateFace(rotationFace, rotationDirection)
+            directions.push((rotationFace, rotationDirection))
             
         # left face
         
@@ -43,10 +43,10 @@ class CubeSolver():
         
         while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.LEFT]:
             
-            direction = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
-            self.cube.rotateFace(direction)
-            directions.push(direction)
+            self.cube.rotateFace(rotationFace, rotationDirection)
+            directions.push((rotationFace, rotationDirection))
         
         # back face
         
@@ -57,10 +57,10 @@ class CubeSolver():
         
         while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.BACK]:
             
-            direction = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
-            self.cube.rotateFace(direction)
-            directions.push(direction)
+            self.cube.rotateFace(rotationFace, rotationDirection)
+            directions.push((rotationFace, rotationDirection))
         
         # right face
         
@@ -71,10 +71,10 @@ class CubeSolver():
         
         while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.RIGHT]:
             
-            direction = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
-            self.cube.rotateFace(direction)
-            directions.push(direction)
+            self.cube.rotateFace(rotationFace, rotationDirection)
+            directions.push((rotationFace, rotationDirection))
         
         return directions
         
