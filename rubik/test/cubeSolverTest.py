@@ -30,7 +30,7 @@ class CubeSolverTest(TestCase):
         with self.assertRaises(Exception):
             CubeSolver('not a cube')
             
-    # solve - NEGATIVE TESTS
+    # solve - POSITIVE TESTS
     
     # an already solved cube should give no solve directions
     def test_cubeSolver_solve_20010_ASolvedCubeShouldYieldNoSolveDirections(self):
