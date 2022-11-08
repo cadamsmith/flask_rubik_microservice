@@ -17,10 +17,11 @@ def _solve(params):
     if not CubeCode.isValid(cubeCodeText):
         return __invalidCubeError__()
     
-    result = {}
-    encodedCube = params.get('cube',None)
-    result['rotations'] = 'FfRrBbLlUuDd'
-    result['status'] = 'ok'
+    result = {
+        'status': 'ok',
+        'rotations': ''
+    }
+    
     return result
 
 def __missingCubeError__():
