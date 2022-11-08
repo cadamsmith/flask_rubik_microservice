@@ -48,7 +48,14 @@ class Cube:
     }
     
     # coordinates of all of the center cubelets in each cube face
-    FACE_CENTER_CUBELET_COORDS = [(1, 1, 0), (1, 1, 2), (0, 1, 1), (2, 1, 1), (1, 0, 1), (1, 2, 1)]
+    FACE_CENTER_CUBELET_COORDS = {
+        CubeFacePosition.FRONT: (1, 1, 0),
+        CubeFacePosition.BACK: (1, 1, 2),
+        CubeFacePosition.LEFT: (0, 1, 1),
+        CubeFacePosition.RIGHT: (2, 1, 1),
+        CubeFacePosition.UP: (1, 0, 1),
+        CubeFacePosition.DOWN: (1, 2, 1)
+    }
 
     def __init__(self, cubeCode: CubeCode):
         
