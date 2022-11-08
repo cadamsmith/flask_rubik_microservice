@@ -24,7 +24,7 @@ class SolveTest(TestCase):
             'cube': 'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'
         })
         
-        self.assertIn(result, 'rotations')
+        self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
     # a cube with a bottom cross should give no solve directions
@@ -35,7 +35,7 @@ class SolveTest(TestCase):
             'cube': 'bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy'
         })
         
-        self.assertIn(result, 'rotations')
+        self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
     # solve - NEGATIVE TESTS
@@ -44,7 +44,7 @@ class SolveTest(TestCase):
     def test_solve_20010_ShouldErrorOnMissingCube(self):
         result = solve._solve({'op': 'solve', 'dir': 'R'})
         
-        self.assertIn('status', result)
+        self.assertIn('status', )
         self.assertEqual(result['status'], solve.ERROR_MISSING_CUBE)
     
     # supplying non-string cube should result in error status
