@@ -58,86 +58,46 @@ class CubeSolver():
         if self.__hasDownCross():
             return directions
         
-        # front face
+        flippedPetalCount = 0
         
-        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.FRONT]
-        aboveCenterCoord = (centerX, centerY - 1, centerZ)
+        i = 0
+        facePositions = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
         
-        faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.FRONT]
+        # we are trying to get above color == below color
+        # then we flip the petal
         
-        while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.FRONT]:
+        # start with front face
+        (aboveX, aboveY, aboveZ) = (1, 0, 0)
+        (belowX, belowY, belowZ) = (1, 1, 0)
+        facePosition = facePositions[i]
+        
+        # we need to flip all four daisy petals
+        while (flippedPetalCount < 4):
             
-            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            aboveColor = self.cube.cubelets[(aboveX, aboveY, aboveZ)].faces[facePosition]
+            belowColor = self.cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
             
-            self.cube.rotateFace(rotationFace, FaceRotationDirection.CLOCKWISE)
-            directions.append((rotationFace, rotationDirection))
+            while aboveColor != belowColor:
+                self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                directions.append((CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE))
+                
+                (aboveX, aboveY, aboveZ) = self.cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                (belowX, belowY, belowZ) = (aboveX, aboveY + 1, aboveZ)
+                
+                i = (i + 1) % 4
+                facePosition = facePositions[i]
+                
+                aboveColor = self.cube.cubelets[(aboveX, aboveY, aboveZ)].faces[facePosition]
+                belowColor = self.cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
+                
+            self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
+            directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
             
-        self.cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE))
-        
-        self.cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE))
+            flippedPetalCount += 1
             
-        # left face
-        
-        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.LEFT]
-        aboveCenterCoord = (centerX, centerY - 1, centerZ)
-        
-        faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.LEFT]
-        
-        while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.LEFT]:
+            (aboveX, aboveY, aboveZ) = self.cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            (belowX, belowY, belowZ) = (aboveX, aboveY + 1, aboveZ)
             
-            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-            
-            self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.append((rotationFace, rotationDirection))
-            
-        self.cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE))
-        
-        self.cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE))
-        
-        # back face
-        
-        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.BACK]
-        aboveCenterCoord = (centerX, centerY - 1, centerZ)
-        
-        faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.BACK]
-        
-        while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.BACK]:
-            
-            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-            
-            self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.append((rotationFace, rotationDirection))
-            
-        self.cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE))
-        
-        self.cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE))
-        
-        # right face
-        
-        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.RIGHT]
-        aboveCenterCoord = (centerX, centerY - 1, centerZ)
-        
-        faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.RIGHT]
-        
-        while faceColor != self.cube.cubelets[aboveCenterCoord].faces[CubeFacePosition.RIGHT]:
-            
-            (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-            
-            self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.append((rotationFace, rotationDirection))
-            
-        self.cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE))
-        
-        self.cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
-        directions.append((CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE))
-        
         return directions
     
     def __optimizeDirections(self, directions):

@@ -80,51 +80,42 @@ class Cube:
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
         
-        coordTransform = cubeletRotationDirection = None
-        
-        # determine coordinate transform function for each cubelet in the cube face
-        # and which direction to rotate each cubelet
+        # determine which direction to rotate each cubelet
         
         if (
             facePosition is CubeFacePosition.FRONT and direction is FaceRotationDirection.CLOCKWISE
             or facePosition is CubeFacePosition.BACK and direction is FaceRotationDirection.COUNTERCLOCKWISE
         ):
-            coordTransform = lambda x, y, z : (2 - y, x, z)
             cubeletRotationDirection = CubeRotationDirection.FLIP_RIGHTWARD
         
         elif (
             facePosition is CubeFacePosition.FRONT and direction is FaceRotationDirection.COUNTERCLOCKWISE
             or facePosition is CubeFacePosition.BACK and direction is FaceRotationDirection.CLOCKWISE
         ):
-            coordTransform = lambda x, y, z : (y, 2 - x, z)
             cubeletRotationDirection = CubeRotationDirection.FLIP_LEFTWARD
             
         elif (
             facePosition is CubeFacePosition.LEFT and direction is FaceRotationDirection.CLOCKWISE
             or facePosition is CubeFacePosition.RIGHT and direction is FaceRotationDirection.COUNTERCLOCKWISE
         ):
-            coordTransform = lambda x, y, z : (x, 2 - z, y)
             cubeletRotationDirection = CubeRotationDirection.FLIP_FORWARD
         
         elif (
             facePosition is CubeFacePosition.LEFT and direction is FaceRotationDirection.COUNTERCLOCKWISE
             or facePosition is CubeFacePosition.RIGHT and direction is FaceRotationDirection.CLOCKWISE
         ):
-            coordTransform = lambda x, y, z : (x, z, 2 - y)
             cubeletRotationDirection = CubeRotationDirection.FLIP_BACKWARD
             
         elif (
             facePosition is CubeFacePosition.UP and direction is FaceRotationDirection.CLOCKWISE
             or facePosition is CubeFacePosition.DOWN and direction is FaceRotationDirection.COUNTERCLOCKWISE
         ):
-            coordTransform = lambda x, y, z : (z, y, 2 - x)
             cubeletRotationDirection = CubeRotationDirection.SPIN_LEFTWARD
         
         elif (
             facePosition is CubeFacePosition.UP and direction is FaceRotationDirection.COUNTERCLOCKWISE
             or facePosition is CubeFacePosition.DOWN and direction is FaceRotationDirection.CLOCKWISE
         ):
-            coordTransform = lambda x, y, z : (2 - z, y, x)
             cubeletRotationDirection = CubeRotationDirection.SPIN_RIGHTWARD
         
         # start tracking changes to the cube's cubelets
@@ -134,7 +125,7 @@ class Cube:
         for (x, y, z) in Cube.CUBELET_COORDS[facePosition]:
             
             # figure out where the cubelet will go to
-            newCoord = coordTransform(x, y, z)
+            newCoord = self.rotateCoord(facePosition, direction)
             
             # update its position and rotate accordingly
             alteredCubelets[newCoord] = self.cubelets[x, y, z]
@@ -142,6 +133,51 @@ class Cube:
         
         # apply changes to the cubelets
         self.cubelets.update(alteredCubelets)
+        
+    def rotateCoord(self, coord, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+        
+        assert (isinstance(facePosition, CubeFacePosition))
+        assert (isinstance(direction, FaceRotationDirection))
+        
+        # determine the coordinate transform function to apply based on the manner of rotation specified
+        
+        if (
+            facePosition is CubeFacePosition.FRONT and direction is FaceRotationDirection.CLOCKWISE
+            or facePosition is CubeFacePosition.BACK and direction is FaceRotationDirection.COUNTERCLOCKWISE
+        ):
+            coordTransform = lambda x, y, z : (2 - y, x, z)
+        
+        elif (
+            facePosition is CubeFacePosition.FRONT and direction is FaceRotationDirection.COUNTERCLOCKWISE
+            or facePosition is CubeFacePosition.BACK and direction is FaceRotationDirection.CLOCKWISE
+        ):
+            coordTransform = lambda x, y, z : (y, 2 - x, z)
+            
+        elif (
+            facePosition is CubeFacePosition.LEFT and direction is FaceRotationDirection.CLOCKWISE
+            or facePosition is CubeFacePosition.RIGHT and direction is FaceRotationDirection.COUNTERCLOCKWISE
+        ):
+            coordTransform = lambda x, y, z : (x, 2 - z, y)
+        
+        elif (
+            facePosition is CubeFacePosition.LEFT and direction is FaceRotationDirection.COUNTERCLOCKWISE
+            or facePosition is CubeFacePosition.RIGHT and direction is FaceRotationDirection.CLOCKWISE
+        ):
+            coordTransform = lambda x, y, z : (x, z, 2 - y)
+            
+        elif (
+            facePosition is CubeFacePosition.UP and direction is FaceRotationDirection.CLOCKWISE
+            or facePosition is CubeFacePosition.DOWN and direction is FaceRotationDirection.COUNTERCLOCKWISE
+        ):
+            coordTransform = lambda x, y, z : (z, y, 2 - x)
+        
+        elif (
+            facePosition is CubeFacePosition.UP and direction is FaceRotationDirection.COUNTERCLOCKWISE
+            or facePosition is CubeFacePosition.DOWN and direction is FaceRotationDirection.CLOCKWISE
+        ):
+            coordTransform = lambda x, y, z : (2 - z, y, x)
+            
+        return coordTransform(coord)
                 
     def toCode(self):
         
