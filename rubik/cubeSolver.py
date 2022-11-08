@@ -7,3 +7,6 @@ class CubeSolver():
         assert (isinstance(cube, Cube))
         
         self.cube = cube
+        
+    def solve(self):
+        pass
