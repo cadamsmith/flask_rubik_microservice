@@ -101,6 +101,9 @@ class CubeSolver():
             (aboveX, aboveY, aboveZ) = self.cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             (belowX, belowY, belowZ) = (aboveX, aboveY + 1, aboveZ)
             
+            i = (i + 1) % 4
+            facePosition = facePositions[i]
+            
         return directions
     
     def __optimizeDirections(self, directions):
