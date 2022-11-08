@@ -114,6 +114,8 @@ class CubeSolver():
         newDirections = []
         
         (lastFace, lastDirection) = directions[0]
+        newDirections.append(directions[0])
+        
         repeatCount = 1
         
         for (face, direction) in directions[1:]:
@@ -121,7 +123,7 @@ class CubeSolver():
             # rotating a face clockwise then counterclockwise, or vice versa
             if lastFace == face and lastDirection != direction:
                 # accomplishes nothing, remove these
-                directions = directions[:-1]
+                newDirections = newDirections[:-1]
                 continue
             
             if lastFace == face and lastDirection == direction:
@@ -136,12 +138,13 @@ class CubeSolver():
                     else FaceRotationDirection.COUNTERCLOCKWISE
                 )
                 
-                directions = directions[:-2]
-                directions.append((face, replacementDirection))
+                newDirections = newDirections[:-2]
+                newDirections.append((face, replacementDirection))
                 
+            else:
+                newDirections.append((face, direction))
             
             (lastFace, lastDirection) = (face, direction)
-            newDirections.append((face, direction))
             
         return newDirections
         
