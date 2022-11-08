@@ -43,7 +43,7 @@ class CubeSolver():
             (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[facePosition]
             faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[facePosition]
             
-            belowColor = self.cube.cubelets[centerX, centerY - 1, centerZ].faces[facePosition]
+            belowColor = self.cube.cubelets[centerX, centerY + 1, centerZ].faces[facePosition]
             
             if faceColor != belowColor:
                 return False
