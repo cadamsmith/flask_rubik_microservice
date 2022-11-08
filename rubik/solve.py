@@ -18,9 +18,9 @@ def _solve(params):
         return __invalidCubeError__()
     
     result = {}
-    encodedCube = params.get('cube',None)       #STUB:  get "cube" parameter if present
-    result['solution'] = 'FfRrBbLlUuDd'        #STUB:  example rotations
-    result['status'] = 'ok'                     
+    encodedCube = params.get('cube',None)
+    result['rotations'] = 'FfRrBbLlUuDd'
+    result['status'] = 'ok'
     return result
 
 def __missingCubeError__():
