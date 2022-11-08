@@ -125,7 +125,7 @@ class Cube:
         for (x, y, z) in Cube.CUBELET_COORDS[facePosition]:
             
             # figure out where the cubelet will go to
-            newCoord = self.rotateCoord(facePosition, direction)
+            newCoord = self.rotateCoord((x, y, z), facePosition, direction)
             
             # update its position and rotate accordingly
             alteredCubelets[newCoord] = self.cubelets[x, y, z]
