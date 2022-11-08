@@ -139,6 +139,8 @@ class Cube:
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
         
+        (x, y, z) = coord
+        
         # determine the coordinate transform function to apply based on the manner of rotation specified
         
         if (
@@ -177,7 +179,7 @@ class Cube:
         ):
             coordTransform = lambda x, y, z : (2 - z, y, x)
             
-        return coordTransform(coord)
+        return coordTransform(x, y, z)
                 
     def toCode(self):
         
