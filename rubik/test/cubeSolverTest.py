@@ -66,16 +66,20 @@ class CubeSolverTest(TestCase):
         )
         
         expected = [
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         ]
         
         self.assertEqual(solver.solve(), expected)
