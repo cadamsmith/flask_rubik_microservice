@@ -2,9 +2,9 @@
 from unittest import TestCase
 import rubik.solve as solve
 
-class RotateTest(TestCase):
+class SolveTest(TestCase):
     
-    # rotate - POSITIVE TESTS
+    # solve - POSITIVE TESTS
     
     def test_solve_10010_ShouldReturnStatusOKForValidParams(self):
         
@@ -16,7 +16,7 @@ class RotateTest(TestCase):
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
     
-    # rotate - NEGATIVE TESTS
+    # solve - NEGATIVE TESTS
     
     # supplying no cube param should result in error status
     def test_solve_20010_ShouldErrorOnMissingCube(self):
