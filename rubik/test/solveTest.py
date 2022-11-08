@@ -44,7 +44,7 @@ class SolveTest(TestCase):
     def test_solve_20010_ShouldErrorOnMissingCube(self):
         result = solve._solve({'op': 'solve', 'dir': 'R'})
         
-        self.assertIn('status', )
+        self.assertIn('status', result)
         self.assertEqual(result['status'], solve.ERROR_MISSING_CUBE)
     
     # supplying non-string cube should result in error status
