@@ -14,11 +14,47 @@ class CubeSolver():
         
         directions = []
         
-        directions = self.__transformFromUpDaisyToBottomCross(directions)
+        directions = self.__transformFromUpDaisyToDownCross(directions)
         
         return directions
     
-    def __transformFromUpDaisyToBottomCross(self, directions):
+    def __hasDownCross(self):
+        
+        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
+        downColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.DOWN]
+        
+        petalCoords = [
+            (centerX - 1, centerY, centerZ),
+            (centerX, centerY, centerZ - 1),
+            (centerX + 1, centerY, centerZ),
+            (centerX, centerY, centerZ + 1)
+        ]
+        
+        for coord in petalCoords:
+            color = self.cube.cubelets[coord].faces[CubeFacePosition.DOWN]
+            
+            if color != downColor:
+                return False
+            
+        otherFacesToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
+        
+        for facePosition in otherFacesToCheck:
+            
+            (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[facePosition]
+            faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[facePosition]
+            
+            belowColor = self.cube.cubelets[centerX, centerY - 1, centerZ].faces[facePosition]
+            
+            if faceColor != belowColor:
+                return False
+        
+        return True
+        
+        
+    
+    def __transformFromUpDaisyToDownCross(self, directions):
+        if self.__hasDownCross():
+            return directions
         
         # front face
         
@@ -31,8 +67,14 @@ class CubeSolver():
             
             (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
-            self.cube.rotateFace(rotationFace, rotationDirection)
+            self.cube.rotateFace(rotationFace, FaceRotationDirection.CLOCKWISE)
             directions.append((rotationFace, rotationDirection))
+            
+        self.cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE))
+        
+        self.cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE))
             
         # left face
         
@@ -47,6 +89,12 @@ class CubeSolver():
             
             self.cube.rotateFace(rotationFace, rotationDirection)
             directions.append((rotationFace, rotationDirection))
+            
+        self.cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE))
+        
+        self.cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE))
         
         # back face
         
@@ -61,6 +109,12 @@ class CubeSolver():
             
             self.cube.rotateFace(rotationFace, rotationDirection)
             directions.append((rotationFace, rotationDirection))
+            
+        self.cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE))
+        
+        self.cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE))
         
         # right face
         
@@ -75,6 +129,12 @@ class CubeSolver():
             
             self.cube.rotateFace(rotationFace, rotationDirection)
             directions.append((rotationFace, rotationDirection))
+            
+        self.cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE))
+        
+        self.cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
+        directions.append((CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE))
         
         return directions
         
