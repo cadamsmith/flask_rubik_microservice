@@ -32,7 +32,7 @@ class CubeSolver():
             (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
             self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.push((rotationFace, rotationDirection))
+            directions.append((rotationFace, rotationDirection))
             
         # left face
         
@@ -46,7 +46,7 @@ class CubeSolver():
             (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
             self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.push((rotationFace, rotationDirection))
+            directions.append((rotationFace, rotationDirection))
         
         # back face
         
@@ -60,7 +60,7 @@ class CubeSolver():
             (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
             self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.push((rotationFace, rotationDirection))
+            directions.append((rotationFace, rotationDirection))
         
         # right face
         
@@ -74,7 +74,7 @@ class CubeSolver():
             (rotationFace, rotationDirection) = (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
             self.cube.rotateFace(rotationFace, rotationDirection)
-            directions.push((rotationFace, rotationDirection))
+            directions.append((rotationFace, rotationDirection))
         
         return directions
         
