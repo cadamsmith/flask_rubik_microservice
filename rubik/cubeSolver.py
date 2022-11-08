@@ -93,6 +93,9 @@ class CubeSolver():
             self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
             directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
             
+            self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
+            directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+            
             flippedPetalCount += 1
             
             (aboveX, aboveY, aboveZ) = self.cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
