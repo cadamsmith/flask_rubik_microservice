@@ -9,4 +9,4 @@ class CubeSolver():
         self.cube = cube
         
     def solve(self):
-        pass
+        return []
