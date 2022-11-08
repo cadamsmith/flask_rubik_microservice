@@ -3,6 +3,8 @@ from unittest import TestCase
 from rubik.cubeSolver import CubeSolver
 from rubik.cube import Cube
 from rubik.cubeCode import CubeCode
+from rubik.cubeFacePosition import CubeFacePosition
+from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeSolverTest(TestCase):
     
@@ -33,7 +35,7 @@ class CubeSolverTest(TestCase):
     # solve - POSITIVE TESTS
     
     # an already solved cube should give no solve directions
-    def test_cubeSolver_solve_20010_ASolvedCubeShouldYieldNoSolveDirections(self):
+    def test_cubeSolver_solve_10010_ASolvedCubeShouldYieldNoSolveDirections(self):
         
         solver = CubeSolver(
             Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
@@ -45,7 +47,7 @@ class CubeSolverTest(TestCase):
         self.assertEqual(actual, expected)
     
     # a cube with a bottom cross should give no solve directions
-    def test_cubeSolver_solve_20020_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
+    def test_cubeSolver_solve_10020_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
         
         solver = CubeSolver(
             Cube(CubeCode('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy'))
@@ -55,4 +57,26 @@ class CubeSolverTest(TestCase):
         actual = solver.solve()
         
         self.assertEqual(actual, expected)
+    
+    # a cube with a top daisy should yield correct solve directions
+    def test_cubeSolver_solve_10030_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        
+        solver = CubeSolver(
+            Cube(CubeCode('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'))
+        )
+        
+        expected = [
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+        ]
+        
+        self.assertEqual(solver.solve(), expected)
     
