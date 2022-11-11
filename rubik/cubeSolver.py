@@ -27,8 +27,8 @@ class CubeSolver():
     def __hasUpDaisy(self):
         
         (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.UP]
-        downCenterCoord = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
         
+        downCenterCoord = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
         downColor = self.cube.cubelets[downCenterCoord].faces[CubeFacePosition.DOWN]
         
         petalCoords = [
