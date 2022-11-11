@@ -37,7 +37,7 @@ class CubeSolver():
         ]
         
         for coord in petalCoords:
-            color = self.cube.cubelets[coord].faces[CubeFacePosition.DOWN]
+            color = self.cube.cubelets[coord].faces[CubeFacePosition.UP]
             
             if color != downColor:
                 return False
