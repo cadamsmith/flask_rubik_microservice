@@ -76,6 +76,10 @@ class CubeSolver():
         
         return True
     
+    def __transformToUpDaisy(self, directions):
+        if self.__hasUpDaisy():
+            return directions
+    
     def __transformFromUpDaisyToDownCross(self, directions):
         if self.__hasDownCross():
             return directions
