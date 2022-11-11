@@ -14,11 +14,32 @@ class CubeSolver():
         
         directions = []
         
+        assert (self.__hasUpDaisy())
         directions = self.__transformFromUpDaisyToDownCross(directions)
         
         directions = self.__optimizeDirections(directions)
         
         return directions
+    
+    def __hasUpDaisy(self):
+        
+        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.UP]
+        downColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.UP]
+        
+        petalCoords = [
+            (centerX - 1, centerY, centerZ),
+            (centerX, centerY, centerZ - 1),
+            (centerX + 1, centerY, centerZ),
+            (centerX, centerY, centerZ + 1)
+        ]
+        
+        for coord in petalCoords:
+            color = self.cube.cubelets[coord].faces[CubeFacePosition.DOWN]
+            
+            if color != downColor:
+                return False
+            
+        return True
     
     def __hasDownCross(self):
         
@@ -51,8 +72,6 @@ class CubeSolver():
                 return False
         
         return True
-        
-        
     
     def __transformFromUpDaisyToDownCross(self, directions):
         if self.__hasDownCross():
