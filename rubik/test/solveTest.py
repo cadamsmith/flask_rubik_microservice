@@ -37,6 +37,19 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
+        
+    # a cube with a top daisy should yield correct solve directions
+    def test_solve_10040_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'
+        })
+        
+        expected = 'uRRUFFBBUFF'
+        
+        self.assertIn('rotations', result)
+        self.assertEqual(result['rotations'], expected)
     
     # solve - NEGATIVE TESTS
     
