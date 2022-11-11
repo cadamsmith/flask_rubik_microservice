@@ -10,7 +10,7 @@ class SolveTest(TestCase):
         
         result = solve._solve({
             'op': 'solve',
-            'cube': 'wrobbobgygwrwrwgoybgorgwbggyboboywyrgywoygbbwyorrwyrro'
+            'cube': 'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'
         })
         
         self.assertIn('status', result)
