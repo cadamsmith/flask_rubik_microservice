@@ -14,6 +14,9 @@ class CubeSolver():
         
         directions = []
         
+        if self.__hasDownCross():
+            return directions
+        
         assert (self.__hasUpDaisy())
         directions = self.__transformFromUpDaisyToDownCross(directions)
         
