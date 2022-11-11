@@ -87,7 +87,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         
         solver = CubeSolver(
-            Cube(CubeCode('ybwgbwborrryroryrwgbyygobygowogrywoygyrgybbwgwbbwwgooo'))
+            Cube(CubeCode('ybwgbwborrryroryrwgbyygobygowogryworgyrgybbwgwbbwwgooo'))
         )
         
         expected = [
