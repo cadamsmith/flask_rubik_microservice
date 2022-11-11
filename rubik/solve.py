@@ -1,5 +1,8 @@
-import rubik.cube as rubik
+
+from rubik.cube import Cube
+from rubik.cubeSolver import CubeSolver
 from rubik.cubeCode import CubeCode
+from rubik.faceRotationDirection import FaceRotationDirection
 
 ERROR_MISSING_CUBE = 'error: missing cube'
 ERROR_INVALID_CUBE = 'error: invalid cube'
@@ -17,9 +20,24 @@ def _solve(params):
     if not CubeCode.isValid(cubeCodeText):
         return __invalidCubeError__()
     
+    cube = Cube(CubeCode(cubeCodeText))
+    
+    solver = CubeSolver(cube)
+    rotations = solver.solve()
+    
+    rotationCodes = ''
+    for (facePosition, direction) in rotations:
+        rotationCode = facePosition.value
+        
+        if direction is FaceRotationDirection.COUNTERCLOCKWISE:
+            rotationCode = rotationCode.lower()
+        
+        rotationCodes += rotationCode
+            
+    
     result = {
         'status': 'ok',
-        'rotations': ''
+        'rotations': rotationCodes
     }
     
     return result
