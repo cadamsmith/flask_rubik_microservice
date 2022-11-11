@@ -20,9 +20,9 @@ def _solve(params):
     if not CubeCode.isValid(cubeCodeText):
         return __invalidCubeError__()
     
-    cube = Cube(CubeCode(cubeCodeText))
-    
-    solver = CubeSolver(cube)
+    solver = CubeSolver(
+        Cube(CubeCode(cubeCodeText))
+    )
     rotations = solver.solve()
     
     rotationCodes = ''
