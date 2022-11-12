@@ -1,4 +1,5 @@
 
+import re
 from unittest import TestCase
 import rubik.solve as solve
 
@@ -6,6 +7,7 @@ class SolveTest(TestCase):
     
     # solve - POSITIVE TESTS
     
+    # supplying valid params should return a result with status of ok
     def test_solve_10010_ShouldReturnStatusOKForValidParams(self):
         
         result = solve._solve({
@@ -16,8 +18,23 @@ class SolveTest(TestCase):
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
         
+    # supplying valid params should return a result with valid rotation codes
+    def test_solve_10020_ShouldReturnValidRotationCodesForValidParams(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'boyybbowrrywrrowrgbgyygwwbgbgogoryggrooyybybgwobrwwowr'
+        })
+        
+        # make sure rotation codes are present
+        self.assertIn('rotations', result)
+        
+        # make sure rotation codes are valid
+        isInvalid = bool(re.search('[^FfBbLlRrUuDd]', result['rotations']))
+        self.assertFalse(isInvalid)
+        
     # an already solved cube should give no solve directions
-    def test_solve_10020_ASolvedCubeShouldYieldNoSolveDirections(self):
+    def test_solve_10030_ASolvedCubeShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
             'op': 'solve',
@@ -28,7 +45,7 @@ class SolveTest(TestCase):
         self.assertEqual(result['rotations'], '')
     
     # a cube with a bottom cross should give no solve directions
-    def test_solve_10030_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
+    def test_solve_10031_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
             'op': 'solve',
