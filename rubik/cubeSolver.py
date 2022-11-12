@@ -137,10 +137,10 @@ class CubeSolver():
             if petalColor != downColor:
                 faceCandidateCoords.append(petalCoord)
             
-            faceCandidateColors = map(
+            faceCandidateColors = list(map(
                 lambda coord : self.cube.cubelets[coord].faces[facePosition],
                 faceCandidateCoords
-            )
+            ))
             
             if downColor in faceCandidateColors and faceCandidateColors[0] != downColor:
                 
