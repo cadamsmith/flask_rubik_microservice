@@ -47,12 +47,12 @@ class CubeCode:
             return False
         
         # check if it contains every color
-        for color in CubeColor.getFaceColors():
+        for color in list(CubeColor):
             if not codeText.__contains__(color.value):
                 return False
         
         # check if it contains even distribution of colors
-        colorDistributions = {c: 0 for c in CubeColor.getFaceColors()}
+        colorDistributions = {c: 0 for c in list(CubeColor)}
         
         for letter in codeText:
             color = CubeColor(letter)
@@ -64,7 +64,7 @@ class CubeCode:
         # check if the center cubelet faces have unique colors
         centerColors = set(map(lambda index: CubeColor(codeText[index]), cls.FACE_CENTER_INDICES))
         
-        if not len(centerColors) == len(CubeColor.getFaceColors()):
+        if not len(centerColors) == len(list(CubeColor)):
             return False
         
         # congrats, its a valid cube code
