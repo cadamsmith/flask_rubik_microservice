@@ -77,6 +77,45 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
     
+    # a cube without a top daisy should yield correct solve directions
+    def test_solve_10050_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo'
+        })
+        
+        expected = 'FFlRuuFUluRRULLBBUFF'
+        
+        self.assertIn('rotations', result)
+        self.assertEqual(result['rotations'], expected)
+        
+    # another cube without a top daisy should yield correct solve directions
+    def test_solve_10051_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb'
+        })
+        
+        expected = 'FLLuLLBBUBuRRFFLLBB'
+        
+        self.assertIn('rotations', result)
+        self.assertEqual(result['rotations'], expected)
+        
+    # yet another cube without a top daisy should yield correct solve directions
+    def test_solve_100512_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        })
+        
+        expected = 'FlbRuRRUfuRRUUBBUUFFUUFF'
+        
+        self.assertIn('rotations', result)
+        self.assertEqual(result['rotations'], expected)
+    
     # solve - NEGATIVE TESTS
     
     # supplying no cube param should result in error status
