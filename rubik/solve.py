@@ -20,11 +20,13 @@ def _solve(params):
     if not CubeCode.isValid(cubeCodeText):
         return __invalidCubeError__()
     
+    # solve the cube, i.e. obtain rotations to solve it
     solver = CubeSolver(
         Cube(CubeCode(cubeCodeText))
     )
     rotations = solver.solve()
     
+    # loop thru rotations and convert them to rotation codes
     rotationCodes = ''
     for (facePosition, direction) in rotations:
         rotationCode = facePosition.value
@@ -33,7 +35,6 @@ def _solve(params):
             rotationCode = rotationCode.lower()
         
         rotationCodes += rotationCode
-            
     
     result = {
         'status': 'ok',
@@ -43,7 +44,11 @@ def _solve(params):
     return result
 
 def __missingCubeError__():
+    """ returns error for missing cube param """
+    
     return {'status': ERROR_MISSING_CUBE}
 
 def __invalidCubeError__():
+    """ returns error for invalid cube param """
+    
     return {'status': ERROR_INVALID_CUBE}
