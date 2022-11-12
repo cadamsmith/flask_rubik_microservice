@@ -94,7 +94,8 @@ class CubeSolver():
         bottomEdgeCoords = [(1, 2, 0), (0, 2, 1), (1, 2, 2), (2, 2, 1)]
         
         verticalFacePositions = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
-        for index in range(len(verticalFacePositions) + 1):
+        
+        for index in range(len(verticalFacePositions) * 2):
             petalCoord = topEdgeCoords[index % 4]
             
             leftEdgeCoord = middleEdgeCoords[(index + 1) % 4]
@@ -159,6 +160,7 @@ class CubeSolver():
                         self.cube.cubelets[rightEdgeCoord].faces[facePosition]
                     ]
         
+        print(self.cube.toCode().text)
         return directions
     
     def __transformFromUpDaisyToDownCross(self, directions):
