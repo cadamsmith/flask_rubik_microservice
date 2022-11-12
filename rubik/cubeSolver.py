@@ -150,7 +150,7 @@ class CubeSolver():
                     
                     petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                 
-                while faceCandidateColors[1] != downColor:
+                while faceCandidateColors[0] != downColor:
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
                     directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
                     
