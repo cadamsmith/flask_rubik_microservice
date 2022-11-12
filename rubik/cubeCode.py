@@ -4,11 +4,9 @@ from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
 
 class CubeCode:
-    '''represents a code supplied to create a Cube instance'''
+    '''represents a code supplied to create a 3x3x3 Cube instance'''
     
     CODE_LENGTH = 54
-    
-    CUBE_WIDTH = 3
     
     FACE_POSITION_ORDER = [
         CubeFacePosition.FRONT,
