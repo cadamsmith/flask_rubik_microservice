@@ -118,16 +118,21 @@ class CubeSolver():
                 self.cube.cubelets[rightEdgeCoord].faces[facePosition]
             ]
             
+            petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
+            
             while downColor in edgeCandidateColors:
-                petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                 
-                while (petalColor == downColor):
+                while petalColor == downColor:
                     self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
                     directions.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
+                    
+                    petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                     
                 while petalColor != downColor:
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
                     directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+                    
+                    petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                     
                 edgeCandidateColors = [
                     self.cube.cubelets[leftEdgeCoord].faces[relativeLeftFacePosition],
@@ -135,17 +140,24 @@ class CubeSolver():
                     self.cube.cubelets[rightEdgeCoord].faces[relativeRightFacePosition]
                 ]
             
-            if downColor in faceCandidateColors:
+            if downColor in faceCandidateColors and faceCandidateColors[1] != downColor:
+                
+                while petalColor == downColor:
+                    self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
+                    directions.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
+                    
+                    petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
+                
                 while faceCandidateColors[1] != downColor:
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
                     directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
                     
-                faceCandidateColors = [
-                    self.cube.cubelets[petalCoord].faces[facePosition],
-                    self.cube.cubelets[leftEdgeCoord].faces[facePosition],
-                    self.cube.cubelets[downEdgeCoord].faces[facePosition],
-                    self.cube.cubelets[rightEdgeCoord].faces[facePosition]
-                ]
+                    faceCandidateColors = [
+                        self.cube.cubelets[petalCoord].faces[facePosition],
+                        self.cube.cubelets[leftEdgeCoord].faces[facePosition],
+                        self.cube.cubelets[downEdgeCoord].faces[facePosition],
+                        self.cube.cubelets[rightEdgeCoord].faces[facePosition]
+                    ]
         
         return directions
     
