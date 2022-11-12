@@ -97,9 +97,9 @@ class CubeSolver():
         for index in range(len(verticalFacePositions) + 1):
             petalCoord = topEdgeCoords[index % 4]
             
-            leftEdgeCoord = middleEdgeCoords[index % 4]
+            leftEdgeCoord = middleEdgeCoords[(index + 1) % 4]
             downEdgeCoord = bottomEdgeCoords[index % 4]
-            rightEdgeCoord = middleEdgeCoords[(index + 1) % 4]
+            rightEdgeCoord = middleEdgeCoords[index % 4]
             
             facePosition = verticalFacePositions[index % 4]
             relativeLeftFacePosition = verticalFacePositions[(index + 1) % 4]
@@ -139,6 +139,13 @@ class CubeSolver():
                 while faceCandidateColors[1] != downColor:
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
                     directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+                    
+                faceCandidateColors = [
+                    self.cube.cubelets[petalCoord].faces[facePosition],
+                    self.cube.cubelets[leftEdgeCoord].faces[facePosition],
+                    self.cube.cubelets[downEdgeCoord].faces[facePosition],
+                    self.cube.cubelets[rightEdgeCoord].faces[facePosition]
+                ]
         
         return directions
     
