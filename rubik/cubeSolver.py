@@ -154,10 +154,10 @@ class CubeSolver():
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
                     directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
                     
-                    faceCandidateColors = map(
+                    faceCandidateColors = list(map(
                         lambda coord : self.cube.cubelets[coord].faces[facePosition],
                         faceCandidateCoords
-                    )
+                    ))
                     
             index += 1
         
