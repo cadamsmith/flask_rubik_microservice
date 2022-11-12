@@ -4,6 +4,7 @@ from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeSolver():
+    """ An entity capable of determining directions for solving 3x3x3 Rubik's Cube """
     
     def __init__(self, cube: Cube):
         assert (isinstance(cube, Cube))

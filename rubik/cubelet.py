@@ -4,7 +4,7 @@ from rubik.cubeColor import CubeColor
 from rubik.cubeRotationDirection import CubeRotationDirection
 
 class Cubelet:
-    '''Represents one of the smaller cubes that make up a Rubik's Cube'''
+    """ Represents one of the smaller cubes that make up a Rubik's Cube """
 
     def __init__(self, cubeData = {}):
         

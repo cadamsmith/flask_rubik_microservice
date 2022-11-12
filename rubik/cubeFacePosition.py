@@ -3,7 +3,7 @@ from enum import Enum, unique
 
 @unique
 class CubeFacePosition(Enum):
-    '''Represents the position of one of a cube's outer faces'''
+    """ Represents the position of one of a cube's outer face """
     
     FRONT = 'F'
     BACK = 'B'
