@@ -111,13 +111,6 @@ class CubeSolver():
                 self.cube.cubelets[rightEdgeCoord].faces[relativeRightFacePosition]
             ]
             
-            faceCandidateColors = [
-                self.cube.cubelets[petalCoord].faces[facePosition],
-                self.cube.cubelets[leftEdgeCoord].faces[facePosition],
-                self.cube.cubelets[downEdgeCoord].faces[facePosition],
-                self.cube.cubelets[rightEdgeCoord].faces[facePosition]
-            ]
-            
             petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
             
             while downColor in edgeCandidateColors:
@@ -139,8 +132,17 @@ class CubeSolver():
                     self.cube.cubelets[downEdgeCoord].faces[CubeFacePosition.DOWN],
                     self.cube.cubelets[rightEdgeCoord].faces[relativeRightFacePosition]
                 ]
+                
+            faceCandidateCoords = [ leftEdgeCoord, downEdgeCoord, rightEdgeCoord ]
+            if petalColor != downColor:
+                faceCandidateCoords.append(petalCoord)
             
-            if downColor in faceCandidateColors and faceCandidateColors[1] != downColor:
+            faceCandidateColors = map(
+                lambda coord : self.cube.cubelets[coord].faces[facePosition],
+                faceCandidateCoords
+            )
+            
+            if downColor in faceCandidateColors and faceCandidateColors[0] != downColor:
                 
                 while petalColor == downColor:
                     self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -152,12 +154,10 @@ class CubeSolver():
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
                     directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
                     
-                    faceCandidateColors = [
-                        self.cube.cubelets[petalCoord].faces[facePosition],
-                        self.cube.cubelets[leftEdgeCoord].faces[facePosition],
-                        self.cube.cubelets[downEdgeCoord].faces[facePosition],
-                        self.cube.cubelets[rightEdgeCoord].faces[facePosition]
-                    ]
+                    faceCandidateColors = map(
+                        lambda coord : self.cube.cubelets[coord].faces[facePosition],
+                        faceCandidateCoords
+                    )
                     
             index += 1
         
