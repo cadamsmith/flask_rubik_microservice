@@ -163,7 +163,6 @@ class CubeSolver():
                     
             index += 1
         
-        print(self.cube.toCode().text)
         return directions
     
     def __transformFromUpDaisyToDownCross(self, directions):

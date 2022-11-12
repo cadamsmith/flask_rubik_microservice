@@ -87,39 +87,27 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         
         solver = CubeSolver(
-            Cube(CubeCode('ybwgbwborrryroryrwgbyygobygowogryworgyrgybbwgwbbwwgooo'))
+            Cube(CubeCode('ybboboygbyrrborwrwgowygrbyogggbrgbbgowwwywowrryrywgyoo'))
         )
         
         expected = [
             # make up daisy
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             
             # make down cross
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         ]
         
         self.assertEqual(solver.solve(), expected)
