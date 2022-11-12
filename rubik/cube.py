@@ -180,7 +180,7 @@ class Cube:
             coordTransform = lambda x, y, z : (2 - z, y, x)
             
         return coordTransform(x, y, z)
-                
+    
     def toCode(self):
         
         codeText = ''

@@ -14,5 +14,5 @@ class CubeFacePosition(Enum):
     
     @classmethod
     def hasValue(cls, value):
-        return value in cls._value2member_map_ 
+        return value in cls._value2member_map_
 
