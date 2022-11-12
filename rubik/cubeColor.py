@@ -11,3 +11,7 @@ class CubeColor(Enum):
     ORANGE = 'o'
     YELLOW = 'y'
     WHITE = 'w'
+
+    @classmethod
+    def hasValue(cls, value):
+        return value in cls._value2member_map_

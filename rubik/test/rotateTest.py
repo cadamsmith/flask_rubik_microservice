@@ -5,6 +5,7 @@ class RotateTest(TestCase):
     
     # rotate - POSITIVE TESTS
     
+    # supplying valid params should return a result with status of ok
     def test_rotate_10010_ShouldReturnStatusOKForValidParams(self):
         
         result = rotate._rotate({
@@ -15,7 +16,8 @@ class RotateTest(TestCase):
         
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
-        
+    
+    # supplying no direction should rotate front clockwise by default
     def test_rotate_10020_ShouldFrontClockwiseRotateWhenDirectionNotSupplied(self):
         
         result = rotate._rotate({

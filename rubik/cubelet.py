@@ -6,28 +6,34 @@ from rubik.cubeRotationDirection import CubeRotationDirection
 class Cubelet:
     """ Represents one of the smaller cubes that make up a Rubik's Cube """
 
-    def __init__(self, cubeData = {}):
+    def __init__(self, coloredFaces = {}):
+        """ instantiate Cubelet from info about its face colors """
+        
+        # make sure coloredFaces is dict<K, V> where:
+        # - keys K are of type CubeFacePosition
+        # - values V are of type CubeColor
+        assert (isinstance(coloredFaces, dict))
+        assert (all(isinstance(face, CubeFacePosition) for face in coloredFaces.keys()))
+        assert (all(isinstance(color, CubeColor) for color in coloredFaces.values()))
+        
+        # make sure that no more than 3 cubelet faces are colored
+        assert (len(coloredFaces) <= 3)
         
         # initialize all cubeData to no color
         self.faces = {cf: None for cf in CubeFacePosition}
         
-        # make sure that no more than 3 cubelet cubeData are colored
-        assert (len(cubeData) <= 3)
+        self.faces.update(coloredFaces)
         
-        # make sure that the param cubeData is a dictionary with CubeFacePosition keys and CubeColor values
-        assert (all(isinstance(face, CubeFacePosition) for face in cubeData.keys()))
-        assert (all(isinstance(color, CubeColor) for color in cubeData.values()))
+    def setFaceColor(self, facePosition: CubeFacePosition, color: CubeColor):
+        """ colors one of the cubelet's faces """
         
-        self.faces.update(cubeData)
-        
-    def setFaceColor(self, facePosition, color):
-        # make sure that the facePosition is a FacePosition and color is a CubeColor
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(color, CubeColor))
         
         self.faces[facePosition] = color
         
-    def rotate(self, direction):
+    def rotate(self, direction: CubeRotationDirection):
+        """ rotates the cubelet in some direction """
         
         # make sure direction is a CubeRotationDirection
         assert (isinstance(direction, CubeRotationDirection))
@@ -46,56 +52,74 @@ class Cubelet:
             self.__spinRightward__()
         
     def __flipForward__(self):
+        """ flips the cubelet forward """
         
-        temp = self.faces[CubeFacePosition.UP]
+        alteredFaces = {
+            CubeFacePosition.UP: self.faces[CubeFacePosition.BACK],
+            CubeFacePosition.BACK: self.faces[CubeFacePosition.DOWN],
+            CubeFacePosition.DOWN: self.faces[CubeFacePosition.FRONT],
+            CubeFacePosition.FRONT: self.faces[CubeFacePosition.UP]
+        }
         
-        self.faces[CubeFacePosition.UP] = self.faces[CubeFacePosition.BACK]
-        self.faces[CubeFacePosition.BACK] = self.faces[CubeFacePosition.DOWN]
-        self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.FRONT]
-        self.faces[CubeFacePosition.FRONT] = temp
+        self.faces.update(alteredFaces)
         
     def __flipBackward__(self):
+        """ flips the cubelet backward """
         
-        temp = self.faces[CubeFacePosition.UP]
+        alteredFaces = {
+            CubeFacePosition.UP: self.faces[CubeFacePosition.FRONT],
+            CubeFacePosition.FRONT: self.faces[CubeFacePosition.DOWN],
+            CubeFacePosition.DOWN: self.faces[CubeFacePosition.BACK],
+            CubeFacePosition.BACK: self.faces[CubeFacePosition.UP]
+        }
         
-        self.faces[CubeFacePosition.UP] = self.faces[CubeFacePosition.FRONT]
-        self.faces[CubeFacePosition.FRONT] = self.faces[CubeFacePosition.DOWN]
-        self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.BACK]
-        self.faces[CubeFacePosition.BACK] = temp
+        self.faces.update(alteredFaces)
         
     def __flipLeftward__(self):
+        """ flips the cubelet leftward """
         
-        temp = self.faces[CubeFacePosition.UP]
+        alteredFaces = {
+            CubeFacePosition.UP: self.faces[CubeFacePosition.RIGHT],
+            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.DOWN],
+            CubeFacePosition.DOWN: self.faces[CubeFacePosition.LEFT],
+            CubeFacePosition.LEFT: self.faces[CubeFacePosition.UP]
+        }
         
-        self.faces[CubeFacePosition.UP] = self.faces[CubeFacePosition.RIGHT]
-        self.faces[CubeFacePosition.RIGHT] = self.faces[CubeFacePosition.DOWN]
-        self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.LEFT]
-        self.faces[CubeFacePosition.LEFT] = temp
+        self.faces.update(alteredFaces)
         
     def __flipRightward__(self):
+        """ flips the cubelet rightward """
         
-        temp = self.faces[CubeFacePosition.UP]
+        alteredFaces = {
+            CubeFacePosition.UP: self.faces[CubeFacePosition.LEFT],
+            CubeFacePosition.LEFT: self.faces[CubeFacePosition.DOWN],
+            CubeFacePosition.DOWN: self.faces[CubeFacePosition.RIGHT],
+            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.UP]
+        }
         
-        self.faces[CubeFacePosition.UP] = self.faces[CubeFacePosition.LEFT]
-        self.faces[CubeFacePosition.LEFT] = self.faces[CubeFacePosition.DOWN]
-        self.faces[CubeFacePosition.DOWN] = self.faces[CubeFacePosition.RIGHT]
-        self.faces[CubeFacePosition.RIGHT] = temp
+        self.faces.update(alteredFaces)
         
     def __spinLeftward__(self):
+        """ spins the cubelet leftward """
         
-        temp = self.faces[CubeFacePosition.FRONT]
+        alteredFaces = {
+            CubeFacePosition.FRONT: self.faces[CubeFacePosition.RIGHT],
+            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.BACK],
+            CubeFacePosition.BACK: self.faces[CubeFacePosition.LEFT],
+            CubeFacePosition.LEFT: self.faces[CubeFacePosition.FRONT]
+        }
         
-        self.faces[CubeFacePosition.FRONT] = self.faces[CubeFacePosition.RIGHT]
-        self.faces[CubeFacePosition.RIGHT] = self.faces[CubeFacePosition.BACK]
-        self.faces[CubeFacePosition.BACK] = self.faces[CubeFacePosition.LEFT]
-        self.faces[CubeFacePosition.LEFT] = temp
+        self.faces.update(alteredFaces)
         
     def __spinRightward__(self):
+        """ spins the cubelet rightward """
         
-        temp = self.faces[CubeFacePosition.FRONT]
+        alteredFaces = {
+            CubeFacePosition.FRONT: self.faces[CubeFacePosition.LEFT],
+            CubeFacePosition.LEFT: self.faces[CubeFacePosition.BACK],
+            CubeFacePosition.BACK: self.faces[CubeFacePosition.RIGHT],
+            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.FRONT]
+        }
         
-        self.faces[CubeFacePosition.FRONT] = self.faces[CubeFacePosition.LEFT]
-        self.faces[CubeFacePosition.LEFT] = self.faces[CubeFacePosition.BACK]
-        self.faces[CubeFacePosition.BACK] = self.faces[CubeFacePosition.RIGHT]
-        self.faces[CubeFacePosition.RIGHT] = temp
+        self.faces.update(alteredFaces)
         

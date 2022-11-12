@@ -7,11 +7,14 @@ class CubeSolver():
     """ An entity capable of determining directions for solving 3x3x3 Rubik's Cube """
     
     def __init__(self, cube: Cube):
+        """ instantiates a CubeSolver, supplied only a Cube """
+        
         assert (isinstance(cube, Cube))
         
         self.cube = cube
         
     def solve(self):
+        """ produces a list of rotation directions to solve the cube """
         
         directions = []
         
@@ -34,12 +37,17 @@ class CubeSolver():
         return directions
     
     def __hasUpDaisy(self):
+        """ determines whether the cube has a daisy centered on the up face """
         
+        # center coordinate of up face
         (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.UP]
-        
+        # center coordinate of down face
         downCenterCoord = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
+        
+        # down color, i.e. the colors of the daisy petals
         downColor = self.cube.cubelets[downCenterCoord].faces[CubeFacePosition.DOWN]
         
+        # coordinates of each petal cubelet
         petalCoords = [
             (centerX - 1, centerY, centerZ),
             (centerX, centerY, centerZ - 1),
@@ -47,7 +55,10 @@ class CubeSolver():
             (centerX, centerY, centerZ + 1)
         ]
         
+        # check all petal cubelet coords
         for coord in petalCoords:
+            
+            # determine whether the up face color is the cube's down color
             color = self.cube.cubelets[coord].faces[CubeFacePosition.UP]
             
             if color != downColor:
@@ -56,10 +67,15 @@ class CubeSolver():
         return True
     
     def __hasDownCross(self):
+        """ determines whether the cube has a cross centered on the down face """
         
+        # center coordinate of down face
         (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
+        
+        # down color, i.e. the color of the plus sign of down cross
         downColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.DOWN]
         
+        # coordinates of each petal cubelet around the cross
         petalCoords = [
             (centerX - 1, centerY, centerZ),
             (centerX, centerY, centerZ - 1),
@@ -67,20 +83,28 @@ class CubeSolver():
             (centerX, centerY, centerZ + 1)
         ]
         
+        # check all petal cubelet coords
         for coord in petalCoords:
+            
+            # determine whether its down face color is the cube's down color
             color = self.cube.cubelets[coord].faces[CubeFacePosition.DOWN]
             
             if color != downColor:
                 return False
-            
+        
+        # need to check a pair of cubelet faces on all vertical side face positions of the Rubiks cube
         otherFacesToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
         
+        # go thru each face position
         for facePosition in otherFacesToCheck:
             
+            # pair to check is center cubelet and cubelet below it
             (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[facePosition]
-            faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[facePosition]
+            (belowX, belowY, belowZ) = (centerX, centerY + 1, centerZ)
             
-            belowColor = self.cube.cubelets[centerX, centerY + 1, centerZ].faces[facePosition]
+            # determine whether their color is the same
+            faceColor = self.cube.cubelets[(centerX, centerY, centerZ)].faces[facePosition]
+            belowColor = self.cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
             
             if faceColor != belowColor:
                 return False
@@ -88,6 +112,8 @@ class CubeSolver():
         return True
     
     def __transformToUpDaisy(self, directions):
+        """ makes a daisy centered on the up face of the cube """
+        
         if self.__hasUpDaisy():
             return directions
         
@@ -171,6 +197,8 @@ class CubeSolver():
         return directions
     
     def __transformFromUpDaisyToDownCross(self, directions):
+        """ makes a down cross for the cube if it already has an up daisy """
+        
         if self.__hasDownCross():
             return directions
         
@@ -223,6 +251,7 @@ class CubeSolver():
         return directions
     
     def __optimizeDirections(self, directions):
+        """ takes a list of directions and optimizes them, removing redundancy """
         
         if len(directions) < 2:
             return directions
