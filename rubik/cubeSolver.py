@@ -14,14 +14,20 @@ class CubeSolver():
         
         directions = []
         
+        # if it already has a down cross, we're done
         if self.__hasDownCross():
             return directions
         
+        # make up daisy on cube
         directions = self.__transformToUpDaisy(directions)
         
+        # if it doesn't have an up daisy now, we've got a problem
         assert (self.__hasUpDaisy())
+        
+        # make down cross
         directions = self.__transformFromUpDaisyToDownCross(directions)
         
+        # optimize directions, replacing redundant rotations
         directions = self.__optimizeDirections(directions)
         
         return directions

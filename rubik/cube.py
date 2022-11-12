@@ -8,12 +8,15 @@ from rubik.faceRotationDirection import FaceRotationDirection
 from rubik.cubeRotationDirection import CubeRotationDirection
 
 class Cube:
-    '''Represents a 3x3x3 Rubik's cube'''
+    """Represents a 3x3x3 Rubik's cube"""
     
+    """the 27 cubelets that make up the cube"""
     cubelets = {}
     
-    # coords of the cubelets that make up each cube face,
-    # ordered by position in cube code
+    """
+    coordinates of the cubelets that make up each cube face,
+    ordered by position in cube code
+    """
     CUBELET_COORDS = {
         CubeFacePosition.FRONT: [
             (0, 0, 0), (1, 0, 0), (2, 0, 0),
@@ -47,7 +50,19 @@ class Cube:
         ],
     }
     
-    # coordinates of all of the center cubelets in each cube face
+    """ how many cubelets make up each side """
+    WIDTH = 3
+    
+    """ dimension of the cube (3D) """
+    DIM = 3
+    
+    """ how many cubelets total make up each face """
+    FACE_AREA = WIDTH ** 2
+    
+    """ how many cubelets total make up the cube """
+    VOLUME = WIDTH ** DIM
+    
+    """coordinates of all of the center cubelets in each cube face"""
     FACE_CENTER_CUBELET_COORDS = {
         CubeFacePosition.FRONT: (1, 1, 0),
         CubeFacePosition.BACK: (1, 1, 2),
@@ -58,13 +73,11 @@ class Cube:
     }
 
     def __init__(self, cubeCode: CubeCode):
+        """initializes the cube from a cube code representing the initial state"""
         
         assert (isinstance(cubeCode, CubeCode))
- 
-        self.size = cubeCode.CUBE_WIDTH
-        self.faceArea = cubeCode.CUBE_WIDTH ** 2
                
-        for i, j, k in itertools.product(*[range(cubeCode.CUBE_WIDTH)] * 3):
+        for i, j, k in itertools.product(*[range(self.WIDTH)] * self.DIM):
             self.cubelets[i, j, k] = Cubelet()
         
         codeIndex = 0
@@ -76,6 +89,7 @@ class Cube:
                 codeIndex += 1
     
     def rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+        """Rotates one of the cube's faces either clockwise or counterclockwise"""
         
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
@@ -135,9 +149,14 @@ class Cube:
         self.cubelets.update(alteredCubelets)
         
     def rotateCoord(self, coord, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+        """determines the new location of a cube coordinate if a specific face rotation was applied to the cube"""
         
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
+        
+        # a coordinate not in the face being rotated is not affected
+        if not coord in self.CUBELET_COORDS[facePosition]:
+            return coord
         
         (x, y, z) = coord
         
@@ -178,16 +197,17 @@ class Cube:
             or facePosition is CubeFacePosition.DOWN and direction is FaceRotationDirection.CLOCKWISE
         ):
             coordTransform = lambda x, y, z : (2 - z, y, x)
-            
+        
         return coordTransform(x, y, z)
     
     def toCode(self):
+        """Serializes the cube into a cube code"""
         
         codeText = ''
         
         for facePosition in CubeCode.FACE_POSITION_ORDER:
             for coords in Cube.CUBELET_COORDS[facePosition]:
                 color = self.cubelets[coords].faces[facePosition]
-                codeText += '#' if color is None else color.value
+                codeText += color.value
                 
         return CubeCode(codeText)            
