@@ -179,7 +179,7 @@ class CubeSolverTest(TestCase):
             
             (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
             
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
