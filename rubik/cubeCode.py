@@ -4,10 +4,12 @@ from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
 
 class CubeCode:
-    '''represents a code supplied to create a 3x3x3 Cube instance'''
+    """ represents a code supplied to create a 3x3x3 Cube instance """
     
+    """ length of the cube code """
     CODE_LENGTH = 54
     
+    """ ordering that shows how the cube faces are encoded in the cube code """
     FACE_POSITION_ORDER = [
         CubeFacePosition.FRONT,
         CubeFacePosition.RIGHT,
@@ -17,9 +19,12 @@ class CubeCode:
         CubeFacePosition.DOWN,
     ]
     
+    """ the center tile index in each cube face """
     FACE_CENTER_INDICES = [4, 13, 22, 31, 40, 49]
     
     def __init__(self, codeText):
+        """ instantiates CubeCode from supplied code string """
+        
         # make sure supplied param is a valid cube code text
         assert self.isValid(codeText)
         
@@ -27,6 +32,7 @@ class CubeCode:
     
     @classmethod
     def isValid(cls, codeText):
+        """ determines whether a string is a valid cube code """
         
         # check if supplied code text is a string
         if not isinstance(codeText, str):
