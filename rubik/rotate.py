@@ -9,7 +9,7 @@ ERROR_INVALID_CUBE = 'error: invalid cube'
 ERROR_INVALID_DIR = 'error: invalid rotation'
 
 def _rotate(params):
-    """Return rotated cube"""
+    """ Return rotated cube """
     
     # validate that 'cube' param exists
     if 'cube' not in params:
@@ -68,10 +68,16 @@ def _rotate(params):
     return result
 
 def __missingCubeError__():
+    """ returns error for missing cube param """
+    
     return {'status': ERROR_MISSING_CUBE}
 
 def __invalidCubeError__():
+    """ returns error for invalid cube param """
+    
     return {'status': ERROR_INVALID_CUBE}
 
 def __invalidDirError__():
+    """ returns error for invalid direction param """
+    
     return {'status': ERROR_INVALID_DIR}

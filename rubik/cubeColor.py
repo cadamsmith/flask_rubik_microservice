@@ -3,7 +3,7 @@ from enum import Enum, unique
 
 @unique
 class CubeColor(Enum):
-    '''represents one of the colors on the outside of the cube'''
+    """ represents one of the colors on the outside of the cube """
     
     BLUE = 'b'
     RED = 'r'
@@ -11,14 +11,7 @@ class CubeColor(Enum):
     ORANGE = 'o'
     YELLOW = 'y'
     WHITE = 'w'
-    
-    @staticmethod
-    def getFaceColors():
-        return [
-            CubeColor.BLUE,
-            CubeColor.RED,
-            CubeColor.GREEN,
-            CubeColor.ORANGE,
-            CubeColor.YELLOW,
-            CubeColor.WHITE
-        ]
+
+    @classmethod
+    def hasValue(cls, value):
+        return value in cls._value2member_map_

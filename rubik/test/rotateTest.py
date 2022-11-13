@@ -5,6 +5,7 @@ class RotateTest(TestCase):
     
     # rotate - POSITIVE TESTS
     
+    # supplying valid params should return a result with status of ok
     def test_rotate_10010_ShouldReturnStatusOKForValidParams(self):
         
         result = rotate._rotate({
@@ -15,7 +16,8 @@ class RotateTest(TestCase):
         
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
-        
+    
+    # supplying no direction should rotate front clockwise by default
     def test_rotate_10020_ShouldFrontClockwiseRotateWhenDirectionNotSupplied(self):
         
         result = rotate._rotate({
@@ -455,7 +457,7 @@ class RotateTest(TestCase):
         self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
         
     # supplying non-string cube should result in error status
-    def test_rotate_20630_ShouldErrorOnNonStringCube(self):
+    def test_rotate_20060_ShouldErrorOnNonStringCube(self):
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -503,7 +505,7 @@ class RotateTest(TestCase):
         self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
             
     # supplying a string cube with an uneven distribution of colors should throw exception
-    def test_rotate_init_20100_ShouldErrorOnCubeWithUnevenColorDistribution(self):
+    def test_rotate_20100_ShouldErrorOnCubeWithUnevenColorDistribution(self):
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -515,7 +517,7 @@ class RotateTest(TestCase):
         self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
             
     # supplying a string cube with non-unique center cubelet face colors should throw exception
-    def test_rotate_init_20110_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
+    def test_rotate_20110_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
         
         result = rotate._rotate({
             'op': 'rotate',

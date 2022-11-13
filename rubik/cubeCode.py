@@ -4,12 +4,12 @@ from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
 
 class CubeCode:
-    '''represents a code supplied to create a Cube instance'''
+    """ represents a code supplied to create a 3x3x3 Cube instance """
     
+    """ length of the cube code """
     CODE_LENGTH = 54
     
-    CUBE_WIDTH = 3
-    
+    """ ordering that shows how the cube faces are encoded in the cube code """
     FACE_POSITION_ORDER = [
         CubeFacePosition.FRONT,
         CubeFacePosition.RIGHT,
@@ -19,9 +19,12 @@ class CubeCode:
         CubeFacePosition.DOWN,
     ]
     
+    """ the center tile index in each cube face """
     FACE_CENTER_INDICES = [4, 13, 22, 31, 40, 49]
     
     def __init__(self, codeText):
+        """ instantiates CubeCode from supplied code string """
+        
         # make sure supplied param is a valid cube code text
         assert self.isValid(codeText)
         
@@ -29,6 +32,7 @@ class CubeCode:
     
     @classmethod
     def isValid(cls, codeText):
+        """ determines whether a string is a valid cube code """
         
         # check if supplied code text is a string
         if not isinstance(codeText, str):
@@ -43,12 +47,12 @@ class CubeCode:
             return False
         
         # check if it contains every color
-        for color in CubeColor.getFaceColors():
+        for color in list(CubeColor):
             if not codeText.__contains__(color.value):
                 return False
         
         # check if it contains even distribution of colors
-        colorDistributions = {c: 0 for c in CubeColor.getFaceColors()}
+        colorDistributions = {c: 0 for c in list(CubeColor)}
         
         for letter in codeText:
             color = CubeColor(letter)
@@ -60,7 +64,7 @@ class CubeCode:
         # check if the center cubelet faces have unique colors
         centerColors = set(map(lambda index: CubeColor(codeText[index]), cls.FACE_CENTER_INDICES))
         
-        if not len(centerColors) == len(CubeColor.getFaceColors()):
+        if not len(centerColors) == len(list(CubeColor)):
             return False
         
         # congrats, its a valid cube code

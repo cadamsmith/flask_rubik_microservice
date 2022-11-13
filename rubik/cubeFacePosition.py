@@ -3,7 +3,7 @@ from enum import Enum, unique
 
 @unique
 class CubeFacePosition(Enum):
-    '''Represents the position of one of a cube's outer faces'''
+    """ Represents the position of one of a cube's outer face """
     
     FRONT = 'F'
     BACK = 'B'
@@ -14,5 +14,5 @@ class CubeFacePosition(Enum):
     
     @classmethod
     def hasValue(cls, value):
-        return value in cls._value2member_map_ 
+        return value in cls._value2member_map_
 
