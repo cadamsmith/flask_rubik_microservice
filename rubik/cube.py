@@ -1,5 +1,6 @@
 
 import itertools
+
 from rubik.cubeColor import CubeColor
 from rubik.cubelet import Cubelet
 from rubik.cubeCode import CubeCode
@@ -72,11 +73,15 @@ class Cube:
         CubeFacePosition.DOWN: (1, 2, 1)
     }
 
-    def __init__(self, cubeCode: CubeCode):
+    def __init__(self, cubeCode: str | CubeCode):
         """initializes the cube from a cube code representing the initial state"""
         
-        assert (isinstance(cubeCode, CubeCode))
-               
+        assert isinstance(cubeCode, (str, CubeCode))
+        
+        # if supplied a string, turn it into a CubeCode
+        if isinstance(cubeCode, str):
+            cubeCode = CubeCode(cubeCode)
+        
         for i, j, k in itertools.product(*[range(self.WIDTH)] * self.DIM):
             self.cubelets[i, j, k] = Cubelet()
         
