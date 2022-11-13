@@ -6,6 +6,9 @@ from rubik.faceRotationDirection import FaceRotationDirection
 class CubeSolver():
     """ An entity capable of determining directions for solving 3x3x3 Rubik's Cube """
     
+    """ list of directions to solve the cube """
+    directions = []
+    
     def __init__(self, cube: Cube):
         """ instantiates a CubeSolver, supplied only a Cube """
         
@@ -16,25 +19,23 @@ class CubeSolver():
     def solve(self):
         """ produces a list of rotation directions to solve the cube """
         
-        directions = []
+        self.directions = []
         
         # if it already has a down cross, we're done
         if self.__hasDownCross():
-            return directions
+            return
         
         # make up daisy on cube
-        directions = self.__transformToUpDaisy(directions)
+        self.__transformToUpDaisy()
         
         # if it doesn't have an up daisy now, we've got a problem
         assert (self.__hasUpDaisy())
         
         # make down cross
-        directions = self.__transformFromUpDaisyToDownCross(directions)
+        self.__transformFromUpDaisyToDownCross()
         
         # optimize directions, replacing redundant rotations
-        directions = self.__optimizeDirections(directions)
-        
-        return directions
+        self.__optimizeDirections()
     
     def __hasUpDaisy(self):
         """ determines whether the cube has a daisy centered on the up face """
@@ -111,11 +112,11 @@ class CubeSolver():
         
         return True
     
-    def __transformToUpDaisy(self, directions):
+    def __transformToUpDaisy(self):
         """ makes a daisy centered on the up face of the cube """
         
         if self.__hasUpDaisy():
-            return directions
+            return
         
         downCenterCoord = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
         downColor = self.cube.cubelets[downCenterCoord].faces[CubeFacePosition.DOWN]
@@ -150,13 +151,13 @@ class CubeSolver():
                 
                 while petalColor == downColor:
                     self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-                    directions.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
+                    self.directions.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
                     
                     petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                     
                 while petalColor != downColor:
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-                    directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+                    self.directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
                     
                     petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                     
@@ -179,13 +180,13 @@ class CubeSolver():
                 
                 while petalColor == downColor:
                     self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-                    directions.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
+                    self.directions.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
                     
                     petalColor = self.cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                 
                 while faceCandidateColors[0] != downColor:
                     self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-                    directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+                    self.directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
                     
                     faceCandidateColors = list(map(
                         lambda coord : self.cube.cubelets[coord].faces[facePosition],
@@ -193,14 +194,12 @@ class CubeSolver():
                     ))
                     
             index += 1
-        
-        return directions
     
-    def __transformFromUpDaisyToDownCross(self, directions):
+    def __transformFromUpDaisyToDownCross(self):
         """ makes a down cross for the cube if it already has an up daisy """
         
         if self.__hasDownCross():
-            return directions
+            return
         
         flippedPetalCount = 0
         
@@ -223,7 +222,7 @@ class CubeSolver():
             
             while aboveColor != belowColor:
                 self.cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                directions.append((CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE))
+                self.directions.append((CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE))
                 
                 (aboveX, aboveY, aboveZ) = self.cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
                 (belowX, belowY, belowZ) = (aboveX, aboveY + 1, aboveZ)
@@ -235,10 +234,10 @@ class CubeSolver():
                 belowColor = self.cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
                 
             self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-            directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+            self.directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
             
             self.cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-            directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
+            self.directions.append((facePosition, FaceRotationDirection.CLOCKWISE))
             
             flippedPetalCount += 1
             
@@ -247,23 +246,21 @@ class CubeSolver():
             
             i = (i + 1) % 4
             facePosition = facePositions[i]
-            
-        return directions
     
-    def __optimizeDirections(self, directions):
+    def __optimizeDirections(self):
         """ takes a list of directions and optimizes them, removing redundancy """
         
-        if len(directions) < 2:
-            return directions
+        if len(self.directions) < 2:
+            return
         
         newDirections = []
         
-        (lastFace, lastDirection) = directions[0]
-        newDirections.append(directions[0])
+        (lastFace, lastDirection) = self.directions[0]
+        newDirections.append(self.directions[0])
         
         repeatCount = 1
         
-        for (face, direction) in directions[1:]:
+        for (face, direction) in self.directions[1:]:
             
             # rotating a face clockwise then counterclockwise, or vice versa
             if lastFace == face and lastDirection != direction:
@@ -291,5 +288,5 @@ class CubeSolver():
             
             (lastFace, lastDirection) = (face, direction)
             
-        return newDirections
+        self.directions = newDirections
         
