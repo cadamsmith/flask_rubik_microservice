@@ -14,13 +14,13 @@ class CubeTest(TestCase):
     # if valid cubelet faces are provided as input, a cube should be instantiated
     def test_cube_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
         
-        cube = Cube(CubeCode('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg'))
+        cube = Cube('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         self.assertIsInstance(cube, Cube)
     
     # if valid cubelet faces are provided as input, the NxNxN cube should have all N^3 cubelets present
     def test_cube_init_10020_ShouldHaveAllCubeletsToFillCube(self):
         
-        cube = Cube(CubeCode('obwgbrbyorgryrwgrrggwbgygrbbywboooorowyoyrgobygywwbyww'))
+        cube = Cube('obwgbrbyorgryrwgrrggwbgygrbbywboooorowyoyrgobygywwbyww')
         
         for i, j, k in itertools.product(*[range(cube.WIDTH)] * cube.DIM):
             cubelet = cube.cubelets[i, j, k]
@@ -97,7 +97,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -110,7 +110,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -123,7 +123,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -136,7 +136,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -149,7 +149,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -162,7 +162,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -175,7 +175,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -188,7 +188,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -201,7 +201,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -214,7 +214,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -227,7 +227,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -240,7 +240,7 @@ class CubeTest(TestCase):
         
         expected = {cf: None for cf in CubeFacePosition}
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
@@ -251,7 +251,7 @@ class CubeTest(TestCase):
     # rotating front face clockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10050_ShouldHaveUncoloredFaceCenterCubeletsAfterFrontClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
@@ -262,7 +262,7 @@ class CubeTest(TestCase):
     # rotating back face clockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10051_ShouldHaveUncoloredFaceCenterCubeletsAfterBackClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
@@ -273,7 +273,7 @@ class CubeTest(TestCase):
     # rotating left face clockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10052_ShouldHaveUncoloredFaceCenterCubeletsAfterLeftClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
@@ -284,7 +284,7 @@ class CubeTest(TestCase):
     # rotating right face clockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10053_ShouldHaveUncoloredFaceCenterCubeletsAfterRightClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
@@ -295,7 +295,7 @@ class CubeTest(TestCase):
     # rotating up face clockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10054_ShouldHaveUncoloredFaceCenterCubeletsAfterUpClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
@@ -306,7 +306,7 @@ class CubeTest(TestCase):
     # rotating down face clockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10055_ShouldHaveUncoloredFaceCenterCubeletsAfterDownClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
@@ -317,7 +317,7 @@ class CubeTest(TestCase):
     # rotating front face counterclockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10060_ShouldHaveUncoloredFaceCenterCubeletsAfterFrontCounterclockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -328,7 +328,7 @@ class CubeTest(TestCase):
     # rotating back face counterclockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10061_ShouldHaveUncoloredFaceCenterCubeletsAfterBackCounterclockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -339,7 +339,7 @@ class CubeTest(TestCase):
     # rotating left face counterclockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10062_ShouldHaveUncoloredFaceCenterCubeletsAfterLeftCounterclockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -350,7 +350,7 @@ class CubeTest(TestCase):
     # rotating right face counterclockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10063_ShouldHaveUncoloredFaceCenterCubeletsAfterRightCounterclockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -361,7 +361,7 @@ class CubeTest(TestCase):
     # rotating up face counterclockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10064_ShouldHaveUncoloredFaceCenterCubeletsAfterUpClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -372,7 +372,7 @@ class CubeTest(TestCase):
     # rotating down face counterclockwise should result in unchanged face center cubelets
     def test_cube_rotateFace_10065_ShouldHaveUncoloredFaceCenterCubeletsAfterDownClockwiseRotation(self):
         
-        cube = Cube(CubeCode('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw'))
+        cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE)
@@ -383,7 +383,7 @@ class CubeTest(TestCase):
     # rotating a solved cube front clockwise should work correctly
     def test_cube_rotateFace_10070_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
         
-        cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+        cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbbbbbbbbyrryrryrrgggggggggoowoowoowyyyyyyooorrrwwwwww'
         
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
@@ -394,7 +394,7 @@ class CubeTest(TestCase):
     # rotating a solved cube back clockwise should work correctly
     def test_cube_rotateFace_10071_ShouldBackClockwiseRotateSolvedCubeCorrectly(self):
         
-        cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+        cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbbbbbbbbrrwrrwrrwgggggggggyooyooyoorrryyyyyywwwwwwooo'
         
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
@@ -405,7 +405,7 @@ class CubeTest(TestCase):
     # rotating a solved cube left clockwise should work correctly
     def test_cube_rotateFace_10072_ShouldLeftClockwiseRotateSolvedCubeCorrectly(self):
         
-        cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+        cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'ybbybbybbrrrrrrrrrggwggwggwooooooooogyygyygyybwwbwwbww'
         
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
@@ -416,7 +416,7 @@ class CubeTest(TestCase):
     # rotating a solved cube right clockwise should work correctly
     def test_cube_rotateFace_10073_ShouldRightClockwiseRotateSolvedCubeCorrectly(self):
         
-        cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+        cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbwbbwbbwrrrrrrrrryggyggyggoooooooooyybyybyybwwgwwgwwg'
         
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
@@ -427,7 +427,7 @@ class CubeTest(TestCase):
     # rotating a solved cube up clockwise should work correctly
     def test_cube_rotateFace_10074_ShouldUpClockwiseRotateSolvedCubeCorrectly(self):
         
-        cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+        cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'rrrbbbbbbgggrrrrrroooggggggbbbooooooyyyyyyyyywwwwwwwww'
         
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
@@ -438,7 +438,7 @@ class CubeTest(TestCase):
     # rotating a solved cube down clockwise should work correctly
     def test_cube_rotateFace_10075_ShouldDownClockwiseRotateSolvedCubeCorrectly(self):
         
-        cube = Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+        cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbbbbbooorrrrrrbbbggggggrrroooooogggyyyyyyyyywwwwwwwww'
         
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
@@ -449,7 +449,7 @@ class CubeTest(TestCase):
     # rotating a random cube front clockwise should work correctly
     def test_cube_rotateFace_10080_ShouldFrontClockwiseRotateRandomCubeCorrectly(self):
         
-        cube = Cube(CubeCode('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr'))
+        cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wbwgbwggyroobrorbybooggwgywggrroyorowyyrywgybywbbwobrr'
         
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
@@ -460,7 +460,7 @@ class CubeTest(TestCase):
     # rotating a random cube back clockwise should work correctly
     def test_cube_rotateFace_10081_ShouldBackClockwiseRotateRandomCubeCorrectly(self):
         
-        cube = Cube(CubeCode('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr'))
+        cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgwggborwrrybbggbygowwoygbyoywrgooyrywrbrryobwogro'
         
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
@@ -471,7 +471,7 @@ class CubeTest(TestCase):
     # rotating a random cube left clockwise should work correctly
     def test_cube_rotateFace_10082_ShouldLeftClockwiseRotateRandomCubeCorrectly(self):
         
-        cube = Cube(CubeCode('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr'))
+        cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwyrbgrggboowroybybobggbgyrorgroggybwyywywobrwyobwowrr'
         
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
@@ -482,7 +482,7 @@ class CubeTest(TestCase):
     # rotating a random cube right clockwise should work correctly
     def test_cube_rotateFace_10083_ShouldRightClockwiseRotateRandomCubeCorrectly(self):
         
-        cube = Cube(CubeCode('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr'))
+        cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwobbowgrywbbroyooroowgwyywggbroyorgwyyrygrbgrygbwgbrb'
         
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
@@ -493,7 +493,7 @@ class CubeTest(TestCase):
     # rotating a random cube up clockwise should work correctly
     def test_cube_rotateFace_10084_ShouldUpClockwiseRotateRandomCubeCorrectly(self):
         
-        cube = Cube(CubeCode('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr'))
+        cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'boobbgwggboowroybyggbggwgywwwyroyorgrrwbyyrwyryobwobrr'
         
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
@@ -504,7 +504,7 @@ class CubeTest(TestCase):
     # rotating a random cube down clockwise should work correctly
     def test_cube_rotateFace_10085_ShouldDownClockwiseRotateRandomCubeCorrectly(self):
         
-        cube = Cube(CubeCode('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr'))
+        cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgorgboowrowggbooggwybyggbroygywwyyrywrbrbbrrwyroo'
         
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
@@ -517,7 +517,7 @@ class CubeTest(TestCase):
     # supplying neither cube face position or face rotation direction should throw exception
     def test_cube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
         
-        cube = Cube(CubeCode('bbrybggbrbwrrrbgooyyoygwborgborooyrowgbrygyowywwywwggw'))
+        cube = Cube('bbrybggbrbwrrrbgooyyoygwborgborooyrowgbrygyowywwywwggw')
         
         with self.assertRaises(Exception):
             cube.rotateFace()
@@ -525,7 +525,7 @@ class CubeTest(TestCase):
     # supplying only cube face position should throw exception
     def test_cube_rotateFace_20020_ShouldThrowExceptionForOnlyCubeFacePositionSupplied(self):
         
-        cube = Cube(CubeCode('yygrbwowbwrrgrbryoyrgogwgrwyoboowrywrgbgyyobobbwowggby'))
+        cube = Cube('yygrbwowbwrrgrbryoyrgogwgrwyoboowrywrgbgyyobobbwowggby')
         
         with self.assertRaises(Exception):
             cube.rotateFace(CubeFacePosition.DOWN)
@@ -533,7 +533,7 @@ class CubeTest(TestCase):
     # supplying only face rotation direction should throw exception
     def test_cube_rotateFace_20030_ShouldThrowExceptionForOnlyFaceRotationDirectionSupplied(self):
         
-        cube = Cube(CubeCode('yygbbowwyrwbgrroyrwrgbgrbooyobgoybyorwrwygoowgbgrwgwby'))
+        cube = Cube('yygbbowwyrwbgrroyrwrgbgrbooyobgoybyorwrwygoowgbgrwgwby')
         
         with self.assertRaises(Exception):
             cube.rotateFace(FaceRotationDirection.CLOCKWISE)
@@ -541,7 +541,7 @@ class CubeTest(TestCase):
     # supplying invalid cube face position should throw exception
     def test_cube_rotateFace_20040_ShouldThrowExceptionForInvalidCubeFacePosition(self):
         
-        cube = Cube(CubeCode('gwwwboryrgrygrrybrobwygybybogyooowgbgwbryborrwbgwwoogy'))
+        cube = Cube('gwwwboryrgrygrrybrobwygybybogyooowgbgwbryborrwbgwwoogy')
         
         with self.assertRaises(Exception):
             cube.rotateFace("DOWN", FaceRotationDirection.COUNTERCLOCKWISE)
@@ -549,7 +549,7 @@ class CubeTest(TestCase):
     # supplying invalid face rotation direction should throw exception
     def test_cube_rotateFace_20050_ShouldThrowExceptionForInvalidFaceRotationDirection(self):
         
-        cube = Cube(CubeCode('orywbwwgrgorrrgwoyybyygrbyorbbyobwwggrboyywgorobgwwgbo'))
+        cube = Cube('orywbwwgrgorrrgwoyybyygrbyorbbyobwwggrboyywgorobgwwgbo')
         
         with self.assertRaises(Exception):
             cube.rotateFace(CubeFacePosition.RIGHT, False)
