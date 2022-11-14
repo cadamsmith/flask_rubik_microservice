@@ -1,5 +1,5 @@
 
-from unittest import TestCase
+from unittest import TestCase, skip
 
 from rubik.cubeSolver import CubeSolver
 from rubik.cubeFacePosition import CubeFacePosition
@@ -42,10 +42,21 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10020_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
-        """ a cube with a bottom cross should give no solve directions """
+    @skip
+    def test_cubeSolver_solve_10020_ACubeWithADownCrossAlreadyShouldYieldNoSolveDirections(self):
+        """ a cube with a down cross should give no solve directions """
         
         solver = CubeSolver('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy')
+        solver.solve()
+        
+        expected = []
+        
+        self.assertEqual(solver.getDirections(), expected)
+        
+    def test_cubeSolver_solve_10021_ACubeWithASolvedDownLayerShouldYieldNoSolveDirections(self):
+        """ a cube with a solved down layer should give no solve directions """
+        
+        solver = CubeSolver('yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww')
         solver.solve()
         
         expected = []
