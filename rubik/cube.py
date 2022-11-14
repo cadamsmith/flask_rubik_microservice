@@ -90,9 +90,9 @@ class Cube:
         },
         CubeFacePosition.BACK: {
             FaceCubeletPosition.UP_LEFT: (2, 0, 2),
-            FaceCubeletPosition.UP_RIGHT: (2, 0, 0),
+            FaceCubeletPosition.UP_RIGHT: (0, 0, 2),
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 2),
-            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 0)
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2)
         },
         CubeFacePosition.RIGHT: {
             FaceCubeletPosition.UP_LEFT: (2, 0, 0),
