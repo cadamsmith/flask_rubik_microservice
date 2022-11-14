@@ -1,15 +1,24 @@
 
 from rubik.cube import Cube
+from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeSolver():
     """ An entity capable of determining directions for solving 3x3x3 Rubik's Cube """
     
-    def __init__(self, cube: Cube):
+    def __init__(self, cube: str | CubeCode | Cube):
         """ instantiates a CubeSolver, supplied only a Cube """
         
-        assert (isinstance(cube, Cube))
+        assert isinstance(cube, (str, CubeCode, Cube))
+        
+        # if supplied a string, turn it into a CubeCode
+        if isinstance(cube, str):
+            cube = CubeCode(cube)
+            
+        # if supplied a CubeCode, turn it into a Cube
+        if isinstance(cube, CubeCode):
+            cube = Cube(cube)
         
         self._directions = []
         self._cube = cube
