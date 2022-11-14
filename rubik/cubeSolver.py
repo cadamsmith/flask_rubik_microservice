@@ -128,7 +128,7 @@ class CubeSolver():
         verticalFacePositions = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
         index = 0
         
-        while not self.__hasUpDaisy():
+        while not self._hasUpDaisy():
             petalCoord = topEdgeCoords[index % 4]
             
             leftEdgeCoord = middleEdgeCoords[(index + 1) % 4]
