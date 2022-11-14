@@ -55,7 +55,7 @@ class CubeSolver():
         self._cube.rotateFace(facePosition, direction)
         self._solution.append((facePosition, direction))
         
-    def getDirections(self):
+    def getSolution(self):
         """ accessor for _solution field """
         
         return self._solution
