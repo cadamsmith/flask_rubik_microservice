@@ -373,7 +373,7 @@ class CubeSolver():
                     if color == downColor
                 )
                 
-                self._handleMatchedUpperLeftCandidateColor(facePosition)
+                self._handleMatchedUpperRightCandidateColor(facePosition)
                 continue
             
             # now look for the down color in all of the corner tiles of the top face
