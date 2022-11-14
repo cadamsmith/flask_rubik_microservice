@@ -26,23 +26,15 @@ class CubeSolver():
     def solve(self):
         """ produces a list of rotation directions to solve the cube """
         
+        # directions are not retained from previous solves
         self._clearDirections()
         
-        # if it already has a down cross, we're done
-        if self._hasDownCross():
-            return
-        
-        # make up daisy on cube
-        self.__transformToUpDaisy()
-        
-        # if it doesn't have an up daisy now, we've got a problem
-        assert (self._hasUpDaisy())
-        
-        # make down cross
-        self.__transformFromUpDaisyToDownCross()
+        # construct down cross
+        self._constructDownCross()
+        assert self._hasDownCross()
         
         # optimize directions, replacing redundant rotations
-        self.__optimizeDirections()
+        self._optimizeDirections()
     
     def _hasUpDaisy(self):
         """ determines whether the cube has a daisy centered on the up face """
@@ -119,9 +111,10 @@ class CubeSolver():
         
         return True
     
-    def __transformToUpDaisy(self):
-        """ makes a daisy centered on the up face of the cube """
+    def _constructUpDaisy(self):
+        """ makes an up daisy on the cube """
         
+        # if cube already has an up daisy, we're done
         if self._hasUpDaisy():
             return
         
@@ -202,11 +195,15 @@ class CubeSolver():
                     
             index += 1
     
-    def __transformFromUpDaisyToDownCross(self):
-        """ makes a down cross for the cube if it already has an up daisy """
+    def _constructDownCross(self):
+        """ makes a down cross on the cube """
         
+        # if cube already has a down cross, we're done
         if self._hasDownCross():
             return
+        
+        # have to construct up daisy first
+        self._constructUpDaisy()
         
         flippedPetalCount = 0
         
@@ -254,7 +251,7 @@ class CubeSolver():
             i = (i + 1) % 4
             facePosition = facePositions[i]
     
-    def __optimizeDirections(self):
+    def _optimizeDirections(self):
         """ optimizes directions, removing redundancy """
         
         if len(self._directions) < 2:
