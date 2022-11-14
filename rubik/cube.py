@@ -1,11 +1,13 @@
 
 import itertools
+
 from rubik.cubeColor import CubeColor
 from rubik.cubelet import Cubelet
 from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 from rubik.cubeRotationDirection import CubeRotationDirection
+from rubik.faceCubeletPosition import FaceCubeletPosition
 
 class Cube:
     """Represents a 3x3x3 Rubik's cube"""
@@ -62,7 +64,7 @@ class Cube:
     """ how many cubelets total make up the cube """
     VOLUME = WIDTH ** DIM
     
-    """coordinates of all of the center cubelets in each cube face"""
+    """ coordinates of all of the center cubelets in each cube face """
     FACE_CENTER_CUBELET_COORDS = {
         CubeFacePosition.FRONT: (1, 1, 0),
         CubeFacePosition.BACK: (1, 1, 2),
@@ -71,12 +73,44 @@ class Cube:
         CubeFacePosition.UP: (1, 0, 1),
         CubeFacePosition.DOWN: (1, 2, 1)
     }
+    
+    """ corner coords of the vertical faces, useful for CubeSolver algorithms """
+    VERTICAL_FACE_CORNER_COORDS = {
+        CubeFacePosition.FRONT: {
+            FaceCubeletPosition.UP_LEFT: (0, 0, 0),
+            FaceCubeletPosition.UP_RIGHT: (2, 0, 0),
+            FaceCubeletPosition.DOWN_LEFT: (0, 2, 0),
+            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 0)
+        },
+        CubeFacePosition.LEFT: {
+            FaceCubeletPosition.UP_LEFT: (0, 0, 2),
+            FaceCubeletPosition.UP_RIGHT: (0, 0, 0),
+            FaceCubeletPosition.DOWN_LEFT: (0, 2, 2),
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 0)
+        },
+        CubeFacePosition.BACK: {
+            FaceCubeletPosition.UP_LEFT: (2, 0, 2),
+            FaceCubeletPosition.UP_RIGHT: (0, 0, 2),
+            FaceCubeletPosition.DOWN_LEFT: (2, 2, 2),
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2)
+        },
+        CubeFacePosition.RIGHT: {
+            FaceCubeletPosition.UP_LEFT: (2, 0, 0),
+            FaceCubeletPosition.UP_RIGHT: (2, 0, 2),
+            FaceCubeletPosition.DOWN_LEFT: (2, 2, 0),
+            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 2)
+        }
+    }
 
-    def __init__(self, cubeCode: CubeCode):
+    def __init__(self, cubeCode: str | CubeCode):
         """initializes the cube from a cube code representing the initial state"""
         
-        assert (isinstance(cubeCode, CubeCode))
-               
+        assert isinstance(cubeCode, (str, CubeCode))
+        
+        # if supplied a string, turn it into a CubeCode
+        if isinstance(cubeCode, str):
+            cubeCode = CubeCode(cubeCode)
+        
         for i, j, k in itertools.product(*[range(self.WIDTH)] * self.DIM):
             self.cubelets[i, j, k] = Cubelet()
         
@@ -200,6 +234,16 @@ class Cube:
         
         return coordTransform(x, y, z)
     
+    def getFaceColor(self, facePosition: CubeFacePosition) -> CubeColor:
+        """ get the color of a cube face, i.e. the color of the center tile on that face """
+        
+        assert isinstance(facePosition, CubeFacePosition)
+        
+        centerCoord = self.FACE_CENTER_CUBELET_COORDS[facePosition]
+        faceColor = self.cubelets[centerCoord].faces[facePosition]
+        
+        return faceColor
+    
     def toCode(self):
         """Serializes the cube into a cube code"""
         
@@ -210,4 +254,5 @@ class Cube:
                 color = self.cubelets[coords].faces[facePosition]
                 codeText += color.value
                 
-        return CubeCode(codeText)            
+        cubeCode = CubeCode(codeText)
+        return cubeCode.text

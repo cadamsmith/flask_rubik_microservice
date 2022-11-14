@@ -1,6 +1,7 @@
 
 import re
 from unittest import TestCase
+
 import rubik.solve as solve
 
 class SolveTest(TestCase):
@@ -33,7 +34,7 @@ class SolveTest(TestCase):
         isInvalid = bool(re.search('[^FfBbLlRrUuDd]', result['rotations']))
         self.assertFalse(isInvalid)
         
-    # an already solved cube should give no solve directions
+    # an already solved cube should yield no rotations to solve down cross
     def test_solve_10030_ASolvedCubeShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
@@ -44,12 +45,12 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
-    # a cube with a bottom cross should give no solve directions
-    def test_solve_10031_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
+    # a cube with a down cross should yield no rotations to solve down cross
+    def test_solve_10031_ACubeWithSolveDownLayerShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
             'op': 'solve',
-            'cube': 'bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy'
+            'cube': 'brrrbrbbbgbogrorrrbgoygggggyyyooyooogyybyorbywwwwwwwww'
         })
         
         self.assertIn('rotations', result)
@@ -63,7 +64,7 @@ class SolveTest(TestCase):
             'cube': 'wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'
         })
         
-        expected = 'uRRULLBBUFF'
+        expected = 'uRRULLBBUFFBUbbuuBUbuBluuLfuFUUluuLUluL'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -76,7 +77,7 @@ class SolveTest(TestCase):
             'cube': 'wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb'
         })
         
-        expected = 'FFUURRULLBB'
+        expected = 'FFUURRULLBBFUfuRUruLUlUruR'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -89,7 +90,7 @@ class SolveTest(TestCase):
             'cube': 'ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg'
         })
         
-        expected = 'FFLLBBRR'
+        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluL'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -102,7 +103,7 @@ class SolveTest(TestCase):
             'cube': 'owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo'
         })
         
-        expected = 'FFlRuuFUluRRULLBBUFF'
+        expected = 'FFlRuuFUluRRULLBBUFFbuuBufuFbuuBluLuruRLUl'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -115,7 +116,7 @@ class SolveTest(TestCase):
             'cube': 'yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb'
         })
         
-        expected = 'FLLuLLBBUBuRRFFLLBB'
+        expected = 'FLLuLLBBUBuRRFFLLBBUUFUfUBUb'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -128,7 +129,7 @@ class SolveTest(TestCase):
             'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
         })
         
-        expected = 'FlbRuRRUfuRRUUBBUULLUUFF'
+        expected = 'FlbRuRRUfuRRUUBBUULLUUFFUUluuLfuFUUFUfuubuB'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)

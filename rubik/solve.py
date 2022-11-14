@@ -1,5 +1,4 @@
 
-from rubik.cube import Cube
 from rubik.cubeSolver import CubeSolver
 from rubik.cubeCode import CubeCode
 from rubik.faceRotationDirection import FaceRotationDirection
@@ -14,17 +13,17 @@ def _solve(params):
     if 'cube' not in params:
         return __missingCubeError__()
     
-    cubeCodeText = params['cube']
+    cube = params['cube']
     
     # validate that 'cube' param conforms to spec
-    if not CubeCode.isValid(cubeCodeText):
+    if not CubeCode.isValid(cube):
         return __invalidCubeError__()
     
     # solve the cube, i.e. obtain rotations to solve it
-    solver = CubeSolver(
-        Cube(CubeCode(cubeCodeText))
-    )
-    rotations = solver.solve()
+    solver = CubeSolver(cube)
+    
+    solver.solve()
+    rotations = solver.getSolution()
     
     # loop thru rotations and convert them to rotation codes
     rotationCodes = ''

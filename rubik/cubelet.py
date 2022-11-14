@@ -31,7 +31,7 @@ class Cubelet:
         assert (isinstance(color, CubeColor))
         
         self.faces[facePosition] = color
-        
+    
     def rotate(self, direction: CubeRotationDirection):
         """ rotates the cubelet in some direction """
         
@@ -50,7 +50,7 @@ class Cubelet:
             self.__spinLeftward__()
         elif direction is CubeRotationDirection.SPIN_RIGHTWARD:
             self.__spinRightward__()
-        
+    
     def __flipForward__(self):
         """ flips the cubelet forward """
         

@@ -1,4 +1,6 @@
+
 from unittest import TestCase
+
 import rubik.rotate as rotate
 
 class RotateTest(TestCase):

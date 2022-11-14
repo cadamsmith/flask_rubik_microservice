@@ -1,5 +1,6 @@
 
 from unittest import TestCase
+
 from rubik.cubeColor import CubeColor
 
 class CubeColorTest(TestCase):

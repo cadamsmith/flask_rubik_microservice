@@ -15,10 +15,10 @@ def _rotate(params):
     if 'cube' not in params:
         return __missingCubeError__()
     
-    cubeCodeText = params['cube']
+    cubeCode = params['cube']
     
     # validate that 'cube' param
-    if not CubeCode.isValid(cubeCodeText):
+    if not CubeCode.isValid(cubeCode):
         return __invalidCubeError__()
     
     # by default, rotation taken to be front clockwise
@@ -42,7 +42,7 @@ def _rotate(params):
                 return __invalidDirError__()
             
     # build initial cube
-    cube = Cube(CubeCode(cubeCodeText))
+    cube = Cube(cubeCode)
     
     # loop thru each rotation code
     for rotationCode in rotationCodes:
@@ -61,7 +61,7 @@ def _rotate(params):
     
     # return final cube code
     result = {
-        'cube': cube.toCode().text,
+        'cube': cube.toCode(),
         'status': 'ok'
     }
     
