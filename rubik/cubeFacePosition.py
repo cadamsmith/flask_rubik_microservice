@@ -19,7 +19,7 @@ class CubeFacePosition(Enum):
         return value in cls._value2member_map_
     
     @classmethod
-    def rotate(cls, facePosition: cls, direction: CubeRotationDirection) -> cls:
+    def rotate(cls, facePosition, direction: CubeRotationDirection):
         """ returns the new face position if the cube were rotated """
         
         assert (isinstance(direction, CubeRotationDirection))
@@ -43,7 +43,7 @@ class CubeFacePosition(Enum):
             return cls.__spinRightward__(facePosition)
     
     @classmethod
-    def _flipFrontward(cls, facePosition: cls) -> cls:
+    def _flipFrontward(cls, facePosition):
         """ returns the new face position if it were flipped forward """
         
         transform = {
@@ -61,7 +61,7 @@ class CubeFacePosition(Enum):
         return transform[facePosition]
     
     @classmethod
-    def _flipBackward(cls, facePosition: cls) -> cls:
+    def _flipBackward(cls, facePosition):
         """ returns the new face position if it were flipped backward """
         
         transform = {
@@ -79,7 +79,7 @@ class CubeFacePosition(Enum):
         return transform[facePosition]
     
     @classmethod
-    def _flipLeftward(cls, facePosition: cls) -> cls:
+    def _flipLeftward(cls, facePosition):
         """ returns the new face position if it were flipped leftward """
         
         transform = {
@@ -97,7 +97,7 @@ class CubeFacePosition(Enum):
         return transform[facePosition]
     
     @classmethod
-    def _flipRightward(cls, facePosition: cls) -> cls:
+    def _flipRightward(cls, facePosition):
         """ returns the new face position if it were flipped rightward """
         
         transform = {
@@ -115,7 +115,7 @@ class CubeFacePosition(Enum):
         return transform[facePosition]
     
     @classmethod
-    def _spinLeftward(cls, facePosition: cls) -> cls:
+    def _spinLeftward(cls, facePosition):
         """ returns the new face position if it were spun leftward """
         
         transform = {
@@ -133,7 +133,7 @@ class CubeFacePosition(Enum):
         return transform[facePosition]
     
     @classmethod
-    def _spinRightward(cls, facePosition: cls) -> cls:
+    def _spinRightward(cls, facePosition):
         """ returns the new face position if it were spun rightward """
         
         transform = {
