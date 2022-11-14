@@ -23,7 +23,7 @@ def _solve(params):
     solver = CubeSolver(cube)
     
     solver.solve()
-    rotations = solver._directions
+    rotations = solver._rotations
     
     # loop thru rotations and convert them to rotation codes
     rotationCodes = ''
