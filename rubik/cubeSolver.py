@@ -365,7 +365,7 @@ class CubeSolver():
                 for (facePosition, coord) in upperRightCandidateCoords.items()
             }
             
-            if any(color == downColor for color in upperRightCandidateColors.items()):
+            if any(color == downColor for (_, color) in upperRightCandidateColors.items()):
                 
                 facePosition = next(
                     facePosition for facePosition, color 
@@ -383,7 +383,7 @@ class CubeSolver():
                 for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
-            if any(color == downColor for color in topCornerCandidateColors.items()):
+            if any(color == downColor for (_, color) in topCornerCandidateColors.items()):
                 
                 facePosition = next(
                     facePosition for facePosition, color 
@@ -401,7 +401,7 @@ class CubeSolver():
                 for (facePosition, coord) in lowerLeftCandidateCoords.items()
             }
             
-            if any(color == downColor for color in lowerLeftCandidateColors.items()):
+            if any(color == downColor for (_, color) in lowerLeftCandidateColors.items()):
                 
                 facePosition = next(
                     facePosition for facePosition, color 
@@ -419,7 +419,7 @@ class CubeSolver():
                 for (facePosition, coord) in lowerRightCandidateCoords.items()
             }
             
-            if any(color == downColor for color in lowerRightCandidateColors.items()):
+            if any(color == downColor for (_, color) in lowerRightCandidateColors.items()):
                 
                 facePosition = next(
                     facePosition for facePosition, color
