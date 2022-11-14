@@ -1,9 +1,9 @@
 
 import itertools
 from unittest import TestCase
+
 from rubik.cube import Cube
 from rubik.cubelet import Cubelet
-from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 
