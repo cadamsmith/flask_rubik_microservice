@@ -1,5 +1,6 @@
 
 from unittest import TestCase
+
 from rubik.cubeFacePosition import CubeFacePosition
 
 class CubeFaceTest(TestCase):

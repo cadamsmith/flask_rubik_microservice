@@ -1,5 +1,6 @@
 
 from unittest import TestCase
+
 from rubik.cubeCode import CubeCode
 
 class CubeCodeTest(TestCase):

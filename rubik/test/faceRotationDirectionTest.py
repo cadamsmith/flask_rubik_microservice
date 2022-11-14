@@ -1,5 +1,6 @@
 
 from unittest import TestCase
+
 from rubik.faceRotationDirection import FaceRotationDirection
 
 class FaceRotationDirectionTest(TestCase):

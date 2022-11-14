@@ -1,4 +1,6 @@
+
 from unittest import TestCase
+
 import rubik.dispatch as dispatch 
 
 class DispatchTest(TestCase):

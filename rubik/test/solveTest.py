@@ -1,6 +1,7 @@
 
 import re
 from unittest import TestCase
+
 import rubik.solve as solve
 
 class SolveTest(TestCase):

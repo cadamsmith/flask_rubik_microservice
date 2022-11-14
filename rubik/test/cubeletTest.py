@@ -1,5 +1,6 @@
 
 from unittest import TestCase
+
 from rubik.cubelet import Cubelet
 from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition

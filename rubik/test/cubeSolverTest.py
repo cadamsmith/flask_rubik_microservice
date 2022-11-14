@@ -1,5 +1,6 @@
 
 from unittest import TestCase
+
 from rubik.cubeSolver import CubeSolver
 from rubik.cube import Cube
 from rubik.cubeCode import CubeCode
