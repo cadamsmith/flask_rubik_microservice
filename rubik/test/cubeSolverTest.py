@@ -337,18 +337,8 @@ class CubeSolverTest(TestCase):
         expected = []
         
         self.assertEqual(solver.getDirections(), expected)
-    
-    def test_cubeSolver_solve_10061_ACubeWithADownCrossAlreadyShouldYieldNoDirectionsToSolveDownLayer(self):
-        """ a cube with a down cross should give no solve directions """
         
-        solver = CubeSolver('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy')
-        solver.solve(CubeState.DOWN_LAYER_SOLVED)
-        
-        expected = []
-        
-        self.assertEqual(solver.getDirections(), expected)
-        
-    def test_cubeSolver_solve_10062_ACubeWithASolvedDownLayerShouldYieldNoDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_solve_10061_ACubeWithASolvedDownLayerShouldYieldNoDirectionsToSolveDownLayer(self):
         """ a cube with a solved down layer should give no solve directions """
         
         solver = CubeSolver('yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww')
