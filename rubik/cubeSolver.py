@@ -289,4 +289,6 @@ class CubeSolver():
         self._directions = newDirections
     
     def getDirections(self):
-        pass
+        """ accessor for _directions field """
+        
+        return self._directions
