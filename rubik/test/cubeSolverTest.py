@@ -266,3 +266,60 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver._directions, expected)
+    
+    # getDirections -- POSITIVE TESTS
+    
+    def test_cubeSolver_getDirections_10010_ShouldReturnValidDirections(self):
+        """ should return list of type (CubeFacePosition, FaceRotationDirection) """
+        
+        solver = CubeSolver(
+            Cube('gbogbobwowboyroyrygbrggrrwywwyyoygrwgowbyyorbrgbwwgrob')
+        )
+        solver.solve()
+        
+        directions = solver.getDirections()
+        
+        # make sure directions is a list
+        self.assertIsInstance(directions, list)
+        
+        for direction in directions:
+            # make sure each direction is a tuple
+            self.assertIsInstance(direction, tuple)
+            
+            # make sure each direction tuple has 2 items each
+            self.assertEqual(len(direction), 2)
+            
+            # make sure each direction is of type (CubeFacePosition, FaceRotationDirection)
+            (facePosition, rotationDirection) = direction
+            
+            self.assertIsInstance(facePosition, CubeFacePosition)
+            self.assertIsInstance(rotationDirection, FaceRotationDirection)
+    
+    def test_cubeSolver_getDirections_10020_ShouldBeEmptyIfCubeNeverSolved(self):
+        """ should return empty list if Cube.solve() never called """
+        
+        solver = CubeSolver(
+            Cube('grwgbwyrygbbbrwgoywwwoggbgwooyrooorbggrbyyowrryrbwybyo')
+        )
+        
+        directions = solver.getDirections()
+        
+        self.assertEqual(len(directions), 0)
+        
+    def test_cubeSolver_getDirections_10030_ShouldNotCarryOverDirectionsFromPreviousSolves(self):
+        """ each time solve is executed, the directions should be reset """
+        
+        solver = CubeSolver(
+            Cube('ogrybwryywogorbggbogbygwwgbrrwbooowbyoybybgrgwrrrwwyyo')
+        )
+        
+        # solve a cube fully
+        solver.solve()
+        # then solve it again (even though it's already solved)
+        solver.solve()
+        
+        # should yield no solve directions
+        directions = solver.getDirections()
+        
+        self.assertEqual(len(directions), 0)
+        

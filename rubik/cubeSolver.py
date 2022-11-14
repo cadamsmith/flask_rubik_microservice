@@ -287,3 +287,6 @@ class CubeSolver():
             (lastFace, lastDirection) = (face, direction)
             
         self._directions = newDirections
+    
+    def getDirections(self):
+        pass
