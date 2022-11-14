@@ -44,7 +44,7 @@ class CubeSolver():
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
         
-    def _rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+    def _addToSolution(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
         """ executes cube rotation and adds it to the solve directions """
         
         assert (isinstance(facePosition, CubeFacePosition))
@@ -216,14 +216,12 @@ class CubeSolver():
             while downColor in edgeCandidateColors:
                 
                 while petalColor == downColor:
-                    self._cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-                    self._solution.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
+                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
                     
                     petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                     
                 while petalColor != downColor:
-                    self._cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-                    self._solution.append((facePosition, FaceRotationDirection.CLOCKWISE))
+                    self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
                     
                     petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                     
@@ -245,14 +243,12 @@ class CubeSolver():
             if downColor in faceCandidateColors and faceCandidateColors[0] != downColor:
                 
                 while petalColor == downColor:
-                    self._cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-                    self._solution.append((CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE))
+                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
                     
                     petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
                 
                 while faceCandidateColors[0] != downColor:
-                    self._cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-                    self._solution.append((facePosition, FaceRotationDirection.CLOCKWISE))
+                    self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
                     
                     faceCandidateColors = list(map(
                         lambda coord : self._cube.cubelets[coord].faces[facePosition],
@@ -291,8 +287,7 @@ class CubeSolver():
             belowColor = self._cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
             
             while aboveColor != belowColor:
-                self._cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                self._solution.append((CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE))
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
                 
                 (aboveX, aboveY, aboveZ) = self._cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
                 (belowX, belowY, belowZ) = (aboveX, aboveY + 1, aboveZ)
@@ -303,11 +298,8 @@ class CubeSolver():
                 aboveColor = self._cube.cubelets[(aboveX, aboveY, aboveZ)].faces[facePosition]
                 belowColor = self._cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
                 
-            self._cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-            self._solution.append((facePosition, FaceRotationDirection.CLOCKWISE))
-            
-            self._cube.rotateFace(facePosition, FaceRotationDirection.CLOCKWISE)
-            self._solution.append((facePosition, FaceRotationDirection.CLOCKWISE))
+            self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
+            self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
             
             flippedPetalCount += 1
             
