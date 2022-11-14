@@ -90,7 +90,7 @@ class SolveTest(TestCase):
             'cube': 'ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg'
         })
         
-        expected = 'FFLLBBRR'
+        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluL'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
