@@ -1,5 +1,4 @@
 
-from rubik.cube import Cube
 from rubik.cubeSolver import CubeSolver
 from rubik.cubeCode import CubeCode
 from rubik.faceRotationDirection import FaceRotationDirection
