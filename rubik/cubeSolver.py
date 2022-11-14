@@ -146,7 +146,8 @@ class CubeSolver():
         for facePosition in otherFacePositionsToCheck:
             
             # center color
-            faceColor = self._cube.FACE_CENTER_CUBELET_COORDS[facePosition].faces[facePosition]
+            centerCoord = self._cube.FACE_CENTER_CUBELET_COORDS[facePosition]
+            faceColor = self._cube.cubelets[centerCoord].faces[facePosition]
             
             # determine whether all 3 lower colors are the same
             lowerColors = list(map(lambda coord : self._cube.cubelets[coord].faces[facePosition], lowerCoords))
