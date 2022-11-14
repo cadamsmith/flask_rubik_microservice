@@ -2,7 +2,6 @@
 from unittest import TestCase
 
 from rubik.cubeSolver import CubeSolver
-from rubik.cube import Cube
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 
@@ -13,8 +12,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
         """ supplying valid cube should instantiate cube solver """
         
-        cube = Cube('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
-        solver = CubeSolver(cube)
+        solver = CubeSolver('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         
         self.assertIsInstance(solver, CubeSolver)
     
@@ -37,9 +35,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10010_ASolvedCubeShouldYieldNoSolveDirections(self):
         """ an already solved cube should give no solve directions """
         
-        solver = CubeSolver(
-            Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
-        )
+        solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         solver.solve()
         
         expected = []
@@ -50,9 +46,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10020_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
         """ a cube with a bottom cross should give no solve directions """
         
-        solver = CubeSolver(
-            Cube('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy')
-        )
+        solver = CubeSolver('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy')
         solver.solve()
         
         expected = []
@@ -63,9 +57,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10030_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
         """ a cube with a top daisy should yield correct solve directions """
         
-        solver = CubeSolver(
-            Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
-        )
+        solver = CubeSolver('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
         solver.solve()
         
         expected = [
@@ -90,9 +82,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10031_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
         """ another cube with a top daisy should yield correct solve directions """
         
-        solver = CubeSolver(
-            Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
-        )
+        solver = CubeSolver('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
         solver.solve()
         
         expected = [
@@ -117,9 +107,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10032_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
         """ yet another cube with a top daisy should yield correct solve directions """
         
-        solver = CubeSolver(
-            Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
-        )
+        solver = CubeSolver('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
         solver.solve()
         
         expected = [
@@ -141,9 +129,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         """ a cube without a top daisy should yield correct solve directions """
         
-        solver = CubeSolver(
-            Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
-        )
+        solver = CubeSolver('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
         solver.solve()
         
         expected = [
@@ -183,9 +169,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10041_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         """ another cube without a top daisy should yield correct solve directions """
         
-        solver = CubeSolver(
-            Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
-        )
+        solver = CubeSolver('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
         solver.solve()
         
         expected = [
@@ -223,9 +207,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_solve_10042_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         """ yet another cube without a top daisy should yield correct solve directions """
         
-        solver = CubeSolver(
-            Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
-        )
+        solver = CubeSolver('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
         solver.solve()
         
         expected = [
@@ -272,9 +254,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_getDirections_10010_ShouldReturnValidDirections(self):
         """ should return list of type (CubeFacePosition, FaceRotationDirection) """
         
-        solver = CubeSolver(
-            Cube('gbogbobwowboyroyrygbrggrrwywwyyoygrwgowbyyorbrgbwwgrob')
-        )
+        solver = CubeSolver('gbogbobwowboyroyrygbrggrrwywwyyoygrwgowbyyorbrgbwwgrob')
         solver.solve()
         
         directions = solver.getDirections()
@@ -298,9 +278,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_getDirections_10020_ShouldBeEmptyIfCubeNeverSolved(self):
         """ should return empty list if Cube.solve() never called """
         
-        solver = CubeSolver(
-            Cube('grwgbwyrygbbbrwgoywwwoggbgwooyrooorbggrbyyowrryrbwybyo')
-        )
+        solver = CubeSolver('grwgbwyrygbbbrwgoywwwoggbgwooyrooorbggrbyyowrryrbwybyo')
         
         directions = solver.getDirections()
         
@@ -309,9 +287,7 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_getDirections_10030_ShouldNotCarryOverDirectionsFromPreviousSolves(self):
         """ each time solve is executed, the directions should be reset """
         
-        solver = CubeSolver(
-            Cube('ogrybwryywogorbggbogbygwwgbrrwbooowbyoybybgrgwrrrwwyyo')
-        )
+        solver = CubeSolver('ogrybwryywogorbggbogbygwwgbrrwbooowbyoybybgrgwrrrwwyyo')
         
         # solve a cube fully
         solver.solve()
