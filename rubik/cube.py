@@ -7,6 +7,7 @@ from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 from rubik.cubeRotationDirection import CubeRotationDirection
+from rubik.faceCubeletPosition import FaceCubeletPosition
 
 class Cube:
     """Represents a 3x3x3 Rubik's cube"""
@@ -63,7 +64,7 @@ class Cube:
     """ how many cubelets total make up the cube """
     VOLUME = WIDTH ** DIM
     
-    """coordinates of all of the center cubelets in each cube face"""
+    """ coordinates of all of the center cubelets in each cube face """
     FACE_CENTER_CUBELET_COORDS = {
         CubeFacePosition.FRONT: (1, 1, 0),
         CubeFacePosition.BACK: (1, 1, 2),
@@ -71,6 +72,34 @@ class Cube:
         CubeFacePosition.RIGHT: (2, 1, 1),
         CubeFacePosition.UP: (1, 0, 1),
         CubeFacePosition.DOWN: (1, 2, 1)
+    }
+    
+    """ corner coords of the vertical faces, useful for CubeSolver algorithms """
+    VERTICAL_FACE_CORNER_COORDS = {
+        CubeFacePosition.FRONT: {
+            FaceCubeletPosition.UP_LEFT: (0, 0, 0),
+            FaceCubeletPosition.UP_RIGHT: (2, 0, 0),
+            FaceCubeletPosition.DOWN_LEFT: (0, 2, 0),
+            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 0)
+        },
+        CubeFacePosition.LEFT: {
+            FaceCubeletPosition.UP_LEFT: (0, 0, 2),
+            FaceCubeletPosition.UP_RIGHT: (0, 0, 0),
+            FaceCubeletPosition.DOWN_LEFT: (0, 2, 2),
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 0)
+        },
+        CubeFacePosition.BACK: {
+            FaceCubeletPosition.UP_LEFT: (0, 0, 0),
+            FaceCubeletPosition.UP_RIGHT: (2, 0, 0),
+            FaceCubeletPosition.DOWN_LEFT: (0, 2, 0),
+            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 0)
+        },
+        CubeFacePosition.RIGHT: {
+            FaceCubeletPosition.UP_LEFT: (2, 0, 2),
+            FaceCubeletPosition.UP_RIGHT: (0, 0, 2),
+            FaceCubeletPosition.DOWN_LEFT: (2, 2, 2),
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2)
+        }
     }
 
     def __init__(self, cubeCode: str | CubeCode):
