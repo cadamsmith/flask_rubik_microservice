@@ -26,7 +26,7 @@ class CubeSolver():
         self._solution = []
         self._cube = cube
         
-    def solve(self, state: CubeState = CubeState.DOWN_CROSS):
+    def solve(self, state: CubeState = CubeState.DOWN_LAYER_SOLVED):
         """ produces a list of rotation directions to reach a certain cube state """
         
         assert isinstance(state, CubeState)

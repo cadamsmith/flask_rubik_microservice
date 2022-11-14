@@ -34,7 +34,7 @@ class SolveTest(TestCase):
         isInvalid = bool(re.search('[^FfBbLlRrUuDd]', result['rotations']))
         self.assertFalse(isInvalid)
         
-    # an already solved cube should give no solve directions
+    # an already solved cube should yield no rotations to solve down cross
     def test_solve_10030_ASolvedCubeShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
@@ -45,7 +45,7 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
-    # a cube with a bottom cross should give no solve directions
+    # a cube with a down cross should yield no rotations to solve down cross
     def test_solve_10031_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
