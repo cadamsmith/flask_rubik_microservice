@@ -391,7 +391,7 @@ class CubeSolver():
                     if color == downColor
                 )
                 
-                self._handleMatchedTopCornerCandidateColor()
+                self._handleMatchedTopCornerCandidateColor(facePosition)
                 continue
             
             # now look for the down color in the lower left tile of all the side faces
@@ -409,7 +409,7 @@ class CubeSolver():
                     if color == downColor
                 )
                 
-                self._handleMatchedLowerLeftCandidateColor()
+                self._handleMatchedLowerLeftCandidateColor(facePosition)
                 continue
             
             # now look for the down color in the lower right tile of all the side faces
@@ -427,7 +427,7 @@ class CubeSolver():
                     if color == downColor
                 )
                 
-                self._handleMatchedLowerRightCandidateColor()
+                self._handleMatchedLowerRightCandidateColor(facePosition)
                 continue
             
     def _handleMatchedUpperLeftCandidateColor(self, facePosition: CubeFacePosition):
