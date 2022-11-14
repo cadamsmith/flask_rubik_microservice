@@ -43,6 +43,20 @@ class CubeSolver():
         
         # optimize directions, replacing redundant rotations
         self._optimizeDirections()
+        
+    def _rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+        """ executes cube rotation and adds it to the solve directions """
+        
+        assert (isinstance(facePosition, CubeFacePosition))
+        assert (isinstance(direction, FaceRotationDirection))
+        
+        self._cube.rotateFace(facePosition, direction)
+        self.directions.add((facePosition, direction))
+        
+    def getDirections(self):
+        """ accessor for _directions field """
+        
+        return self._directions
     
     def _hasUpDaisy(self):
         """ determines whether the cube has a daisy centered on the up face """
@@ -355,11 +369,6 @@ class CubeSolver():
             (lastFace, lastDirection) = (face, direction)
             
         self._directions = newDirections
-    
-    def getDirections(self):
-        """ accessor for _directions field """
-        
-        return self._directions
     
     def _clearDirections(self):
         """ resets solve directions """
