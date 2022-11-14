@@ -10,15 +10,15 @@ class CubeSolver():
     def __init__(self, cube: str | CubeCode | Cube):
         """ instantiates a CubeSolver, supplied only a Cube """
         
-        assert isinstance(cube, (str, CubeCode, Cube))
-        
-        # if supplied a string, turn it into a CubeCode
+        # if param is a string, turn it into a CubeCode
         if isinstance(cube, str):
             cube = CubeCode(cube)
-            
-        # if supplied a CubeCode, turn it into a Cube
+        
+        # if param is a CubeCode, turn it into a Cube
         if isinstance(cube, CubeCode):
             cube = Cube(cube)
+        
+        assert isinstance(cube, Cube)
         
         self._directions = []
         self._cube = cube
@@ -26,7 +26,7 @@ class CubeSolver():
     def solve(self):
         """ produces a list of rotation directions to solve the cube """
         
-        self._directions = []
+        self._clearDirections()
         
         # if it already has a down cross, we're done
         if self._hasDownCross():
@@ -301,3 +301,8 @@ class CubeSolver():
         """ accessor for _directions field """
         
         return self._directions
+    
+    def _clearDirections(self):
+        """ resets solve directions """
+        
+        self._directions.clear()
