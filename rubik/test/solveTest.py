@@ -46,11 +46,11 @@ class SolveTest(TestCase):
         self.assertEqual(result['rotations'], '')
     
     # a cube with a down cross should yield no rotations to solve down cross
-    def test_solve_10031_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
+    def test_solve_10031_ACubeWithSolveDownLayerShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
             'op': 'solve',
-            'cube': 'bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy'
+            'cube': 'brrrbrbbbgbogrorrrbgoygggggyyyooyooogyybyorbywwwwwwwww'
         })
         
         self.assertIn('rotations', result)
