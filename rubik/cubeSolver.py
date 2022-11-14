@@ -477,7 +477,7 @@ class CubeSolver():
             relRightFaceColor = self._cube.getFaceColor(relRightFacePosition)
             
             # the coordinate adjacent to the matched coord, across the vertical edge
-            adjacentCoord = self._cube.VERTICAL_FACE_CORNER_COORDS[relRightFacePosition][FaceCubeletPosition.UP_RIGHT]
+            adjacentCoord = self._cube.VERTICAL_FACE_CORNER_COORDS[relRightFacePosition][FaceCubeletPosition.UP_LEFT]
             adjacentColor = self._cube.cubelets[adjacentCoord].faces[relRightFacePosition]
             
             if adjacentColor == relRightFaceColor:
