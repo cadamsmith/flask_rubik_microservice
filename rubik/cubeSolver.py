@@ -342,7 +342,7 @@ class CubeSolver():
             
             upperLeftCandidateColors = {
                 facePosition: self._cube.cubelets[coord].faces[facePosition]
-                for (facePosition, coord) in upperLeftCandidateCoords
+                for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
             if any(color == downColor for (_, color) in upperLeftCandidateColors):
@@ -360,7 +360,7 @@ class CubeSolver():
             
             upperRightCandidateColors = {
                 facePosition: self._cube.cubelets[coord].faces[facePosition]
-                for (facePosition, coord) in upperRightCandidateCoords
+                for (facePosition, coord) in upperRightCandidateCoords.items()
             }
             
             if any(color == downColor for color in upperRightCandidateColors):
@@ -378,7 +378,7 @@ class CubeSolver():
             
             topCornerCandidateColors = {
                 facePosition: self._cube.cubelets[coord].faces[CubeFacePosition.UP]
-                for (facePosition, coord) in upperLeftCandidateCoords
+                for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
             if any(color == downColor for color in topCornerCandidateColors):
@@ -396,7 +396,7 @@ class CubeSolver():
             
             lowerLeftCandidateColors = {
                 facePosition: self._cube.cubelets[coord].faces[facePosition]
-                for (facePosition, coord) in lowerLeftCandidateCoords
+                for (facePosition, coord) in lowerLeftCandidateCoords.items()
             }
             
             if any(color == downColor for color in lowerLeftCandidateColors):
@@ -414,7 +414,7 @@ class CubeSolver():
             
             lowerRightCandidateColors = {
                 facePosition: self._cube.cubelets[coord].faces[facePosition]
-                for (facePosition, coord) in lowerRightCandidateCoords
+                for (facePosition, coord) in lowerRightCandidateCoords.items()
             }
             
             if any(color == downColor for color in lowerRightCandidateColors):
