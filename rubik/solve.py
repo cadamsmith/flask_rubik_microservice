@@ -26,7 +26,7 @@ def _solve(params):
     )
     
     solver.solve()
-    rotations = solver.directions
+    rotations = solver._directions
     
     # loop thru rotations and convert them to rotation codes
     rotationCodes = ''
