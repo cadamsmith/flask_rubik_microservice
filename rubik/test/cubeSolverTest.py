@@ -9,37 +9,37 @@ from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeSolverTest(TestCase):
     
-    # init - POSITIVE TESTS
+    # CubeSolver.__init__ -- POSITIVE TESTS
     
-    # supplying valid cube should instantiate cube solver
     def test_cubeSolver_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
+        """ supplying valid cube should instantiate cube solver """
         
-        cube = Cube(CubeCode('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg'))
+        cube = Cube('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         solver = CubeSolver(cube)
         
         self.assertIsInstance(solver, CubeSolver)
     
-    # init - NEGATIVE TESTS
+    # CubeSolver.__init__ -- NEGATIVE TESTS
     
-    # supplying no cube should throw exception
     def test_cubeSolver_init_20010_ShouldThrowExceptionForNonSuppliedCube(self):
+        """ supplying no cube should throw exception """
         
         with self.assertRaises(Exception):
             CubeSolver()
-            
-    # supplying cube of invalid type should throw exception
+    
     def test_cubeSolver_init_20020_ShouldTHrowExceptionForCubeOfInvalidType(self):
+        """ supplying cube of invalid type should throw exception """
         
         with self.assertRaises(Exception):
             CubeSolver('not a cube')
-            
-    # solve - POSITIVE TESTS
     
-    # an already solved cube should give no solve directions
+    # CubeSolver.solve -- POSITIVE TESTS
+    
     def test_cubeSolver_solve_10010_ASolvedCubeShouldYieldNoSolveDirections(self):
+        """ an already solved cube should give no solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'))
+            Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         )
         solver.solve()
         
@@ -48,11 +48,11 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(actual, expected)
     
-    # a cube with a bottom cross should give no solve directions
     def test_cubeSolver_solve_10020_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
+        """ a cube with a bottom cross should give no solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy'))
+            Cube('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy')
         )
         solver.solve()
         
@@ -61,11 +61,11 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(actual, expected)
     
-    # a cube with a top daisy should yield correct solve directions
     def test_cubeSolver_solve_10030_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ a cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'))
+            Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
         )
         solver.solve()
         
@@ -87,12 +87,12 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver._directions, expected)
-        
-    # another cube with a top daisy should yield correct solve directions
+    
     def test_cubeSolver_solve_10031_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ another cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb'))
+            Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
         )
         solver.solve()
         
@@ -114,12 +114,12 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver._directions, expected)
-        
-    # yet another cube with a top daisy should yield correct solve directions
+    
     def test_cubeSolver_solve_10032_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ yet another cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg'))
+            Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
         )
         solver.solve()
         
@@ -139,11 +139,11 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver._directions, expected)
     
-    # a cube without a top daisy should yield correct solve directions
     def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ a cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo'))
+            Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
         )
         solver.solve()
         
@@ -181,11 +181,11 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver._directions, expected)
     
-    # another cube without a top daisy should yield correct solve directions
     def test_cubeSolver_solve_10041_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ another cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb'))
+            Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
         )
         solver.solve()
         
@@ -220,12 +220,12 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver._directions, expected)
-        
-    # yet another cube without a top daisy should yield correct solve directions
+    
     def test_cubeSolver_solve_10042_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ yet another cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver(
-            Cube(CubeCode('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'))
+            Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
         )
         solver.solve()
         
