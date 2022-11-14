@@ -205,6 +205,16 @@ class Cube:
         
         return coordTransform(x, y, z)
     
+    def getFaceColor(self, facePosition: CubeFacePosition) -> CubeColor:
+        """ get the color of a cube face, i.e. the color of the center tile on that face """
+        
+        assert isinstance(facePosition, CubeFacePosition)
+        
+        centerCoord = self.FACE_CENTER_CUBELET_COORDS[facePosition]
+        faceColor = self.cubelets[centerCoord].faces[facePosition]
+        
+        return faceColor
+    
     def toCode(self):
         """Serializes the cube into a cube code"""
         
