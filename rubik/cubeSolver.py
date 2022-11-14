@@ -486,7 +486,7 @@ class CubeSolver():
             self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
             facePosition = relRightFacePosition
         
-        self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
+        self._trigger(facePosition, FaceRotationDirection.COUNTERCLOCKWISE)
     
     def _handleMatchedLowerLeftCandidateColor(self, facePosition: CubeFacePosition):
         
