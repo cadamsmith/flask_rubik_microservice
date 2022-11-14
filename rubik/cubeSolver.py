@@ -37,6 +37,9 @@ class CubeSolver():
             
         elif state is CubeState.DOWN_CROSS:
             self._constructDownCross()
+            
+        elif state is CubeState.DOWN_LAYER_SOLVED:
+            self._solveDownLayer()
         
         # optimize directions, replacing redundant rotations
         self._optimizeDirections()
@@ -97,7 +100,7 @@ class CubeSolver():
             if color != downColor:
                 return False
         
-        # need to check a pair of cubelet faces on all vertical side face positions of the Rubiks _cube
+        # need to check a pair of cubelet faces on all vertical side face positions of the cube
         otherFacesToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
         
         # go thru each face position
@@ -113,6 +116,49 @@ class CubeSolver():
             
             if faceColor != belowColor:
                 return False
+        
+        return True
+    
+    def _isDownLayerSolved(self):
+        """ determines whether the cube's down layer is solved """
+        
+        # center coordinate of down face
+        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
+        
+        # down color, i.e. the color of the plus sign of down cross
+        downColor = self._cube.cubelets[(centerX, centerY, centerZ)].faces[CubeFacePosition.DOWN]
+        
+        # check all colors on down face
+        for coord in self._cube.CUBELET_COORDS[CubeFacePosition.DOWN]:
+             
+            # determine whether each is the right color
+            color = self._cube.cubelets[coord].faces[CubeFacePosition.DOWN]
+            
+            if color != downColor:
+                return False
+        
+        # need to check more colors on each of the 4 vertical side face positions of the cube
+        otherFacePositionsToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
+        
+        # check that the center cubelet faces and lower cubelet faces are the same color
+        lowerCoords = [(0, 2, 0), (1, 2, 0), (2, 2, 0)]
+        
+        for facePosition in otherFacePositionsToCheck:
+            
+            # center color
+            faceColor = self._cube.FACE_CENTER_CUBELET_COORDS[facePosition].faces[facePosition]
+            
+            # determine whether all 3 lower colors are the same
+            lowerColors = list(map(lambda coord : self._cube.cubelets[coord].faces[facePosition], lowerCoords))
+            
+            if any(color != faceColor for color in lowerColors):
+                return False
+            
+            # get next 3 lower coords
+            lowerCoords = list(map(
+                lambda coord : self._cube.rotateCoord(coord, CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE),
+                lowerCoords
+            ))
         
         return True
     
@@ -255,6 +301,16 @@ class CubeSolver():
             
             i = (i + 1) % 4
             facePosition = facePositions[i]
+            
+    def _solveDownLayer(self):
+        """ solves down layer of cube """
+        
+        # if down layer already solved, we're done
+        if self._isDownLayerSolved():
+            return
+        
+        # have to construct down cross first
+        self._constructDownCross()
     
     def _optimizeDirections(self):
         """ optimizes directions, removing redundancy """
