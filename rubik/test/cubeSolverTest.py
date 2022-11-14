@@ -33,7 +33,7 @@ class CubeSolverTest(TestCase):
     
     # CubeSolver.solve -- POSITIVE TESTS
     
-    def test_cubeSolver_solve_10010_ASolvedCubeShouldYieldNoSolveDirections(self):
+    def test_cubeSolver_solve_10010_ASolvedCubeShouldYieldNoDirectionsToSolveDownCross(self):
         """ an already solved cube should give no solve directions """
         
         solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
@@ -53,7 +53,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
         
-    def test_cubeSolver_solve_10021_ACubeWithASolvedDownLayerShouldYieldNoSolveDirections(self):
+    def test_cubeSolver_solve_10021_ACubeWithASolvedDownLayerShouldYieldNoDirectionsToSolveDownCross(self):
         """ a cube with a solved down layer should give no solve directions """
         
         solver = CubeSolver('yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww')
@@ -63,7 +63,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10030_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_cubeSolver_solve_10030_ACubeWithTopDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ a cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
@@ -88,7 +88,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10031_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_cubeSolver_solve_10031_AnotherCubeWithTopDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ another cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
@@ -113,7 +113,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10032_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_cubeSolver_solve_10032_YetAnotherCubeWithTopDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
@@ -135,7 +135,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ a cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
@@ -175,7 +175,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10041_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_cubeSolver_solve_10041_AnotherCubeWithoutTopDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ another cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
@@ -213,7 +213,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getDirections(), expected)
     
-    def test_cubeSolver_solve_10042_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_cubeSolver_solve_10042_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
