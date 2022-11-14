@@ -438,6 +438,8 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        assert isinstance(facePosition, CubeFacePosition)
+        
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
         # loop until the matched coord is in the proper place
@@ -470,6 +472,8 @@ class CubeSolver():
         handles a color found on the upper right tile of vertical faces, 
         as part of the process for solving the down face
         """
+        
+        assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
@@ -504,6 +508,8 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        assert isinstance(facePosition, CubeFacePosition)
+        
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
         # the coordinate where the down color was found
@@ -523,6 +529,8 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        assert isinstance(facePosition, CubeFacePosition)
+        
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
         # the coordinate where the down color was found
@@ -541,6 +549,8 @@ class CubeSolver():
         handles a color found on one the corners of the up face,
         as part of the process for solving the down face
         """
+        
+        assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
