@@ -51,7 +51,7 @@ class CubeSolver():
         assert (isinstance(direction, FaceRotationDirection))
         
         self._cube.rotateFace(facePosition, direction)
-        self.directions.add((facePosition, direction))
+        self._solution.add((facePosition, direction))
         
     def getDirections(self):
         """ accessor for _solution field """
