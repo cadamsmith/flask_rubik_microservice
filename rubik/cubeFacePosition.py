@@ -25,22 +25,22 @@ class CubeFacePosition(Enum):
         assert (isinstance(direction, CubeRotationDirection))
         
         if direction is CubeRotationDirection.FLIP_FORWARD:
-            return cls.__flipForward__(facePosition)
+            return cls._flipForward_(facePosition)
         
         elif direction is CubeRotationDirection.FLIP_BACKWARD:
-            return cls.__flipBackward__(facePosition)
+            return cls._flipBackward(facePosition)
         
         elif direction is CubeRotationDirection.FLIP_LEFTWARD:
-            return cls.__flipLeftward__(facePosition)
+            return cls._flipLeftward(facePosition)
         
         elif direction is CubeRotationDirection.FLIP_RIGHTWARD:
-            return cls.__flipRightward__(facePosition)
+            return cls._flipRightward(facePosition)
         
         elif direction is CubeRotationDirection.SPIN_LEFTWARD:
-            return cls.__spinLeftward__(facePosition)
+            return cls._spinLeftward(facePosition)
         
         elif direction is CubeRotationDirection.SPIN_RIGHTWARD:
-            return cls.__spinRightward__(facePosition)
+            return cls._spinRightward(facePosition)
     
     @classmethod
     def _flipFrontward(cls, facePosition):
