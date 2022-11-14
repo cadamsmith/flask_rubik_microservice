@@ -386,7 +386,7 @@ class CubeSolverTest(TestCase):
             # solve down layer
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
             
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
