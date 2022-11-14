@@ -8,7 +8,7 @@ from rubik.faceCubeletPosition import FaceCubeletPosition
 from rubik.cubeRotationDirection import CubeRotationDirection
 
 class CubeSolver():
-    """ An entity capable of determining a solution for solving 3x3x3 Rubik's Cube """
+    """ An entity capable of determining a solution for solving a 3x3x3 Rubik's Cube """
     
     def __init__(self, cube: str | CubeCode | Cube):
         """ instantiates a CubeSolver, supplied only a Cube """
@@ -85,7 +85,7 @@ class CubeSolver():
             
             if color != downColor:
                 return False
-            
+        
         return True
     
     def _hasDownCross(self):
@@ -261,6 +261,7 @@ class CubeSolver():
         
         # have to construct up daisy first
         self._constructUpDaisy()
+        assert self._hasUpDaisy()
         
         flippedPetalCount = 0
         
@@ -313,6 +314,7 @@ class CubeSolver():
         
         # have to construct down cross first
         self._constructDownCross()
+        assert self._hasDownCross()
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
