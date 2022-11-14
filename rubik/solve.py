@@ -14,15 +14,15 @@ def _solve(params):
     if 'cube' not in params:
         return __missingCubeError__()
     
-    cubeCodeText = params['cube']
+    cubeCode = params['cube']
     
     # validate that 'cube' param conforms to spec
-    if not CubeCode.isValid(cubeCodeText):
+    if not CubeCode.isValid(cubeCode):
         return __invalidCubeError__()
     
     # solve the cube, i.e. obtain rotations to solve it
     solver = CubeSolver(
-        Cube(CubeCode(cubeCodeText))
+        Cube(cubeCode)
     )
     
     solver.solve()

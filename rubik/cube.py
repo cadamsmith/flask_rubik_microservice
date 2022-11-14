@@ -215,4 +215,5 @@ class Cube:
                 color = self.cubelets[coords].faces[facePosition]
                 codeText += color.value
                 
-        return CubeCode(codeText)            
+        cubeCode = CubeCode(codeText)
+        return cubeCode.text
