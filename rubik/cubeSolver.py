@@ -22,14 +22,14 @@ class CubeSolver():
         self.directions = []
         
         # if it already has a down cross, we're done
-        if self.__hasDownCross():
+        if self._hasDownCross():
             return
         
         # make up daisy on cube
         self.__transformToUpDaisy()
         
         # if it doesn't have an up daisy now, we've got a problem
-        assert (self.__hasUpDaisy())
+        assert (self._hasUpDaisy())
         
         # make down cross
         self.__transformFromUpDaisyToDownCross()
@@ -37,7 +37,7 @@ class CubeSolver():
         # optimize directions, replacing redundant rotations
         self.__optimizeDirections()
     
-    def __hasUpDaisy(self):
+    def _hasUpDaisy(self):
         """ determines whether the cube has a daisy centered on the up face """
         
         # center coordinate of up face
@@ -67,7 +67,7 @@ class CubeSolver():
             
         return True
     
-    def __hasDownCross(self):
+    def _hasDownCross(self):
         """ determines whether the cube has a cross centered on the down face """
         
         # center coordinate of down face
@@ -115,7 +115,7 @@ class CubeSolver():
     def __transformToUpDaisy(self):
         """ makes a daisy centered on the up face of the cube """
         
-        if self.__hasUpDaisy():
+        if self._hasUpDaisy():
             return
         
         downCenterCoord = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
@@ -198,7 +198,7 @@ class CubeSolver():
     def __transformFromUpDaisyToDownCross(self):
         """ makes a down cross for the cube if it already has an up daisy """
         
-        if self.__hasDownCross():
+        if self._hasDownCross():
             return
         
         flippedPetalCount = 0
@@ -289,4 +289,3 @@ class CubeSolver():
             (lastFace, lastDirection) = (face, direction)
             
         self.directions = newDirections
-        
