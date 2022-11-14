@@ -318,6 +318,8 @@ class CubeSolver():
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
+        # these are all of the places where the down corner pieces may show up
+        
         upperLeftCandidateCoords = {
             facePosition: self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
             for facePosition in self._cube.VERTICAL_FACE_CORNER_COORDS
@@ -431,6 +433,10 @@ class CubeSolver():
                 continue
             
     def _handleMatchedUpperLeftCandidateColor(self, facePosition: CubeFacePosition):
+        """
+        handles a color found on the upper left tile of vertical faces, 
+        as part of the process for solving the down face
+        """
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
@@ -460,6 +466,10 @@ class CubeSolver():
         self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
     
     def _handleMatchedUpperRightCandidateColor(self, facePosition: CubeFacePosition):
+        """
+        handles a color found on the upper right tile of vertical faces, 
+        as part of the process for solving the down face
+        """
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
@@ -489,6 +499,10 @@ class CubeSolver():
         self._trigger(facePosition, FaceRotationDirection.COUNTERCLOCKWISE)
     
     def _handleMatchedLowerLeftCandidateColor(self, facePosition: CubeFacePosition):
+        """
+        handles a color found on the lower left tile of vertical faces, 
+        as part of the process for solving the down face
+        """
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
@@ -504,6 +518,10 @@ class CubeSolver():
         self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
     
     def _handleMatchedLowerRightCandidateColor(self, facePosition: CubeFacePosition):
+        """
+        handles a color found on the lower right tile of vertical faces, 
+        as part of the process for solving the down face
+        """
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
@@ -519,6 +537,10 @@ class CubeSolver():
         self._trigger(relRightFacePosition, FaceRotationDirection.CLOCKWISE)
     
     def _handleMatchedTopCornerCandidateColor(self, facePosition: CubeFacePosition):
+        """
+        handles a color found on one the corners of the up face,
+        as part of the process for solving the down face
+        """
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
         
