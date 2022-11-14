@@ -3,6 +3,7 @@ from rubik.cube import Cube
 from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
+from rubik.cubeState import CubeState
 
 class CubeSolver():
     """ An entity capable of determining directions for solving 3x3x3 Rubik's Cube """
@@ -23,15 +24,19 @@ class CubeSolver():
         self._directions = []
         self._cube = cube
         
-    def solve(self):
-        """ produces a list of rotation directions to solve the cube """
+    def solve(self, state: CubeState = CubeState.DOWN_CROSS):
+        """ produces a list of rotation directions to reach a certain cube state """
+        
+        assert isinstance(state, CubeState)
         
         # directions are not retained from previous solves
         self._clearDirections()
         
-        # construct down cross
-        self._constructDownCross()
-        assert self._hasDownCross()
+        if state is CubeState.UP_DAISY:
+            self._constructUpDaisy()
+            
+        elif state is CubeState.DOWN_CROSS:
+            self._constructDownCross()
         
         # optimize directions, replacing redundant rotations
         self._optimizeDirections()

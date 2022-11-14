@@ -1,9 +1,10 @@
 
-from unittest import TestCase, skip
+from unittest import TestCase
 
 from rubik.cubeSolver import CubeSolver
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
+from rubik.cubeState import CubeState
 
 class CubeSolverTest(TestCase):
     
@@ -36,18 +37,17 @@ class CubeSolverTest(TestCase):
         """ an already solved cube should give no solve directions """
         
         solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = []
         
         self.assertEqual(solver.getDirections(), expected)
     
-    @skip
-    def test_cubeSolver_solve_10020_ACubeWithADownCrossAlreadyShouldYieldNoSolveDirections(self):
+    def test_cubeSolver_solve_10020_ACubeWithADownCrossAlreadyShouldYieldNoDirectionsToSolveDownCross(self):
         """ a cube with a down cross should give no solve directions """
         
         solver = CubeSolver('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = []
         
@@ -57,7 +57,7 @@ class CubeSolverTest(TestCase):
         """ a cube with a solved down layer should give no solve directions """
         
         solver = CubeSolver('yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = []
         
@@ -67,7 +67,7 @@ class CubeSolverTest(TestCase):
         """ a cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = [
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
@@ -92,7 +92,7 @@ class CubeSolverTest(TestCase):
         """ another cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = [
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
@@ -117,7 +117,7 @@ class CubeSolverTest(TestCase):
         """ yet another cube with a top daisy should yield correct solve directions """
         
         solver = CubeSolver('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = [
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
@@ -139,7 +139,7 @@ class CubeSolverTest(TestCase):
         """ a cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = [
             # make up daisy
@@ -179,7 +179,7 @@ class CubeSolverTest(TestCase):
         """ another cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = [
             # make up daisy
@@ -217,7 +217,7 @@ class CubeSolverTest(TestCase):
         """ yet another cube without a top daisy should yield correct solve directions """
         
         solver = CubeSolver('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         expected = [
             # make up daisy
@@ -264,7 +264,7 @@ class CubeSolverTest(TestCase):
         """ should return list of type (CubeFacePosition, FaceRotationDirection) """
         
         solver = CubeSolver('gbogbobwowboyroyrygbrggrrwywwyyoygrwgowbyyorbrgbwwgrob')
-        solver.solve()
+        solver.solve(CubeState.DOWN_CROSS)
         
         directions = solver.getDirections()
         
