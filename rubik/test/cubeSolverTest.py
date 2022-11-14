@@ -39,9 +39,8 @@ class CubeSolverTest(TestCase):
         solver.solve()
         
         expected = []
-        actual = solver._directions
         
-        self.assertEqual(actual, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10020_ACubeWithABottomCrossAlreadyShouldYieldNoSolveDirections(self):
         """ a cube with a bottom cross should give no solve directions """
@@ -50,9 +49,8 @@ class CubeSolverTest(TestCase):
         solver.solve()
         
         expected = []
-        actual = solver._directions
         
-        self.assertEqual(actual, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10030_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
         """ a cube with a top daisy should yield correct solve directions """
@@ -77,7 +75,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         ]
         
-        self.assertEqual(solver._directions, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10031_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
         """ another cube with a top daisy should yield correct solve directions """
@@ -102,7 +100,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         ]
         
-        self.assertEqual(solver._directions, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10032_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
         """ yet another cube with a top daisy should yield correct solve directions """
@@ -124,7 +122,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
         ]
         
-        self.assertEqual(solver._directions, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10040_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         """ a cube without a top daisy should yield correct solve directions """
@@ -164,7 +162,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         ]
         
-        self.assertEqual(solver._directions, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10041_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         """ another cube without a top daisy should yield correct solve directions """
@@ -202,7 +200,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         ]
         
-        self.assertEqual(solver._directions, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     def test_cubeSolver_solve_10042_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         """ yet another cube without a top daisy should yield correct solve directions """
@@ -247,7 +245,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         ]
         
-        self.assertEqual(solver._directions, expected)
+        self.assertEqual(solver.getDirections(), expected)
     
     # getDirections -- POSITIVE TESTS
     
