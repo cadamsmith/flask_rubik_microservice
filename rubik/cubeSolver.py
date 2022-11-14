@@ -527,15 +527,16 @@ class CubeSolver():
             
             # the coordinate where the down color was found
             matchedCoord = self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
-            matchedColor = self._cube.cubelets[matchedCoord].faces[facePosition]
+            matchedColor = self._cube.cubelets[matchedCoord].faces[CubeFacePosition.UP]
             
             assert matchedColor == downColor
             
             # the place where this matched color should go
             destCoord = self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.DOWN_LEFT]
+            destColor = self._cube.cubelets[destCoord].faces[CubeFacePosition.DOWN]
             
             # if destination is not down color, it is free to place our matched color here
-            if destCoord != downColor:
+            if destColor != downColor:
                 break
             
             self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
