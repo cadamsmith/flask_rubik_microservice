@@ -406,9 +406,9 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
             
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
         ]
         
         self.assertEqual(solver.getDirections(), expected)
