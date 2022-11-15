@@ -646,6 +646,58 @@ class CubeSolver():
         
         # need to solve down layer first
         self._solveDownLayer()
+        
+        # color of the up face
+        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
+        
+        # execute algorithm until down and middle layers are solved
+        while not self._isDownAndMiddleLayersSolved():
+            
+            # start with front face
+            facePosition = CubeFacePosition.FRONT
+            candidateCoord = (1, 0, 0)
+            
+            # find an up petal cubelet that does not include the up face's color
+            for _ in range(4):
+                
+                # the 2 colors we need to look at
+                candidateColor = self._cube.cubelets[candidateCoord].faces[CubeFacePosition.UP]
+                adjacentColor = self._cube.cubelets[candidateCoord].faces[facePosition]
+                
+                if candidateColor != upColor and adjacentColor != upColor:
+                    break
+                
+                # update our reference points
+                facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+                candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+            # spin up petal until its in the right place
+            for _ in range(4):
+                
+                # cube face relatively left from current reference position
+                relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+                relLeftFaceColor = self._cube.getFaceColor(relLeftFacePosition)
+                
+                adjacentColor = self._cube.cubelets[candidateCoord].faces[facePosition]
+                
+                if adjacentColor == relLeftFaceColor:
+                    break
+                
+                # spin cube and update reference points
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+                facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+                candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+            # cube is now in correct place to execute a left trigger
+            
+            relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+            triggerFacePosition = CubeFacePosition.rotate(relLeftFacePosition, CubeRotationDirection.SPIN_LEFTWARD)
+            
+            self._trigger(triggerFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
+            
+            # clean up down layer
+            self._solveDownLayer()
     
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
