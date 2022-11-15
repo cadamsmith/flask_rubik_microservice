@@ -671,16 +671,13 @@ class CubeSolver():
                 facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
                 candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
                 
-            # spin up petal until its in the right place
+            # spin up petal until the adjacent color and its face color match
             for _ in range(4):
                 
-                # cube face relatively left from current reference position
-                relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
-                relLeftFaceColor = self._cube.getFaceColor(relLeftFacePosition)
-                
                 adjacentColor = self._cube.cubelets[candidateCoord].faces[facePosition]
+                faceColor = self._cube.getFaceColor(facePosition)
                 
-                if adjacentColor == relLeftFaceColor:
+                if adjacentColor == faceColor:
                     break
                 
                 # spin cube and update reference points
@@ -688,13 +685,25 @@ class CubeSolver():
                 
                 facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
                 candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                
-            # cube is now in correct place to execute a left trigger
             
             relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
-            triggerFacePosition = CubeFacePosition.rotate(relLeftFacePosition, CubeRotationDirection.SPIN_LEFTWARD)
+            relRightFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
             
-            self._trigger(triggerFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
+            # either the left or right face has color same as the candidate color
+            relLeftFaceColor = self._cube.getFaceColor(relLeftFacePosition)
+            candidateColor = self._cube.cubelets[candidateCoord].faces[CubeFacePosition.UP]
+            
+            # this determines whether a left or right trigger will be executed
+            isLeft = (relLeftFaceColor == candidateColor)
+            
+            # rotate up face one more time, followed by a trigger
+            
+            if isLeft:
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
+                self._trigger(relRightFacePosition, FaceRotationDirection.CLOCKWISE)
+            else:
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
             
             # clean up down layer
             self._solveDownLayer()
