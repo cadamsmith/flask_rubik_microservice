@@ -720,6 +720,17 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
     
+    def test_cubeSolver_solve_10090_ShouldSolveDownAndMiddleLayersByDefault(self):
+        """ if no cube state supplied, should solve down and middle layers """
+        
+        firstSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg')
+        firstSolver.solve(CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        
+        secondSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg')
+        secondSolver.solve()
+        
+        self.assertEqual(firstSolver.getSolution(), secondSolver.getSolution())
+    
     # CubeSolver.getSolution -- POSITIVE TESTS
     
     def test_cubeSolver_getSolution_10010_ShouldReturnValidDirections(self):
