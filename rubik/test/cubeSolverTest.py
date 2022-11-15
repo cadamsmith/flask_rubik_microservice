@@ -719,7 +719,7 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver.getSolution(), expected)
-    
+        
     def test_cubeSolver_solve_10090_ShouldSolveDownAndMiddleLayersByDefault(self):
         """ if no cube state supplied, should solve down and middle layers """
         
@@ -730,6 +730,26 @@ class CubeSolverTest(TestCase):
         secondSolver.solve()
         
         self.assertEqual(firstSolver.getSolution(), secondSolver.getSolution())
+    
+    def test_cubeSolver_solve_10100_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayers(self):
+        """ a solved cube should give no rotations to solve down and middle layers """
+        
+        solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
+        solver.solve(CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        
+        expected = []
+        
+        self.assertEqual(solver.getSolution(), expected)
+        
+    def test_cubeSolver_solve_10101_ACubeWithSolvedDownAndMiddleLayersShouldYieldNoRotationsToSolveThoseTwoLayers(self):
+        """ a cube with solved down, mid layers should give no directions to solve down, mid layers """
+        
+        solver = CubeSolver('ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww')
+        solver.solve(CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        
+        expected = []
+        
+        self.assertEqual(solver.getSolution(), expected)
     
     # CubeSolver.getSolution -- POSITIVE TESTS
     
