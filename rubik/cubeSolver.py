@@ -43,6 +43,9 @@ class CubeSolver():
         elif state is CubeState.DOWN_LAYER_SOLVED:
             self._solveDownLayer()
         
+        elif state is CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED:
+            self._solveDownAndMiddleLayers()
+        
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
         
@@ -170,6 +173,38 @@ class CubeSolver():
                 lambda coord : self._cube.rotateCoord(coord, CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE),
                 lowerCoords
             ))
+        
+        return True
+    
+    def _isDownAndMiddleLayersSolved(self):
+        """ determines whether the cube's down and middle layers are solved """
+        
+        # first check whether down layer is solved
+        if not self._isDownLayerSolved():
+            return False
+        
+        # now need to check the remaining cubelets in the middle face
+        verticalFacePositions = [
+            CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT
+        ]
+        
+        # check that the all 3 middle layer cubelet face colors are the same for each vertical cube face
+        for facePosition in verticalFacePositions:
+            
+            # center color
+            faceColor = self._cube.getFaceColor(facePosition)
+            
+            # these are the cubelets to the left and right of the center cubelet
+            middleCoords = [
+                self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.LEFT],
+                self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.RIGHT]
+            ]
+            
+            # determine whether the 2 middle coords have same color as face
+            middleColors = list(map(lambda coord : self._cube.cubelets[coord].faces[facePosition], middleCoords))
+            
+            if any(color != faceColor for color in middleColors):
+                return False
         
         return True
     
@@ -601,6 +636,16 @@ class CubeSolver():
         )
         
         self._addToSolution(facePosition, oppositeDirection)
+        
+    def _solveDownAndMiddleLayers(self):
+        """ solves the down and middle layers of the cube """
+        
+        # if down and middle layers already solved, we are done
+        if self._isDownAndMiddleLayersSolved():
+            return
+        
+        # need to solve down layer first
+        self._solveDownLayer()
     
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
