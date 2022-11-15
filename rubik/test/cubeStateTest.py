@@ -7,9 +7,9 @@ class CubeStateTest(TestCase):
     
     # GENERAL TESTS
     
-    # there should be only 3 cube states
+    # there should be only 4 cube states
     def test_cubeState_00010_ShouldHaveExactlyThreeItems(self):
-        expected = 3
+        expected = 4
         actual = len(list(CubeState))
         
         self.assertEqual(expected, actual)
