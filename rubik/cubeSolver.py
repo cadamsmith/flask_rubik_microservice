@@ -720,17 +720,24 @@ class CubeSolver():
     def _fixMalformedMiddleLayer(self):
         """ an auxiliary method for solveDownAndMiddleLayers that fixes the state of the middle layer """
         
-        # these are all of the possible problem spots
+        # these are all of the possible problem spots, each on an edge between 2 cube faces
         possibleMalformedPositions = {
             facePosition: self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.LEFT]
             for facePosition in self._cube.VERTICAL_FACE_CORNER_COORDS
         }
         
         for (facePosition, coord) in possibleMalformedPositions.items():
-            color = self._cube.cubelets[coord].faces[facePosition]
+            rightColor = self._cube.cubelets[coord].faces[facePosition]
+            
+            relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+            leftColor = self._cube.cubelets[coord].faces[relLeftFacePosition]
+            
+            # determine whether the 2 cubelet faces are the same color as the cube faces they are on
+            isLeftInPlace = (leftColor == self._cube.getFaceColor(relLeftFacePosition))
+            isRightInPlace = (rightColor == self._cube.getFaceColor(facePosition))
             
             # if it's in the wrong place, fix by triggering it
-            if color != self._cube.getFaceColor(facePosition):
+            if not isLeftInPlace and not isRightInPlace:
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
     
