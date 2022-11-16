@@ -105,6 +105,7 @@ class Cube:
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 2),
             FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2),
             
+            FaceCubeletPosition.UP: (1, 0, 2),
             FaceCubeletPosition.LEFT: (2, 1, 2),
             FaceCubeletPosition.RIGHT: (0, 1, 2)
         },
@@ -114,6 +115,7 @@ class Cube:
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 0),
             FaceCubeletPosition.DOWN_RIGHT: (2, 2, 2),
             
+            FaceCubeletPosition.UP: (2, 0, 1),
             FaceCubeletPosition.LEFT: (2, 1, 0),
             FaceCubeletPosition.RIGHT: (2, 1, 2)
         }
