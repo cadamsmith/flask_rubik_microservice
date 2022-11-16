@@ -724,7 +724,7 @@ class CubeSolver():
             for facePosition in self._cube.VERTICAL_FACE_CORNER_COORDS
         }
         
-        for (facePosition, coord) in possibleMalformedPositions:
+        for (facePosition, coord) in possibleMalformedPositions.items():
             color = self._cube.cubelets[coord].faces[facePosition]
             
             # if it's in the wrong place, fix by triggering it
