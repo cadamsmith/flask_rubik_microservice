@@ -745,6 +745,42 @@ class CubeSolver():
             if not isLeftInPlace or not isRightInPlace:
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
+            
+    def _constructUpCross(self):
+        """ makes up cross on the cube, preserving the state of the bottom 2 layers """
+        
+        # need to solve down and middle layers first
+        self._solveDownAndMiddleLayers()
+        
+        # if up cross already present, then we are done
+        if self._hasUpCross():
+            return
+        
+    def _hasUpCross(self):
+        """ determines whether an up cross is present on the cube """
+        
+        # center coordinate of down face
+        (centerX, centerY, centerZ) = Cube.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.UP]
+        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
+        
+        # coordinates of each cubelet on petals of the cross
+        petalCoords = [
+            (centerX - 1, centerY, centerZ),
+            (centerX, centerY, centerZ - 1),
+            (centerX + 1, centerY, centerZ),
+            (centerX, centerY, centerZ + 1)
+        ]
+        
+        # check all petal cubelet coords
+        for coord in petalCoords:
+            
+            # determine whether its down face color is the cube's down color
+            color = self._cube.cubelets[coord].faces[CubeFacePosition.UP]
+            
+            if color != upColor:
+                return False
+        
+        return True
         
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
