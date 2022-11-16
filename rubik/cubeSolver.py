@@ -709,10 +709,10 @@ class CubeSolver():
             
             if isLeft:
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-                self._trigger(relLeftFacePosition, FaceRotationDirection.CLOCKWISE)
+                self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
             else:
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                self._trigger(relRightFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
+                self._trigger(relRightFacePosition, FaceRotationDirection.CLOCKWISE)
             
             # clean up down layer
             self._solveDownLayer()
