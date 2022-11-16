@@ -760,7 +760,7 @@ class CubeSolver():
                     optimizedSolution = optimizedSolution[:-1]
                     continue
             
-            if len(optimizedSolution > 1):
+            if len(optimizedSolution) > 1):
                 (lastFace, lastDirection) = optimizedSolution[-1]
                 (beforeLastFace, beforeLastDirection) = optimizedSolution[-2]
             
