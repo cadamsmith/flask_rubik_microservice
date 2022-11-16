@@ -1,7 +1,5 @@
 
 import re
-import hashlib
-
 from unittest import TestCase
 
 import rubik.solve as solve
