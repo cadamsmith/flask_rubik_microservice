@@ -679,10 +679,10 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
         
-    def test_cubeSolver_solve_10090_ShouldSolveDownAndMiddleLayersByDefault(self):
-        """ if no cube state supplied, should solve down and middle layers """
+    def test_cubeSolver_solve_10090_ShouldSolveDownAndMiddleLayersAndUpCrossByDefault(self):
+        """ if no cube state supplied, should solve down and middle layers and the up cross """
         
-        firstSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg', CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        firstSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg', CubeState.DOWN_MID_LAYERS_AND_UP_CROSS)
         
         secondSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg')
         
