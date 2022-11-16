@@ -771,6 +771,7 @@ class CubeSolver():
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
             
             # now we're ready for a FURurf!
+            self._executeFururf()
         
     def _hasUpCross(self):
         """ determines whether an up cross is present on the cube """
