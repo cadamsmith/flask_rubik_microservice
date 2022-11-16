@@ -729,6 +729,8 @@ class CubeSolver():
             for facePosition in self._cube.FACE_ORIENTATION_COORDS
         }
         
+        # first check for positions in which both cubelet faces are on the wrong face
+        
         for (facePosition, coord) in possibleMalformedPositions.items():
             rightColor = self._cube.cubelets[coord].faces[facePosition]
             
@@ -740,7 +742,7 @@ class CubeSolver():
             isRightInPlace = (rightColor == self._cube.getFaceColor(facePosition))
             
             # if it's in the wrong place, fix by triggering it
-            if not isLeftInPlace and not isRightInPlace:
+            if not isLeftInPlace or not isRightInPlace:
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
         
