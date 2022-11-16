@@ -48,6 +48,9 @@ class CubeSolver():
         
         elif state is CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED:
             self._solveDownAndMiddleLayers()
+            
+        elif state is CubeState.DOWN_MID_LAYERS_AND_UP_CROSS:
+            self._constructUpCross()
         
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
