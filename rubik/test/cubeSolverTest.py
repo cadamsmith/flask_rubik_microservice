@@ -821,6 +821,307 @@ class CubeSolverTest(TestCase):
     
     # CubeSolver.getSolution -- POSITIVE TESTS
     
+    def test_cubeSolver_solve_10210_ACubeWithDownCrossShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+        """ a cube with down cross should yield correct rotations to solve down and middle layers """
+        
+        solver = CubeSolver(
+            'rggbbggbyrrbrrygrboygbgyogbwywgooyooorwoybbowywrwwwrwy',
+            CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED
+        )
+        
+        expected = [
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
+        ]
+        
+        self.assertEqual(solver.getSolution(), expected)
+        
+    
+    def test_cubeSolver_solve_10220_ACubeWithUpDaisyShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+        """ a cube with down cross should yield correct rotations to solve down and middle layers """
+        
+        solver = CubeSolver(
+            'brogbbbowggryrgbrywoyrgroyorbwbooyorgwgwywowwyyrbwybgg',
+            CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED
+        )
+        
+        expected = [
+            # make down cross
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            # solve down layer
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            # solve down and middle layers
+            # ooyybbbbbbgyrryrrrggrggbggggyyooroooyoobyrbyrwwwwwwwww
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
+        ]
+        
+        self.assertEqual(solver.getSolution(), expected)
+        
+    def test_cubeSolver_solve_10230_AnUnsolvedCubeWithoutAnyProgressShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+        """ a cube with down cross should yield correct rotations to solve down and middle layers """
+        
+        solver = CubeSolver(
+            'rorwbrrgwwgrbrygwoyogoggbgyoywworbygywbbyobbgyrorwboyw',
+            CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED
+        )
+        
+        expected = [
+            # make up daisy
+            
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            # make down cross
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            # solve down layer
+            # gbybbggbbooryrrwrwwogbggbgbyyyroyyowrggryyoobowowwwrwr
+            
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            # solve middle and down layers
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
+        ]
+        
+        self.assertEqual(solver.getSolution(), expected)
+    
     def test_cubeSolver_getSolution_10010_ShouldReturnValidDirections(self):
         """ should return list of type (CubeFacePosition, FaceRotationDirection) """
         
