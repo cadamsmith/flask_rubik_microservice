@@ -781,7 +781,7 @@ class CubeSolver():
                     continue
             
             # else append solution step to optimized solution
-            optimizedSolution.append((face, replacementDirection))
+            optimizedSolution.append((face, direction))
             
         self._solution = optimizedSolution
     
