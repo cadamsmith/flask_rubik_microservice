@@ -46,15 +46,17 @@ class SolveTest(TestCase):
         self.assertEqual(result['rotations'], '')
     
     # a cube with a down cross should yield no rotations to solve down cross
-    def test_solve_10031_ACubeWithSolveDownLayerShouldYieldNoSolveDirections(self):
+    def test_solve_10031_ACubeWithSolvedDownLayerShouldYieldNoSolveDirections(self):
         
         result = solve._solve({
             'op': 'solve',
             'cube': 'brrrbrbbbgbogrorrrbgoygggggyyyooyooogyybyorbywwwwwwwww'
         })
         
+        expected = 'uufuFURUrUUFUfuluLUruRUBUb'
+        
         self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], '')
+        self.assertEqual(result['rotations'], expected)
         
     # a cube with a top daisy should yield correct solve directions
     def test_solve_10040_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
@@ -64,7 +66,7 @@ class SolveTest(TestCase):
             'cube': 'wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'
         })
         
-        expected = 'uRRULLBBUFFBUbbuuBUbuBluuLfuFUUluuLUluL'
+        expected = 'uRRULLBBUFFBUbbuuBUbuBluuLfuFUUluuLUluLUUFUfuluLURUrufuFruRUBUb'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -77,7 +79,7 @@ class SolveTest(TestCase):
             'cube': 'wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb'
         })
         
-        expected = 'FFUURRULLBBFUfuRUruLUlUruR'
+        expected = 'FFUURRULLBBFUfuRUruLUlUruRUfuFURUruuluLUFUfUruRUBUbubuBULUl'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -90,7 +92,7 @@ class SolveTest(TestCase):
             'cube': 'ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg'
         })
         
-        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluL'
+        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluLFUfuluLUruRUBUbUbuBULUlUURUrufuF'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -103,7 +105,7 @@ class SolveTest(TestCase):
             'cube': 'owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo'
         })
         
-        expected = 'FFlRuuFUluRRULLBBUFFbuuBufuFbuuBluLuruRLUl'
+        expected = 'FFlRuuFUluRRULLBBUFFbuuBufuFbuuBluLuruRLUluFUfuluLUBUburuRUULUlubuB'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -116,20 +118,20 @@ class SolveTest(TestCase):
             'cube': 'yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb'
         })
         
-        expected = 'FLLuLLBBUBuRRFFLLBBUUFUfUBUb'
+        expected = 'FLLuLLBBUBuRRFFLLBBUUFUfUBUbURUrufuFUUFUfuluLLUlubuBuLUlubuBBUburuRuBUburuR'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
         
     # yet another cube without a top daisy should yield correct solve directions
-    def test_solve_100512_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_solve_10052_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
         
         result = solve._solve({
             'op': 'solve',
             'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
         })
         
-        expected = 'FlbRuRRUfuRRUUBBUULLUUFFUUluuLfuFUUFUfuubuB'
+        expected = 'FlbRuRRUfuRRUUBBUULLUUFFUUluuLfuFUUFUfuubuBubuBULUlBUburuRUfuFURUruBUburuR'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
