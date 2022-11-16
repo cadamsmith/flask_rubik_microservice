@@ -353,10 +353,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             
-            # ggyrbyybbborrrbwrwwgorgobgogbybogyorwogyyyoyrgwowwwbwr
-            
             # solve down layer
-            
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
@@ -417,10 +414,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             
-            # wygrbyybwwgwbrorrrrooygrygrbrogoybogybbbyobgoowgwwwywg
-            
             # solve down layer
-            
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
@@ -462,10 +456,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             
-            # wbggbgwbbrygyryorryowogrbgooybgoogobgbrrybrrwowywwwywy
-            
             # solve down layer
-            
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
@@ -539,10 +530,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             
-            # bbroborboggygroyrggbrbggogbbyyroywowwroryyryygwbwwwoww
-            
             # solve down layer
-            
             (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
@@ -608,10 +596,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             
-            # gybybowbbrboyrbrrbwrgogooggoyrgoboogygbryrygyrwwwwwwwy
-            
             # solve down layer
-            
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
@@ -667,10 +652,7 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             
-            # ygybbygbogrrrrbbrrbbbrgoggrrobgoyyowyowyygoyoowwwwwgww
-            
             # solve down layer
-            
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
@@ -819,8 +801,6 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
     
-    # CubeSolver.getSolution -- POSITIVE TESTS
-    
     def test_cubeSolver_solve_10210_ACubeWithDownCrossShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with down cross should yield correct rotations to solve down and middle layers """
         
@@ -959,7 +939,6 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             
             # solve down and middle layers
-            # ooyybbbbbbgyrryrrrggrggbggggyyooroooyoobyrbyrwwwwwwwww
             
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
@@ -1036,7 +1015,6 @@ class CubeSolverTest(TestCase):
             (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
             
             # solve down layer
-            # gbybbggbbooryrrwrwwogbggbgbyyyroyyowrggryyoobowowwwrwr
             
             (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
@@ -1121,6 +1099,8 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver.getSolution(), expected)
+        
+    # CubeSolver.getSolution -- POSITIVE TESTS
     
     def test_cubeSolver_getSolution_10010_ShouldReturnValidDirections(self):
         """ should return list of type (CubeFacePosition, FaceRotationDirection) """
