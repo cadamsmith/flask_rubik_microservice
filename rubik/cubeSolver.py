@@ -771,12 +771,16 @@ class CubeSolver():
                 # if so, replace all 3 with other rotation direction
                 replacementDirection = (
                     FaceRotationDirection.CLOCKWISE
-                    if lastDirection is FaceRotationDirection.COUNTERCLOCKWISE
+                    if direction is FaceRotationDirection.COUNTERCLOCKWISE
                     else FaceRotationDirection.COUNTERCLOCKWISE
                 )
                 
                 optimizedSolution = optimizedSolution[:-2]
                 optimizedSolution.append((face, replacementDirection))
+                continue
+            
+            # else append solution step to optimized solution
+            optimizedSolution.append((face, direction))
             
         self._solution = optimizedSolution
     
