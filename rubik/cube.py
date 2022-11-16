@@ -259,7 +259,7 @@ class Cube:
         assert isinstance(facePosition, CubeFacePosition)
         
         centerCoord = self.FACE_CENTER_CUBELET_COORDS[facePosition]
-        faceColor = self.cubelets[centerCoord].faces[facePosition]
+        faceColor = self.cubelets[centerCoord][facePosition]
         
         return faceColor
     
@@ -270,7 +270,7 @@ class Cube:
         
         for facePosition in CubeCode.FACE_POSITION_ORDER:
             for coords in Cube.CUBELET_COORDS[facePosition]:
-                color = self.cubelets[coords].faces[facePosition]
+                color = self.cubelets[coords][facePosition]
                 codeText += color.value
                 
         cubeCode = CubeCode(codeText)

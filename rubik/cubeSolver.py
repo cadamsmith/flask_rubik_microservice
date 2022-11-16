@@ -90,7 +90,7 @@ class CubeSolver():
         for coord in petalCoords:
             
             # determine whether the up face color is the _cube's down color
-            color = self._cube.cubelets[coord].faces[CubeFacePosition.UP]
+            color = self._cube.cubelets[coord][CubeFacePosition.UP]
             
             if color != downColor:
                 return False
@@ -118,7 +118,7 @@ class CubeSolver():
         for coord in petalCoords:
             
             # determine whether its down face color is the cube's down color
-            color = self._cube.cubelets[coord].faces[CubeFacePosition.DOWN]
+            color = self._cube.cubelets[coord][CubeFacePosition.DOWN]
             
             if color != downColor:
                 return False
@@ -134,8 +134,8 @@ class CubeSolver():
             (belowX, belowY, belowZ) = (centerX, centerY + 1, centerZ)
             
             # determine whether their color is the same
-            faceColor = self._cube.cubelets[(centerX, centerY, centerZ)].faces[facePosition]
-            belowColor = self._cube.cubelets[(belowX, belowY, belowZ)].faces[facePosition]
+            faceColor = self._cube.cubelets[(centerX, centerY, centerZ)][facePosition]
+            belowColor = self._cube.cubelets[(belowX, belowY, belowZ)][facePosition]
             
             if faceColor != belowColor:
                 return False
@@ -152,7 +152,7 @@ class CubeSolver():
         for coord in self._cube.CUBELET_COORDS[CubeFacePosition.DOWN]:
              
             # determine whether each is the right color
-            color = self._cube.cubelets[coord].faces[CubeFacePosition.DOWN]
+            color = self._cube.cubelets[coord][CubeFacePosition.DOWN]
             
             if color != downColor:
                 return False
@@ -169,7 +169,7 @@ class CubeSolver():
             faceColor = self._cube.getFaceColor(facePosition)
             
             # determine whether all 3 lower colors are the same
-            lowerColors = list(map(lambda coord : self._cube.cubelets[coord].faces[facePosition], lowerCoords))
+            lowerColors = list(map(lambda coord : self._cube.cubelets[coord][facePosition], lowerCoords))
             
             if any(color != faceColor for color in lowerColors):
                 return False
@@ -207,7 +207,7 @@ class CubeSolver():
             ]
             
             # determine whether the 2 middle coords have same color as face
-            middleColors = list(map(lambda coord : self._cube.cubelets[coord].faces[facePosition], middleCoords))
+            middleColors = list(map(lambda coord : self._cube.cubelets[coord][facePosition], middleCoords))
             
             if any(color != faceColor for color in middleColors):
                 return False
@@ -242,29 +242,29 @@ class CubeSolver():
             relativeRightFacePosition = verticalFacePositions[(index - 1) % 4]
             
             edgeCandidateColors = [
-                self._cube.cubelets[leftEdgeCoord].faces[relativeLeftFacePosition],
-                self._cube.cubelets[downEdgeCoord].faces[CubeFacePosition.DOWN],
-                self._cube.cubelets[rightEdgeCoord].faces[relativeRightFacePosition]
+                self._cube.cubelets[leftEdgeCoord][relativeLeftFacePosition],
+                self._cube.cubelets[downEdgeCoord][CubeFacePosition.DOWN],
+                self._cube.cubelets[rightEdgeCoord][relativeRightFacePosition]
             ]
             
-            petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
+            petalColor = self._cube.cubelets[petalCoord][CubeFacePosition.UP]
             
             while downColor in edgeCandidateColors:
                 
                 while petalColor == downColor:
                     self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
                     
-                    petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
+                    petalColor = self._cube.cubelets[petalCoord][CubeFacePosition.UP]
                     
                 while petalColor != downColor:
                     self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
                     
-                    petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
+                    petalColor = self._cube.cubelets[petalCoord][CubeFacePosition.UP]
                     
                 edgeCandidateColors = [
-                    self._cube.cubelets[leftEdgeCoord].faces[relativeLeftFacePosition],
-                    self._cube.cubelets[downEdgeCoord].faces[CubeFacePosition.DOWN],
-                    self._cube.cubelets[rightEdgeCoord].faces[relativeRightFacePosition]
+                    self._cube.cubelets[leftEdgeCoord][relativeLeftFacePosition],
+                    self._cube.cubelets[downEdgeCoord][CubeFacePosition.DOWN],
+                    self._cube.cubelets[rightEdgeCoord][relativeRightFacePosition]
                 ]
                 
             faceCandidateCoords = [ leftEdgeCoord, downEdgeCoord, rightEdgeCoord ]
@@ -272,7 +272,7 @@ class CubeSolver():
                 faceCandidateCoords.append(petalCoord)
             
             faceCandidateColors = list(map(
-                lambda coord : self._cube.cubelets[coord].faces[facePosition],
+                lambda coord : self._cube.cubelets[coord][facePosition],
                 faceCandidateCoords
             ))
             
@@ -281,13 +281,13 @@ class CubeSolver():
                 while petalColor == downColor:
                     self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
                     
-                    petalColor = self._cube.cubelets[petalCoord].faces[CubeFacePosition.UP]
+                    petalColor = self._cube.cubelets[petalCoord][CubeFacePosition.UP]
                 
                 while faceCandidateColors[0] != downColor:
                     self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
                     
                     faceCandidateColors = list(map(
-                        lambda coord : self._cube.cubelets[coord].faces[facePosition],
+                        lambda coord : self._cube.cubelets[coord][facePosition],
                         faceCandidateCoords
                     ))
                     
@@ -386,7 +386,7 @@ class CubeSolver():
             # first look for the down color in the upper left tile of all the side faces
             
             upperLeftCandidateColors = {
-                facePosition: self._cube.cubelets[coord].faces[facePosition]
+                facePosition: self._cube.cubelets[coord][facePosition]
                 for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
@@ -404,7 +404,7 @@ class CubeSolver():
             # now look for the down color in the upper right tile of all the side faces
             
             upperRightCandidateColors = {
-                facePosition: self._cube.cubelets[coord].faces[facePosition]
+                facePosition: self._cube.cubelets[coord][facePosition]
                 for (facePosition, coord) in upperRightCandidateCoords.items()
             }
             
@@ -422,7 +422,7 @@ class CubeSolver():
             # now look for the down color in all of the corner tiles of the top face
             
             topCornerCandidateColors = {
-                facePosition: self._cube.cubelets[coord].faces[CubeFacePosition.UP]
+                facePosition: self._cube.cubelets[coord][CubeFacePosition.UP]
                 for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
@@ -440,7 +440,7 @@ class CubeSolver():
             # now look for the down color in the lower left tile of all the side faces
             
             lowerLeftCandidateColors = {
-                facePosition: self._cube.cubelets[coord].faces[facePosition]
+                facePosition: self._cube.cubelets[coord][facePosition]
                 for (facePosition, coord) in lowerLeftCandidateCoords.items()
             }
             
@@ -458,7 +458,7 @@ class CubeSolver():
             # now look for the down color in the lower right tile of all the side faces
             
             lowerRightCandidateColors = {
-                facePosition: self._cube.cubelets[coord].faces[facePosition]
+                facePosition: self._cube.cubelets[coord][facePosition]
                 for (facePosition, coord) in lowerRightCandidateCoords.items()
             }
             
@@ -488,7 +488,7 @@ class CubeSolver():
             
             # the coordinate where the down color was found
             matchedCoord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
-            matchedColor = self._cube.cubelets[matchedCoord].faces[facePosition]
+            matchedColor = self._cube.cubelets[matchedCoord][facePosition]
             
             assert matchedColor == downColor
             
@@ -498,7 +498,7 @@ class CubeSolver():
             
             # the coordinate adjacent to the matched coord, across the vertical edge
             adjacentCoord = self._cube.FACE_ORIENTATION_COORDS[relLeftFacePosition][FaceCubeletPosition.UP_RIGHT]
-            adjacentColor = self._cube.cubelets[adjacentCoord].faces[relLeftFacePosition]
+            adjacentColor = self._cube.cubelets[adjacentCoord][relLeftFacePosition]
             
             if adjacentColor == relLeftFaceColor:
                 break
@@ -523,7 +523,7 @@ class CubeSolver():
             
             # the coordinate where the down color was found
             matchedCoord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_RIGHT]
-            matchedColor = self._cube.cubelets[matchedCoord].faces[facePosition]
+            matchedColor = self._cube.cubelets[matchedCoord][facePosition]
             
             assert matchedColor == downColor
             
@@ -533,7 +533,7 @@ class CubeSolver():
             
             # the coordinate adjacent to the matched coord, across the vertical edge
             adjacentCoord = self._cube.FACE_ORIENTATION_COORDS[relRightFacePosition][FaceCubeletPosition.UP_LEFT]
-            adjacentColor = self._cube.cubelets[adjacentCoord].faces[relRightFacePosition]
+            adjacentColor = self._cube.cubelets[adjacentCoord][relRightFacePosition]
             
             if adjacentColor == relRightFaceColor:
                 break
@@ -555,7 +555,7 @@ class CubeSolver():
         
         # the coordinate where the down color was found
         matchedCoord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.DOWN_LEFT]
-        matchedColor = self._cube.cubelets[matchedCoord].faces[facePosition]
+        matchedColor = self._cube.cubelets[matchedCoord][facePosition]
         
         assert matchedColor == downColor
         
@@ -576,7 +576,7 @@ class CubeSolver():
         
         # the coordinate where the down color was found
         matchedCoord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.DOWN_RIGHT]
-        matchedColor = self._cube.cubelets[matchedCoord].faces[facePosition]
+        matchedColor = self._cube.cubelets[matchedCoord][facePosition]
         
         assert matchedColor == downColor
         
@@ -600,13 +600,13 @@ class CubeSolver():
             
             # the coordinate where the down color was found
             matchedCoord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
-            matchedColor = self._cube.cubelets[matchedCoord].faces[CubeFacePosition.UP]
+            matchedColor = self._cube.cubelets[matchedCoord][CubeFacePosition.UP]
             
             assert matchedColor == downColor
             
             # the place where this matched color should go
             destCoord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.DOWN_LEFT]
-            destColor = self._cube.cubelets[destCoord].faces[CubeFacePosition.DOWN]
+            destColor = self._cube.cubelets[destCoord][CubeFacePosition.DOWN]
             
             # if destination is not down color, it is free to place our matched color here
             if destColor != downColor:
@@ -669,8 +669,8 @@ class CubeSolver():
             for _ in range(4):
                 
                 # the 2 colors we need to look at
-                candidateColor = self._cube.cubelets[candidateCoord].faces[CubeFacePosition.UP]
-                adjacentColor = self._cube.cubelets[candidateCoord].faces[facePosition]
+                candidateColor = self._cube.cubelets[candidateCoord][CubeFacePosition.UP]
+                adjacentColor = self._cube.cubelets[candidateCoord][facePosition]
                 
                 if candidateColor != upColor and adjacentColor != upColor:
                     found = True
@@ -689,7 +689,7 @@ class CubeSolver():
             # spin up petal until the adjacent color and its face color match
             for _ in range(4):
                 
-                adjacentColor = self._cube.cubelets[candidateCoord].faces[facePosition]
+                adjacentColor = self._cube.cubelets[candidateCoord][facePosition]
                 faceColor = self._cube.getFaceColor(facePosition)
                 
                 if adjacentColor == faceColor:
@@ -706,7 +706,7 @@ class CubeSolver():
             
             # either the left or right face has color same as the candidate color
             relLeftFaceColor = self._cube.getFaceColor(relLeftFacePosition)
-            candidateColor = self._cube.cubelets[candidateCoord].faces[CubeFacePosition.UP]
+            candidateColor = self._cube.cubelets[candidateCoord][CubeFacePosition.UP]
             
             # this determines whether a left or right trigger will be executed
             isLeft = (relLeftFaceColor == candidateColor)
@@ -735,10 +735,10 @@ class CubeSolver():
         # first check for positions in which both cubelet faces are on the wrong face
         
         for (facePosition, coord) in possibleMalformedPositions.items():
-            rightColor = self._cube.cubelets[coord].faces[facePosition]
+            rightColor = self._cube.cubelets[coord][facePosition]
             
             relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
-            leftColor = self._cube.cubelets[coord].faces[relLeftFacePosition]
+            leftColor = self._cube.cubelets[coord][relLeftFacePosition]
             
             # determine whether the 2 cubelet faces are the same color as the cube faces they are on
             isLeftInPlace = (leftColor == self._cube.getFaceColor(relLeftFacePosition))
@@ -766,13 +766,13 @@ class CubeSolver():
             
             # rotate until front petal color is up color
             for _ in range(4):
-                if upColor == self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
+                if upColor == self._cube.cubelets[backPetalCoord][CubeFacePosition.UP]:
                     break
                 
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
                 
             # if the 2 up colors are at 12 and 3 o'clock they need to be 9 and 12 instead
-            if upColor == self._cube.cubelets[rightPetalCoord].faces[CubeFacePosition.UP]:
+            if upColor == self._cube.cubelets[rightPetalCoord][CubeFacePosition.UP]:
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
             
             # now we're ready for a FURurf!
@@ -797,7 +797,7 @@ class CubeSolver():
         for coord in petalCoords:
             
             # determine whether its down face color is the cube's down color
-            color = self._cube.cubelets[coord].faces[CubeFacePosition.UP]
+            color = self._cube.cubelets[coord][CubeFacePosition.UP]
             
             if color != upColor:
                 return False
