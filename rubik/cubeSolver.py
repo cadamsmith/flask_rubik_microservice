@@ -749,38 +749,39 @@ class CubeSolver():
         
         optimizedSolution = [self._solution[0]]
         
-        for solutionStep in self._solution[1:]:
-            (face, direction) = solutionStep
-            (lastFace, lastDirection) = optimizedSolution[-1]
+        for (face, direction) in self._solution[1:]:
             
-            if lastFace == face and lastDirection != direction: 
-                # accomplishes nothing, remove these
-                optimizedSolution = optimizedSolution[:-1]
-                continue
+            if len(optimizedSolution) > 0:
+                (lastFace, lastDirection) = optimizedSolution[-1]
             
-            if len(optimizedSolution) < 2:
-                continue
+                # determine whether we are just mirroring last step
+                if lastFace == face and lastDirection != direction: 
+                    # accomplishes nothing, remove these
+                    optimizedSolution = optimizedSolution[:-1]
+                    continue
             
-            (beforeLastFace, beforeLastDirection) = optimizedSolution[-2]
+            if len(optimizedSolution > 1):
+                (lastFace, lastDirection) = optimizedSolution[-1]
+                (beforeLastFace, beforeLastDirection) = optimizedSolution[-2]
             
-            # check whether this is the 3rd repeat in a row
-            if (
-                face == lastFace and face == beforeLastFace
-                and direction == lastDirection and direction == beforeLastDirection
-            ):
-                # if so, replace all 3 with other rotation direction
-                replacementDirection = (
-                    FaceRotationDirection.CLOCKWISE
-                    if direction is FaceRotationDirection.COUNTERCLOCKWISE
-                    else FaceRotationDirection.COUNTERCLOCKWISE
-                )
-                
-                optimizedSolution = optimizedSolution[:-2]
-                optimizedSolution.append((face, replacementDirection))
-                continue
+                # check whether this is the 3rd repeat in a row
+                if (
+                    face == lastFace and face == beforeLastFace
+                    and direction == lastDirection and direction == beforeLastDirection
+                ):
+                    # if so, replace all 3 with other rotation direction
+                    replacementDirection = (
+                        FaceRotationDirection.CLOCKWISE
+                        if direction is FaceRotationDirection.COUNTERCLOCKWISE
+                        else FaceRotationDirection.COUNTERCLOCKWISE
+                    )
+                    
+                    optimizedSolution = optimizedSolution[:-2]
+                    optimizedSolution.append((face, replacementDirection))
+                    continue
             
             # else append solution step to optimized solution
-            optimizedSolution.append((face, direction))
+            optimizedSolution.append((face, replacementDirection))
             
         self._solution = optimizedSolution
     
