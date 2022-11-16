@@ -768,6 +768,7 @@ class CubeSolver():
             for _ in range(4):
                 if upColor != self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
                     self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                else:
                     break
                 
             # if the 2 up colors are at 12 and 3 o'clock they need to be 9 and 12 instead
