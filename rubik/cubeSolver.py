@@ -766,10 +766,10 @@ class CubeSolver():
             
             # rotate until front petal color is up color
             for _ in range(4):
-                if upColor != self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
-                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                else:
+                if upColor == self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
                     break
+                
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
                 
             # if the 2 up colors are at 12 and 3 o'clock they need to be 9 and 12 instead
             if upColor == self._cube.cubelets[rightPetalCoord].faces[CubeFacePosition.UP]:
@@ -807,7 +807,7 @@ class CubeSolver():
     def _executeFururf(self):
         """ execute a FURurf sequence of rotations, common for solving up cross """
         
-        # the 6 rotations that comprise a FURurf
+        # the 6 rotations that comprise a FURurf eorRION
         rotations = [
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
