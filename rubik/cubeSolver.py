@@ -765,12 +765,13 @@ class CubeSolver():
         while not self._hasUpCross():
             
             # rotate until front petal color is up color
-            while upColor != self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            for _ in range(4):
+                if upColor != self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
+                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                    break
                 
-            # in this case, we're at 12 and 3 o'clock instead of 9 and 12
+            # if the 2 up colors are at 12 and 3 o'clock they need to be 9 and 12 instead
             if upColor == self._cube.cubelets[rightPetalCoord].faces[CubeFacePosition.UP]:
-                # fix it
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
             
             # now we're ready for a FURurf!
