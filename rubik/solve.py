@@ -1,4 +1,7 @@
 
+import hashlib
+import secrets
+
 from rubik.cubeSolver import CubeSolver
 from rubik.cubeCode import CubeCode
 from rubik.faceRotationDirection import FaceRotationDirection
@@ -32,10 +35,22 @@ def _solve(params):
             rotationCode = rotationCode.lower()
         
         rotationCodes += rotationCode
+        
+    # make hash token
+    initVector = cube + rotationCodes
+    tokenLength = 8
+    
+    sha256Hasher = hashlib.sha256()
+    sha256Hasher.update(initVector.encode())
+    fullToken = sha256Hasher.hexdigest()
+    
+    startIndex = secrets.randbelow(len(fullToken) - tokenLength + 1)
+    token = fullToken[startIndex : startIndex + tokenLength]
     
     result = {
         'status': 'ok',
-        'rotations': rotationCodes
+        'rotations': rotationCodes,
+        'token': token
     }
     
     return result
