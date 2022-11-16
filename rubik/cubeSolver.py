@@ -740,34 +740,35 @@ class CubeSolver():
             if not isLeftInPlace and not isRightInPlace:
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
-    
+        
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
         
         if len(self._solution) < 2:
             return
         
-        optimizedSolution = []
+        optimizedSolution = [self._solution[0]]
         
-        (lastFace, lastDirection) = self._solution[0]
-        optimizedSolution.append(self._solution[0])
-        
-        repeatCount = 1
-        
-        for (face, direction) in self._solution[1:]:
+        for solutionStep in self._solution[1:]:
+            (face, direction) = solutionStep
+            (lastFace, lastDirection) = optimizedSolution[-1]
             
-            # rotating a face clockwise then counterclockwise, or vice versa
-            if lastFace == face and lastDirection != direction:
+            if lastFace == face and lastDirection != direction: 
                 # accomplishes nothing, remove these
                 optimizedSolution = optimizedSolution[:-1]
                 continue
             
-            if lastFace == face and lastDirection == direction:
-                repeatCount += 1
-            else:
-                repeatCount = 1
+            if len(optimizedSolution) < 2:
+                continue
             
-            if repeatCount == 3:
+            (beforeLastFace, beforeLastDirection) = optimizedSolution[-2]
+            
+            # check whether this is the 3rd repeat in a row
+            if (
+                face == lastFace and face == beforeLastFace
+                and direction == lastDirection and direction == beforeLastDirection
+            ):
+                # if so, replace all 3 with other rotation direction
                 replacementDirection = (
                     FaceRotationDirection.CLOCKWISE
                     if lastDirection is FaceRotationDirection.COUNTERCLOCKWISE
@@ -776,11 +777,6 @@ class CubeSolver():
                 
                 optimizedSolution = optimizedSolution[:-2]
                 optimizedSolution.append((face, replacementDirection))
-                
-            else:
-                optimizedSolution.append((face, direction))
-            
-            (lastFace, lastDirection) = (face, direction)
             
         self._solution = optimizedSolution
     
