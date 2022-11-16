@@ -752,9 +752,25 @@ class CubeSolver():
         # need to solve down and middle layers first
         self._solveDownAndMiddleLayers()
         
-        # if up cross already present, then we are done
-        if self._hasUpCross():
-            return
+        # petals facing back and right
+        backPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.BACK][FaceCubeletPosition.UP]
+        rightPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.RIGHT][FaceCubeletPosition.UP]
+        
+        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
+        
+        # execute until up cross solved
+        while not self._hasUpCross():
+            
+            # rotate until front petal color is up color
+            while upColor != self._cube.cubelets[backPetalCoord].faces[CubeFacePosition.UP]:
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+            # in this case, we're at 12 and 3 o'clock instead of 9 and 12
+            if upColor == self._cube.cubelets[rightPetalCoord].faces[CubeFacePosition.UP]:
+                # fix it
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
+            
+            # now we're ready for a FURurf!
         
     def _hasUpCross(self):
         """ determines whether an up cross is present on the cube """
@@ -781,6 +797,22 @@ class CubeSolver():
                 return False
         
         return True
+    
+    def _executeFururf(self):
+        """ execute a FURurf sequence of rotations, common for solving up cross """
+        
+        # the 6 rotations that comprise a FURurf
+        rotations = [
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
+        ]
+        
+        for (facePosition, direction) in rotations:
+            self._addToSolution(facePosition, direction)
         
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
