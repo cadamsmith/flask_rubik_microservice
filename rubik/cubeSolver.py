@@ -658,6 +658,8 @@ class CubeSolver():
             candidateCoord = (1, 0, 0)
             
             # find an up petal cubelet that does not include the up face's color
+            found = False
+            
             for _ in range(4):
                 
                 # the 2 colors we need to look at
@@ -665,11 +667,16 @@ class CubeSolver():
                 adjacentColor = self._cube.cubelets[candidateCoord].faces[facePosition]
                 
                 if candidateColor != upColor and adjacentColor != upColor:
+                    found = True
                     break
                 
                 # update our reference points
                 facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
                 candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+            # if we didn't find a petal cubelet we can transform, then one of the middle cubelets is messed up
+            if not found:
+                self._fixMalformedMiddleLayer()
                 
             # spin up petal until the adjacent color and its face color match
             for _ in range(4):
@@ -707,6 +714,23 @@ class CubeSolver():
             
             # clean up down layer
             self._solveDownLayer()
+            
+    def _fixMalformedMiddleLayer(self):
+        """ an auxiliary method for solveDownAndMiddleLayers that fixes the state of the middle layer """
+        
+        # these are all of the possible problem spots
+        possibleMalformedPositions = {
+            facePosition: self._cube.VERTICAL_FACE_CORNER_COORDS[facePosition][FaceCubeletPosition.LEFT]
+            for facePosition in self._cube.VERTICAL_FACE_CORNER_COORDS
+        }
+        
+        for (facePosition, coord) in possibleMalformedPositions:
+            color = self._cube.cubelets[coord].faces[facePosition]
+            
+            # if it's in the wrong place, fix by triggering it
+            if color != self._cube.getFaceColor(facePosition):
+                self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
+                return
     
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
