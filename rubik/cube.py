@@ -80,7 +80,7 @@ class Cube:
     they describe an orientation for a cube face as if it were pointing toward you,
     and that orientation is obtained by spinning the cube rightward to look at each cube face
     """
-    VERTICAL_FACE_CORNER_COORDS = {
+    FACE_ORIENTATION_COORDS = {
         CubeFacePosition.FRONT: {
             FaceCubeletPosition.UP_LEFT: (0, 0, 0),
             FaceCubeletPosition.UP_RIGHT: (2, 0, 0),
