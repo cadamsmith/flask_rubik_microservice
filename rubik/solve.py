@@ -21,8 +21,6 @@ def _solve(params):
     
     # solve the cube, i.e. obtain rotations to solve it
     solver = CubeSolver(cube)
-    
-    solver.solve()
     rotations = solver.getSolution()
     
     # loop thru rotations and convert them to rotation codes

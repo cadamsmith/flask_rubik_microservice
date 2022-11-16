@@ -8,3 +8,4 @@ class CubeState(Enum):
     UP_DAISY = 1
     DOWN_CROSS = 2
     DOWN_LAYER_SOLVED = 3
+    DOWN_AND_MIDDLE_LAYERS_SOLVED = 4

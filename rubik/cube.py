@@ -74,31 +74,48 @@ class Cube:
         CubeFacePosition.DOWN: (1, 2, 1)
     }
     
-    """ corner coords of the vertical faces, useful for CubeSolver algorithms """
-    VERTICAL_FACE_CORNER_COORDS = {
+    """
+    orientation coords of the vertical faces, useful for CubeSolver algorithms
+    
+    they describe an orientation for a cube face as if it were pointing toward you,
+    and that orientation is obtained by spinning the cube rightward to look at each cube face
+    """
+    FACE_ORIENTATION_COORDS = {
         CubeFacePosition.FRONT: {
             FaceCubeletPosition.UP_LEFT: (0, 0, 0),
             FaceCubeletPosition.UP_RIGHT: (2, 0, 0),
             FaceCubeletPosition.DOWN_LEFT: (0, 2, 0),
-            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 0)
+            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 0),
+            
+            FaceCubeletPosition.LEFT: (0, 1, 0),
+            FaceCubeletPosition.RIGHT: (2, 1, 0)
         },
         CubeFacePosition.LEFT: {
             FaceCubeletPosition.UP_LEFT: (0, 0, 2),
             FaceCubeletPosition.UP_RIGHT: (0, 0, 0),
             FaceCubeletPosition.DOWN_LEFT: (0, 2, 2),
-            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 0)
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 0),
+            
+            FaceCubeletPosition.LEFT: (0, 1, 2),
+            FaceCubeletPosition.RIGHT: (0, 1, 0)
         },
         CubeFacePosition.BACK: {
             FaceCubeletPosition.UP_LEFT: (2, 0, 2),
             FaceCubeletPosition.UP_RIGHT: (0, 0, 2),
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 2),
-            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2)
+            FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2),
+            
+            FaceCubeletPosition.LEFT: (2, 1, 2),
+            FaceCubeletPosition.RIGHT: (0, 1, 2)
         },
         CubeFacePosition.RIGHT: {
             FaceCubeletPosition.UP_LEFT: (2, 0, 0),
             FaceCubeletPosition.UP_RIGHT: (2, 0, 2),
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 0),
-            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 2)
+            FaceCubeletPosition.DOWN_RIGHT: (2, 2, 2),
+            
+            FaceCubeletPosition.LEFT: (2, 1, 0),
+            FaceCubeletPosition.RIGHT: (2, 1, 2)
         }
     }
 
