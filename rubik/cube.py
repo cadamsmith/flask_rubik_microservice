@@ -105,6 +105,7 @@ class Cube:
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 2),
             FaceCubeletPosition.DOWN_RIGHT: (0, 2, 2),
             
+            FaceCubeletPosition.UP: (1, 0, 2),
             FaceCubeletPosition.LEFT: (2, 1, 2),
             FaceCubeletPosition.RIGHT: (0, 1, 2)
         },
@@ -114,6 +115,7 @@ class Cube:
             FaceCubeletPosition.DOWN_LEFT: (2, 2, 0),
             FaceCubeletPosition.DOWN_RIGHT: (2, 2, 2),
             
+            FaceCubeletPosition.UP: (2, 0, 1),
             FaceCubeletPosition.LEFT: (2, 1, 0),
             FaceCubeletPosition.RIGHT: (2, 1, 2)
         }
@@ -129,15 +131,25 @@ class Cube:
             cubeCode = CubeCode(cubeCode)
         
         for i, j, k in itertools.product(*[range(self.WIDTH)] * self.DIM):
-            self.cubelets[i, j, k] = Cubelet()
+            self[i, j, k] = Cubelet()
         
         codeIndex = 0
         for facePosition in cubeCode.FACE_POSITION_ORDER:
             for coords in Cube.CUBELET_COORDS[facePosition]:
                 color = CubeColor(cubeCode.text[codeIndex])
-                self.cubelets[coords].setFaceColor(facePosition, color)
+                self[coords].setFaceColor(facePosition, color)
                 
                 codeIndex += 1
+    
+    def __getitem__(self, coord):
+        assert isinstance(coord, tuple)
+        
+        return self.cubelets[coord]
+    
+    def __setitem__(self, coord, value):
+        assert isinstance(coord, tuple)
+        
+        self.cubelets[coord] = value
     
     def rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
         """Rotates one of the cube's faces either clockwise or counterclockwise"""
@@ -193,7 +205,7 @@ class Cube:
             newCoord = self.rotateCoord((x, y, z), facePosition, direction)
             
             # update its position and rotate accordingly
-            alteredCubelets[newCoord] = self.cubelets[x, y, z]
+            alteredCubelets[newCoord] = self[x, y, z]
             alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         # apply changes to the cubelets
@@ -257,7 +269,7 @@ class Cube:
         assert isinstance(facePosition, CubeFacePosition)
         
         centerCoord = self.FACE_CENTER_CUBELET_COORDS[facePosition]
-        faceColor = self.cubelets[centerCoord].faces[facePosition]
+        faceColor = self[centerCoord][facePosition]
         
         return faceColor
     
@@ -268,7 +280,7 @@ class Cube:
         
         for facePosition in CubeCode.FACE_POSITION_ORDER:
             for coords in Cube.CUBELET_COORDS[facePosition]:
-                color = self.cubelets[coords].faces[facePosition]
+                color = self[coords][facePosition]
                 codeText += color.value
                 
         cubeCode = CubeCode(codeText)

@@ -23,6 +23,12 @@ class Cubelet:
         self.faces = {cf: None for cf in CubeFacePosition}
         
         self.faces.update(coloredFaces)
+    
+    def __getitem__(self, facePosition):
+        assert isinstance(facePosition, CubeFacePosition)
+        
+        return self.faces[facePosition]
+
         
     def setFaceColor(self, facePosition: CubeFacePosition, color: CubeColor):
         """ colors one of the cubelet's faces """

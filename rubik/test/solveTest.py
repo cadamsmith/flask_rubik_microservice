@@ -53,7 +53,7 @@ class SolveTest(TestCase):
             'cube': 'brrrbrbbbgbogrorrrbgoygggggyyyooyooogyybyorbywwwwwwwww'
         })
         
-        expected = 'uufuFURUrUUFUfuluLUruRUBUb'
+        expected = 'uufuFURUrUUFUfuluLUruRUBUbUFURurf'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -66,7 +66,7 @@ class SolveTest(TestCase):
             'cube': 'wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'
         })
         
-        expected = 'uRRULLBBUFFBUbbuuBUbuBluuLfuFUUluuLUluLUUFUfuluLURUrufuFruRUBUb'
+        expected = 'uRRULLBBUFFBUbbuuBUbuBluuLfuFUUluuLUluLUUFUfuluLURUrufuFruRUBUbFURurURurfUUFURurf'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -79,7 +79,7 @@ class SolveTest(TestCase):
             'cube': 'wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb'
         })
         
-        expected = 'FFUURRULLBBFUfuRUruLUlUruRUfuFURUruuluLUFUfUruRUBUbubuBULUl'
+        expected = 'FFUURRULLBBFUfuRUruLUlUruRUfuFURUruuluLUFUfUruRUBUbubuBULUlFURurf'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -92,7 +92,7 @@ class SolveTest(TestCase):
             'cube': 'ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg'
         })
         
-        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluLFUfuluLUruRUBUbUbuBULUlUURUrufuF'
+        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluLFUfuluLUruRUBUbUbuBULUlUURUrufuFUUFURurf'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -105,7 +105,7 @@ class SolveTest(TestCase):
             'cube': 'owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo'
         })
         
-        expected = 'FFlRuuFUluRRULLBBUFFbuuBufuFbuuBluLuruRLUluFUfuluLUBUburuRUULUlubuB'
+        expected = 'FFlRuuFUluRRULLBBUFFbuuBufuFbuuBluLuruRLUluFUfuluLUBUburuRUULUlubuBUFURurfUUFURurf'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -118,7 +118,7 @@ class SolveTest(TestCase):
             'cube': 'yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb'
         })
         
-        expected = 'FLLuLLBBUBuRRFFLLBBUUFUfUBUbURUrufuFUUFUfuluLLUlubuBuLUlubuBBUburuRuBUburuR'
+        expected = 'FLLuLLBBUBuRRFFLLBBUUFUfUBUbURUrufuFUUFUfuluLLUlubuBuLUlubuBBUburuRuBUburuRuFURurf'
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
@@ -135,6 +135,29 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
+        
+    def test_solve_10060_ShouldYieldHashToken(self):
+        """ solve result should yield hash token """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        })
+        
+        self.assertIn('token', result)
+        
+    def test_solve_10061_ShouldYield8CharacterHashToken(self):
+        """ yielded hash token should be 8 chars long """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        })
+        
+        expectedTokenLength = 8
+        actualTokenLength = len(result['token'])
+        
+        self.assertEqual(actualTokenLength, expectedTokenLength)
     
     # solve - NEGATIVE TESTS
     

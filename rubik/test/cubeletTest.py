@@ -30,7 +30,7 @@ class CubeletTest(TestCase):
         # see if all faces are non-colored
         for face in list(CubeFacePosition):
             expected = None
-            actual = cubelet.faces[face]
+            actual = cubelet[face]
             
             self.assertEqual(actual, expected)
     
@@ -42,7 +42,7 @@ class CubeletTest(TestCase):
         # see if all faces are non-colored
         for face in list(CubeFacePosition):
             expected = None
-            actual = cubelet.faces[face]
+            actual = cubelet[face]
             
             self.assertEqual(actual, expected)
     
@@ -56,7 +56,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = CubeColor.GREEN
-        actual = cubelet.faces[CubeFacePosition.FRONT]
+        actual = cubelet[CubeFacePosition.FRONT]
         
         self.assertEqual(actual, expected)
     
@@ -70,7 +70,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = CubeColor.RED
-        actual = cubelet.faces[CubeFacePosition.BACK]
+        actual = cubelet[CubeFacePosition.BACK]
         
         self.assertEqual(actual, expected)
     
@@ -84,7 +84,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = CubeColor.YELLOW
-        actual = cubelet.faces[CubeFacePosition.LEFT]
+        actual = cubelet[CubeFacePosition.LEFT]
         
         self.assertEqual(actual, expected)
     
@@ -98,7 +98,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = CubeColor.WHITE
-        actual = cubelet.faces[CubeFacePosition.RIGHT]
+        actual = cubelet[CubeFacePosition.RIGHT]
         
         self.assertEqual(actual, expected)
     
@@ -112,7 +112,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = CubeColor.BLUE
-        actual = cubelet.faces[CubeFacePosition.UP]
+        actual = cubelet[CubeFacePosition.UP]
         
         self.assertEqual(actual, expected)
     
@@ -126,7 +126,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = CubeColor.ORANGE
-        actual = cubelet.faces[CubeFacePosition.DOWN]
+        actual = cubelet[CubeFacePosition.DOWN]
         
         self.assertEqual(actual, expected)
         
@@ -141,7 +141,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = None
-        actual = cubelet.faces[CubeFacePosition.FRONT]
+        actual = cubelet[CubeFacePosition.FRONT]
         
         self.assertEqual(actual, expected)
     
@@ -156,7 +156,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = None
-        actual = cubelet.faces[CubeFacePosition.BACK]
+        actual = cubelet[CubeFacePosition.BACK]
         
         self.assertEqual(actual, expected)
     
@@ -170,7 +170,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = None
-        actual = cubelet.faces[CubeFacePosition.LEFT]
+        actual = cubelet[CubeFacePosition.LEFT]
         
         self.assertEqual(actual, expected)
     
@@ -184,7 +184,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = None
-        actual = cubelet.faces[CubeFacePosition.RIGHT]
+        actual = cubelet[CubeFacePosition.RIGHT]
         
         self.assertEqual(actual, expected)
     
@@ -198,7 +198,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = None
-        actual = cubelet.faces[CubeFacePosition.UP]
+        actual = cubelet[CubeFacePosition.UP]
         
         self.assertEqual(actual, expected)
     
@@ -214,7 +214,7 @@ class CubeletTest(TestCase):
         cubelet = Cubelet(faces)
         
         expected = None
-        actual = cubelet.faces[CubeFacePosition.DOWN]
+        actual = cubelet[CubeFacePosition.DOWN]
         
         self.assertEqual(actual, expected)
     
@@ -231,7 +231,7 @@ class CubeletTest(TestCase):
         
         # see if all 3 faces were colored correctly
         for face, color in faces.items():
-            actual = cubelet.faces[face]
+            actual = cubelet[face]
             self.assertEqual(actual, color)
         
     ## __init__ - NEGATIVE TESTS
@@ -295,7 +295,7 @@ class CubeletTest(TestCase):
             elif face is CubeFacePosition.RIGHT:
                 expectedColor = CubeColor.YELLOW
                 
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             self.assertEqual(actualColor, expectedColor)
             
     # a normal cubelet should flip backward correctly
@@ -314,7 +314,7 @@ class CubeletTest(TestCase):
             if face is CubeFacePosition.BACK:
                 expectedColor = CubeColor.ORANGE
                 
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             self.assertEqual(actualColor, expectedColor)
             
     # a normal cubelet should flip leftward correctly
@@ -339,7 +339,7 @@ class CubeletTest(TestCase):
             elif face is CubeFacePosition.RIGHT:
                 expectedColor = CubeColor.WHITE
                 
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             self.assertEqual(actualColor, expectedColor)
             
     # a normal cubelet should flip rightward correctly
@@ -361,7 +361,7 @@ class CubeletTest(TestCase):
             elif face is CubeFacePosition.LEFT:
                 expectedColor = CubeColor.BLUE
                 
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             self.assertEqual(actualColor, expectedColor)
     
     # a cubelet with only left face colored should not be affected by flip forward
@@ -371,12 +371,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.LEFT: CubeColor.WHITE
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -387,12 +387,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.LEFT: CubeColor.GREEN
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -403,12 +403,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.RIGHT: CubeColor.RED
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -419,12 +419,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.RIGHT: CubeColor.ORANGE
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -435,12 +435,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.UP: CubeColor.RED
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -451,12 +451,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.UP: CubeColor.BLUE
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -467,12 +467,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.DOWN: CubeColor.YELLOW
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -483,12 +483,12 @@ class CubeletTest(TestCase):
             CubeFacePosition.DOWN: CubeColor.GREEN
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -501,13 +501,13 @@ class CubeletTest(TestCase):
             CubeFacePosition.RIGHT: CubeColor.RED
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
     
@@ -519,13 +519,13 @@ class CubeletTest(TestCase):
             CubeFacePosition.FRONT: CubeColor.ORANGE
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -536,13 +536,13 @@ class CubeletTest(TestCase):
             CubeFacePosition.RIGHT: CubeColor.RED,
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
@@ -555,13 +555,13 @@ class CubeletTest(TestCase):
             CubeFacePosition.DOWN: CubeColor.YELLOW
         })
         
-        oldFaces = cubelet.faces
+        oldFaces = cubelet
         cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
             expectedColor = oldFaces[face]
-            actualColor = cubelet.faces[face]
+            actualColor = cubelet[face]
             
             self.assertEqual(actualColor, expectedColor)
             
