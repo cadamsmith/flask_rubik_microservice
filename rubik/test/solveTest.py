@@ -1,5 +1,7 @@
 
 import re
+import hashlib
+
 from unittest import TestCase
 
 import rubik.solve as solve
@@ -135,6 +137,29 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
+        
+    def test_solve_10060_ShouldYieldHashToken(self):
+        """ solve result should yield hash token """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        })
+        
+        self.assertIn('token', result)
+        
+    def test_solve_10061_ShouldYield8CharacterHashToken(self):
+        """ yielded hash token should be 8 chars long """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        })
+        
+        expectedTokenLength = 8
+        actualTokenLength = len(result['token'])
+        
+        self.assertEqual(actualTokenLength, expectedTokenLength)
     
     # solve - NEGATIVE TESTS
     
