@@ -10,7 +10,7 @@ from rubik.cubeRotationDirection import CubeRotationDirection
 class CubeSolver():
     """ An entity capable of determining a solution for solving a 3x3x3 Rubik's Cube """
     
-    def __init__(self, cube: str | CubeCode | Cube, state = CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED):
+    def __init__(self, cube: str | CubeCode | Cube, state = CubeState.DOWN_MID_LAYERS_AND_UP_CROSS):
         """ instantiates a CubeSolver, supplied only a Cube and CubeState """
         
         # if cube is a string, turn it into a CubeCode
@@ -29,7 +29,7 @@ class CubeSolver():
         
         self._solve(state)
         
-    def _solve(self, state: CubeState = CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED):
+    def _solve(self, state: CubeState):
         """ produces a list of rotation directions to reach a certain cube state """
         
         assert isinstance(state, CubeState)
