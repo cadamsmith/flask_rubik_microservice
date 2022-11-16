@@ -677,6 +677,7 @@ class CubeSolver():
             # if we didn't find a petal cubelet we can transform, then one of the middle cubelets is messed up
             if not found:
                 self._fixMalformedMiddleLayer()
+                self._solveDownLayer()
                 continue
                 
             # spin up petal until the adjacent color and its face color match
