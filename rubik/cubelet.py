@@ -9,9 +9,7 @@ class Cubelet:
     def __init__(self, coloredFaces = {}):
         """ instantiate Cubelet from info about its face colors """
         
-        # make sure coloredFaces is dict<K, V> where:
-        # - keys K are of type CubeFacePosition
-        # - values V are of type CubeColor
+        # make sure coloredFaces is dict<CubeFacePosition, CubeColor>
         assert (isinstance(coloredFaces, dict))
         
         assert (all(isinstance(face, CubeFacePosition) for face in coloredFaces.keys()))
@@ -32,8 +30,7 @@ class Cubelet:
         assert isinstance(facePosition, CubeFacePosition)
         
         return self.faces[facePosition]
-
-        
+    
     def setFaceColor(self, facePosition: CubeFacePosition, color: CubeColor):
         """ colors one of the cubelet's faces """
         
