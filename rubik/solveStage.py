@@ -5,7 +5,7 @@ from enum import Enum, unique
 class SolveStage(Enum):
     """ Represents one of the stages in the process to solve a cube """
     
-    # these 5 stages are in order in the algorithm to solve the cube
+    # these ordered stages comprise the overall algorithm to solve any cube
     UP_DAISY = 1
     DOWN_CROSS = 2
     DOWN_LAYER = 3
