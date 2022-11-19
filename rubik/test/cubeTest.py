@@ -87,6 +87,18 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             cube[coord]
+            
+    def test_cube_getitem_20020_ShouldThrowExceptionForNon3DCoordinate(self):
+        """
+        trying to index cube with integer tuple not of form (x, y, z)
+        should throw exception
+        """
+        
+        cube = Cube('grwwbbbgbrygorryworwygggwrogoroobbyyoowyybyybowrgwrwbg')
+        coord = (2, 1, 2, 0)
+        
+        with self.assertRaises(Exception):
+            cube[coord]
        
     ''' Cube.rotateFace -- POSITIVE TESTS '''
     
