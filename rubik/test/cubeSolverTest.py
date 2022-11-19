@@ -5,6 +5,7 @@ from rubik.cubeSolver import CubeSolver
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
 from rubik.solveStage import SolveStage
+from rubik.cube import Cube
 
 class CubeSolverTest(TestCase):
     
@@ -1234,4 +1235,13 @@ class CubeSolverTest(TestCase):
             
             self.assertIsInstance(facePosition, CubeFacePosition)
             self.assertIsInstance(rotationDirection, FaceRotationDirection)
+    
+    def test_cubeSolver_getSolution_20280_SolvingCubeShouldNotModifyCube(self):
+        """ the cube supplied to the cube solver should not be modified """
+        
+        code = 'rbgobbogbwyboroywwyggwgrbbyroywogogwwyoyyrgyobrrwwbgrr'
+        cube = Cube(code)
+        
+        CubeSolver(cube)
+        self.assertEqual(cube.toCode(), code)
     
