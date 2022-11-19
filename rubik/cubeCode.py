@@ -51,13 +51,18 @@ class CubeCode:
             if not codeText.__contains__(color.value):
                 return False
         
-        # check if it contains even distribution of colors
+        # tally up color distributions
         colorDistributions = {c: 0 for c in list(CubeColor)}
         
         for letter in codeText:
             color = CubeColor(letter)
             colorDistributions[color] += 1
         
+        # check whether any colors are missing
+        if any(count == 0 for count in colorDistributions.values()):
+            return False
+        
+        # check if colors are unevenly distributed
         if not len(set(colorDistributions.values())) == 1:
             return False
         

@@ -11,3 +11,5 @@ class SolveStage(Enum):
     DOWN_AND_MIDDLE_LAYERS = 3
     DOWN_MID_LAYERS_AND_UP_FACE = 4
     ENTIRE_CUBE = 5
+    # the Cube._solve method takes in a SolveStage param and produces a solution
+    # to transform the cube into that stage
