@@ -318,6 +318,12 @@ class CubeSolver():
                 
                 self._handleMatchedLowerRightCandidateColor(facePosition)
                 continue
+            
+            # if all else fails, then the down surface is solved, but at least 2 corners are
+            # in the wrong place
+            
+            # handle one of these misplaced corners
+            self._fixMalformedDownCorner()
     
     def _solveDownAndMiddleLayers(self):
         """ solves the down and middle layers of the cube """
@@ -604,6 +610,27 @@ class CubeSolver():
             
             # if it's in the wrong place, fix by triggering it
             if not isLeftInPlace or not isRightInPlace:
+                self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
+                return
+    
+    def _fixMalformedDownCorner(self):
+        
+        # these are all of the possible problem spots, each of the down corners
+        possibleMalformedCorners = {
+            facePosition: self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.DOWN_LEFT]
+            for facePosition in self._cube.FACE_ORIENTATION_COORDS
+        }
+        
+        # iterate over all corners
+        for (facePosition, coord) in possibleMalformedCorners.items():
+            
+            # compare the corner color to the cube face color
+            faceColor = self._cube.getFaceColor(facePosition)
+            cornerColor = self._cube[coord][facePosition]
+            
+            # in case of mismatch
+            if faceColor != cornerColor:
+                # here is a malformed corner, trigger it
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
     
