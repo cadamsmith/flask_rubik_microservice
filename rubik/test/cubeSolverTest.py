@@ -8,7 +8,7 @@ from rubik.cubeState import CubeState
 
 class CubeSolverTest(TestCase):
     
-    # CubeSolver.__init__ -- POSITIVE TESTS
+    ''' CubeSolver.__init__ -- POSITIVE TESTS '''
     
     def test_cubeSolver_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
         """ supplying valid cube should instantiate cube solver """
@@ -17,7 +17,7 @@ class CubeSolverTest(TestCase):
         
         self.assertIsInstance(solver, CubeSolver)
     
-    # CubeSolver.__init__ -- NEGATIVE TESTS
+    ''' CubeSolver.__init__ -- NEGATIVE TESTS '''
     
     def test_cubeSolver_init_20010_ShouldThrowExceptionForNonSuppliedCube(self):
         """ supplying no cube should throw exception """
@@ -31,7 +31,7 @@ class CubeSolverTest(TestCase):
         with self.assertRaises(Exception):
             CubeSolver('not a cube')
     
-    # CubeSolver.solve -- POSITIVE TESTS
+    ''' CubeSolver.solve -- POSITIVE TESTS '''
     
     def test_cubeSolver_solve_10010_ACubeWithUpDaisyAlreadyShouldYieldNoDirectionsToSolveUpDaisy(self):
         """ a cube with an up daisy should yield no solve directions """
@@ -886,7 +886,6 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver.getSolution(), expected)
-        
     
     def test_cubeSolver_solve_10220_ACubeWithUpDaisyShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with down cross should yield correct rotations to solve down and middle layers """
@@ -1212,8 +1211,8 @@ class CubeSolverTest(TestCase):
         ]
         
         self.assertEqual(solver.getSolution(), expected)
-        
-    # CubeSolver.getSolution -- POSITIVE TESTS
+    
+    ''' CubeSolver.getSolution -- POSITIVE TESTS '''
     
     def test_cubeSolver_getSolution_10010_ShouldReturnValidDirections(self):
         """ should return list of type (CubeFacePosition, FaceRotationDirection) """
