@@ -166,7 +166,8 @@ class Cube:
             assert isinstance(num, int)
             assert 0 <= num and num <= 2
         
-        assert isinstance(coord, tuple)
+        # ensure value is Cubelet
+        assert isinstance(value, Cubelet)
         
         self.cubelets[coord] = value
     
