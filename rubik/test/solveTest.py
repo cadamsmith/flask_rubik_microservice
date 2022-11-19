@@ -6,10 +6,86 @@ import rubik.solve as solve
 
 class SolveTest(TestCase):
     
-    # solve - POSITIVE TESTS
+    ''' solve -- NEGATIVE TESTS '''
     
-    # supplying valid params should return a result with status of ok
-    def test_solve_10010_ShouldReturnStatusOKForValidParams(self):
+    def test_solve_10010_ShouldErrorOnMissingCube(self):
+        """ supplying no cube param should result in error status """
+        
+        result = solve._solve({'op': 'solve', 'dir': 'R'})
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_MISSING_CUBE)
+    
+    def test_solve_10020_ShouldErrorOnNonStringCube(self):
+        """ supplying non-string cube should result in error status """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': [1, 2, 3]
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10030_ShouldErrorOnCubeWithInvalidLength(self):
+        """ supplying string cube not 54 chars long should result in error status """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'bryogw'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10040_ShouldErrorOnCubeContainingNonColorChars(self):
+        """ supplying a string cube not over the alphabet [brgoyw] should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10050_ShouldErrorOnCubeNotContainingEveryColor(self):
+        """ supplying a string cube not containing every color code should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10060_ShouldErrorOnCubeWithUnevenColorDistribution(self):
+        """ supplying a string cube with an uneven distribution of colors should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10070_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
+        """ supplying a string cube with non-unique center cubelet face colors should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    ''' solve -- POSITIVE TESTS '''
+    
+    def test_solve_20010_ShouldReturnStatusOKForValidParams(self):
+        """ supplying valid params should return a result with status of ok """
         
         result = solve._solve({
             'op': 'solve',
@@ -18,9 +94,9 @@ class SolveTest(TestCase):
         
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
-        
-    # supplying valid params should return a result with valid rotation codes
-    def test_solve_10020_ShouldReturnValidRotationCodesForValidParams(self):
+    
+    def test_solve_20020_ShouldReturnValidRotationCodesForValidParams(self):
+        """ supplying valid params should return a result with valid rotation codes """
         
         result = solve._solve({
             'op': 'solve',
@@ -33,9 +109,9 @@ class SolveTest(TestCase):
         # make sure rotation codes are valid
         isInvalid = bool(re.search('[^FfBbLlRrUuDd]', result['rotations']))
         self.assertFalse(isInvalid)
-        
-    # an already solved cube should yield no rotations to solve down cross
-    def test_solve_10030_ASolvedCubeShouldYieldNoSolveDirections(self):
+    
+    def test_solve_20030_ASolvedCubeShouldYieldNoSolveDirections(self):
+        """ an already solved cube should yield no rotations to solve down cross """
         
         result = solve._solve({
             'op': 'solve',
@@ -45,8 +121,8 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
-    # a cube with a down cross should yield no rotations to solve down cross
-    def test_solve_10031_ACubeWithSolvedDownLayerShouldYieldNoSolveDirections(self):
+    def test_solve_20031_ACubeWithSolvedDownLayerShouldYieldNoSolveDirections(self):
+        """ a cube with a down cross should yield no rotations to solve down cross """
         
         result = solve._solve({
             'op': 'solve',
@@ -57,9 +133,9 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
-        
-    # a cube with a top daisy should yield correct solve directions
-    def test_solve_10040_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+    
+    def test_solve_20040_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ a cube with a top daisy should yield correct solve directions """
         
         result = solve._solve({
             'op': 'solve',
@@ -70,9 +146,9 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
-        
-    # another cube with a top daisy should yield correct solve directions
-    def test_solve_10041_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+    
+    def test_solve_20041_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ another cube with a top daisy should yield correct solve directions """
         
         result = solve._solve({
             'op': 'solve',
@@ -83,9 +159,9 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
-        
-    # yet another cube with a top daisy should yield correct solve directions
-    def test_solve_10042_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+    
+    def test_solve_20042_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ yet another cube with a top daisy should yield correct solve directions """
         
         result = solve._solve({
             'op': 'solve',
@@ -97,8 +173,8 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
     
-    # a cube without a top daisy should yield correct solve directions
-    def test_solve_10050_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    def test_solve_20050_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ a cube without a top daisy should yield correct solve directions """
         
         result = solve._solve({
             'op': 'solve',
@@ -109,9 +185,9 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
-        
-    # another cube without a top daisy should yield correct solve directions
-    def test_solve_10051_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    
+    def test_solve_20051_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ another cube without a top daisy should yield correct solve directions """
         
         result = solve._solve({
             'op': 'solve',
@@ -122,9 +198,9 @@ class SolveTest(TestCase):
         
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
-        
-    # yet another cube without a top daisy should yield correct solve directions
-    def test_solve_10052_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+    
+    def test_solve_20052_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
+        """ yet another cube without a top daisy should yield correct solve directions """
         
         result = solve._solve({
             'op': 'solve',
@@ -136,7 +212,7 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], expected)
         
-    def test_solve_10060_ShouldYieldHashToken(self):
+    def test_solve_20060_ShouldYieldHashToken(self):
         """ solve result should yield hash token """
         
         result = solve._solve({
@@ -146,7 +222,7 @@ class SolveTest(TestCase):
         
         self.assertIn('token', result)
         
-    def test_solve_10061_ShouldYield8CharacterHashToken(self):
+    def test_solve_20061_ShouldYield8CharacterHashToken(self):
         """ yielded hash token should be 8 chars long """
         
         result = solve._solve({
@@ -159,78 +235,3 @@ class SolveTest(TestCase):
         
         self.assertEqual(actualTokenLength, expectedTokenLength)
     
-    # solve - NEGATIVE TESTS
-    
-    # supplying no cube param should result in error status
-    def test_solve_20010_ShouldErrorOnMissingCube(self):
-        result = solve._solve({'op': 'solve', 'dir': 'R'})
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_MISSING_CUBE)
-    
-    # supplying non-string cube should result in error status
-    def test_solve_20020_ShouldErrorOnNonStringCube(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': [1, 2, 3]
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-    
-    # supplying string cube not 54 chars long should result in error status
-    def test_solve_20030_ShouldErrorOnCubeWithInvalidLength(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'bryogw'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-        
-    # supplying a string cube not over the alphabet [brgoyw] should throw exception
-    def test_solve_20040_ShouldErrorOnCubeContainingNonColorChars(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-    
-    # supplying a string cube not containing every color code should throw exception
-    def test_solve_20050_ShouldErrorOnCubeNotContainingEveryColor(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-            
-    # supplying a string cube with an uneven distribution of colors should throw exception
-    def test_solve_20060_ShouldErrorOnCubeWithUnevenColorDistribution(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-            
-    # supplying a string cube with non-unique center cubelet face colors should throw exception
-    def test_solve_20070_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-        
