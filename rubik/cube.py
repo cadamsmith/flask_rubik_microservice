@@ -12,9 +12,6 @@ from rubik.faceCubeletPosition import FaceCubeletPosition
 class Cube:
     """Represents a 3x3x3 Rubik's cube"""
     
-    """the 27 cubelets that make up the cube"""
-    cubelets = {}
-    
     """
     coordinates of the cubelets that make up each cube face,
     ordered by position in cube code
@@ -130,6 +127,7 @@ class Cube:
         if isinstance(cubeCode, str):
             cubeCode = CubeCode(cubeCode)
         
+        self._cubelets = {}
         for i, j, k in itertools.product(*[range(self.WIDTH)] * self.DIM):
             self[i, j, k] = Cubelet()
         
@@ -153,7 +151,7 @@ class Cube:
             assert 0 <= num and num <= 2
         
         # congrats, it's a valid index
-        return self.cubelets[coord]
+        return self._cubelets[coord]
     
     def __setitem__(self, coord, value):
         """ mutator for the cubelets that make up the cube """
@@ -169,7 +167,7 @@ class Cube:
         # ensure value is Cubelet
         assert isinstance(value, Cubelet)
         
-        self.cubelets[coord] = value
+        self._cubelets[coord] = value
     
     def rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
         """Rotates one of the cube's faces either clockwise or counterclockwise"""
@@ -229,7 +227,7 @@ class Cube:
             alteredCubelets[newCoord].rotate(cubeletRotationDirection)
         
         # apply changes to the cubelets
-        self.cubelets.update(alteredCubelets)
+        self._cubelets.update(alteredCubelets)
         
     def rotateCoord(self, coord, facePosition: CubeFacePosition, direction: FaceRotationDirection):
         """determines the new location of a cube coordinate if a specific face rotation was applied to the cube"""
