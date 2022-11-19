@@ -437,8 +437,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10080_ShouldFrontClockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube front clockwise should work correctly """
+    def test_cube_rotateFace_10080_ShouldFrontClockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube front clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wbwgbwggyroobrorbybooggwgywggrroyorowyyrywgybywbbwobrr'
@@ -447,8 +447,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10081_ShouldBackClockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube back clockwise should work correctly """
+    def test_cube_rotateFace_10081_ShouldBackClockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube back clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgwggborwrrybbggbygowwoygbyoywrgooyrywrbrryobwogro'
@@ -457,8 +457,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10082_ShouldLeftClockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube left clockwise should work correctly """
+    def test_cube_rotateFace_10082_ShouldLeftClockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube left clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwyrbgrggboowroybybobggbgyrorgroggybwyywywobrwyobwowrr'
@@ -467,8 +467,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10083_ShouldRightClockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube right clockwise should work correctly """
+    def test_cube_rotateFace_10083_ShouldRightClockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube right clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwobbowgrywbbroyooroowgwyywggbroyorgwyyrygrbgrygbwgbrb'
@@ -477,8 +477,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10084_ShouldUpClockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube up clockwise should work correctly """
+    def test_cube_rotateFace_10084_ShouldUpClockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube up clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'boobbgwggboowroybyggbggwgywwwyroyorgrrwbyyrwyryobwobrr'
@@ -487,8 +487,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10085_ShouldDownClockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube down clockwise should work correctly """
+    def test_cube_rotateFace_10085_ShouldDownClockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube down clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgorgboowrowggbooggwybyggbroygywwyyrywrbrbbrrwyroo'
@@ -557,8 +557,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10100_ShouldFrontCounterclockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube front counterclockwise should work correctly """
+    def test_cube_rotateFace_10100_ShouldFrontCounterclockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube front counterclockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'yggwbgwbwoooyrorbybooggwgywggrroborrwyyrywbwybygbwobrr'
@@ -567,8 +567,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10101_ShouldBackCounterclockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube back counterclockwise should work correctly """
+    def test_cube_rotateFace_10101_ShouldBackCounterclockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube back counterclockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgwggbowwryybyowwogybggbgbroyrrgorgrywrbrryobwoyoo'
@@ -577,8 +577,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10102_ShouldLeftCounterclockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube left counterclockwise should work correctly """
+    def test_cube_rotateFace_10102_ShouldLeftCounterclockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube left counterclockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'rwybbgbggboowroybyborggrgywbyggorgrowyybywwbrwyowwoorr'
@@ -587,8 +587,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10103_ShouldRightCounterclockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube right counterclockwise should work correctly """
+    def test_cube_rotateFace_10103_ShouldRightCounterclockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube right counterclockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbwwgrooyorbbwyrooogwoywggbroyorgwygrygrbbryybwgbrg'
@@ -597,8 +597,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10104_ShouldUpCounterclockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube up counterclockwise should work correctly """
+    def test_cube_rotateFace_10104_ShouldUpCounterclockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube up counterclockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'ggbbbgwggwwywroybybooggwgywbooroyorgywryybwrrryobwobrr'
@@ -607,8 +607,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    def test_cube_rotateFace_10105_ShouldDownCounterclockwiseRotateRandomCubeCorrectly(self):
-        """ rotating a random cube down counterclockwise should work correctly """
+    def test_cube_rotateFace_10105_ShouldDownCounterclockwiseRotateUnsolvedCubeCorrectly(self):
+        """ rotating an unsolved cube down counterclockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgybyboowrogywbooggworgggbroywggwyyrywrbroorywrrbb'
