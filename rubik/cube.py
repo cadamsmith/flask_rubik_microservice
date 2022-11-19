@@ -482,3 +482,6 @@ class Cube:
                 return False
         
         return True
+    
+    def isUpFaceSolved(self):
+        pass

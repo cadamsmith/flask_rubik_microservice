@@ -859,4 +859,17 @@ class CubeTest(TestCase):
         
         cube = Cube('ybrbbbbbbgrorrrrrryobggggggygroooooooygyyybyywwwwwwwww')
         self.assertTrue(cube.hasUpCross())
+    
+    ''' Cube.isUpFaceSolved -- POSITIVE TESTS '''
+    
+    def test_cube_isUpFaceSolved_20010_ShouldReturnFalseForCubeWithUnsolvedUpFace(self):
+        """ a cube with unsolved up face should return false for isUpFaceSolved query """
         
+        cube = Cube('wworbybbwyooowybggbrywybwgboorooywgorbrgrryrggwrwgbgyy')
+        self.assertFalse(cube.isUpFaceSolved())
+        
+    def test_cube_isUpFaceSolved_20010_ShouldReturnTrueForCubeWithSolvedUpFace(self):
+        """ a cube with solved up face should return true for isUpFaceSolved query """
+        
+        cube = Cube('wyybbbbbbobowwwwwwbowyyyyyyywboooooorrrrrrrrrggggggggg')
+        self.assertTrue(cube.isUpFaceSolved())
