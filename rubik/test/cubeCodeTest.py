@@ -81,7 +81,6 @@ class CubeCodeTest(TestCase):
         code = CubeCode('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         self.assertIsInstance(code, CubeCode)
     
-    
     ''' CubeCode.isValid -- POSITIVE TESTS '''
         
     def test_cubeCode_isValid_20010_ShouldReturnFalseForNonStringCodeText(self):
@@ -137,5 +136,4 @@ class CubeCodeTest(TestCase):
         
         result = CubeCode.isValid('bywrborrbbrrgroygogogwgygworwogoywybwbybygybowbrowwgry')
         self.assertTrue(result)
-    
     
