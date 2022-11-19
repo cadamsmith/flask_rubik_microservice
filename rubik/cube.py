@@ -484,4 +484,19 @@ class Cube:
         return True
     
     def isUpFaceSolved(self):
-        pass
+        """ determines whether the cube's up face is solved """
+        
+        # up color, also the color that every tile on up face should be
+        upColor = self.getFaceColor(CubeFacePosition.UP)
+        
+        # check all colors on up face
+        for coord in self.CUBELET_COORDS[CubeFacePosition.UP]:
+             
+            # determine whether each is the right color
+            color = self[coord][CubeFacePosition.UP]
+            
+            if color != upColor:
+                return False
+        
+        return True
+    
