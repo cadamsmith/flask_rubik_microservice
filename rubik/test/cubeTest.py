@@ -112,6 +112,23 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             cube[coord]
+            
+    ''' Cube.__setitem__ -- POSITIVE TESTS '''
+    
+    def test_cube_setitem_10010_ShouldSetIndexedCubeletCorrectly(self):
+        """ using indexer to modify a cubelet should work correctly """
+        
+        cube = Cube('wgoobrrgwybbwrwggyyboogyrgrwybrobgygbrobywrygywoowrwob')
+        coord = (1, 1, 0)
+        
+        cubelet = Cubelet({
+            CubeFacePosition.UP: CubeColor.RED,
+            CubeFacePosition.FRONT: CubeColor.BLUE,
+            CubeFacePosition.LEFT: CubeColor.WHITE
+        })
+        
+        cube[coord] = cubelet
+        self.assertEqual(cube[coord], cubelet)
     
     ''' Cube.__setitem__ -- NEGATIVE TESTS '''
         
