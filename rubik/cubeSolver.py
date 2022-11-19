@@ -507,6 +507,7 @@ class CubeSolver():
         
         # need to solve down layer first
         self._solveDownLayer()
+        assert self._cube.isDownLayerSolved()
         
         # color of the up face
         upColor = self._cube.getFaceColor(CubeFacePosition.UP)
@@ -609,6 +610,7 @@ class CubeSolver():
         
         # need to solve down and middle layers first
         self._solveDownAndMiddleLayers()
+        assert self._cube.isDownAndMiddleLayersSolved()
         
         # petals facing back and right
         backPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.BACK][FaceCubeletPosition.UP]
