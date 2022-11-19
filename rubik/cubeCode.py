@@ -1,6 +1,4 @@
 
-import re
-
 from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
 
@@ -43,9 +41,10 @@ class CubeCode:
         if len(codeText) != cls.CODE_LENGTH:
             return False
         
-        # check if it's over alphabet [brgoyw]
-        if bool(re.search('[^brgoyw]', codeText)):
-            return False
+        # check if it's made up of valid cube color codes
+        for letter in codeText:
+            if not CubeColor.hasValue(letter):
+                return False
         
         # check if it contains every color
         for color in list(CubeColor):
