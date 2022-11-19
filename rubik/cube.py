@@ -156,6 +156,16 @@ class Cube:
         return self.cubelets[coord]
     
     def __setitem__(self, coord, value):
+        """ mutator for the cubelets that make up the cube """
+        
+        # ensure coord is integer tuple (x, y, z), where x, y, z ∈ [0, 2]
+        assert isinstance(coord, tuple)
+        assert len(coord) == 3
+        
+        for num in coord:
+            assert isinstance(num, int)
+            assert 0 <= num and num <= 2
+        
         assert isinstance(coord, tuple)
         
         self.cubelets[coord] = value
