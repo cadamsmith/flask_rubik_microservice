@@ -32,18 +32,6 @@ class RotateTest(TestCase):
         self.assertIn('status', result)
         self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
     
-    def test_rotate_10030_ShouldErrorOnEmptyStringDir(self):
-        """ supplying empty string dir param should result in error status """
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
-            'dir': ''
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
-    
     def test_rotate_10040_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
         """ 
         supplying string dir param with one character should result in error status if the 

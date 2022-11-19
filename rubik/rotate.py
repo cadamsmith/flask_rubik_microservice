@@ -26,20 +26,19 @@ def _rotate(params):
     
     # if 'dir' param exists, validate it
     if 'dir' in params:
-        rotationCodes = params['dir']
+        dirValue = params['dir']
         
         # validate that it is a string
-        if not isinstance(rotationCodes, str):
-            return __invalidDirError__()
-        
-        # validate that it has at least one character
-        if len(rotationCodes) < 1:
+        if not isinstance(dirValue, str):
             return __invalidDirError__()
         
         # validate it is over alphabet [FfRrBbLlUuDd]
-        for char in rotationCodes:
-            if not CubeFacePosition.hasValue(char.upper()):
+        for letter in dirValue:
+            if not CubeFacePosition.hasValue(letter.upper()):
                 return __invalidDirError__()
+        
+        if len(dirValue) > 0:
+            rotationCodes = dirValue
             
     # build initial cube
     cube = Cube(cubeCode)
