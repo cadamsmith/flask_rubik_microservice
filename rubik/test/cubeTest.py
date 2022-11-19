@@ -550,16 +550,32 @@ class CubeTest(TestCase):
         
         cube = Cube('gogobooybrbyyrgyggogwogboygrrrrobygwbwbwywywwbrrrwyobw')
         self.assertTrue(cube.hasUpDaisy())
-        
+    
+    # hasDownCross - POSITIVE TESTS
+    
     def test_cube_hasDownCross_20010_ShouldReturnFalseForCubeWithoutDownCross(self):
-        """ a cube without an down cross should return false for hasDownCross query """
+        """ a cube without a down cross should return false for hasDownCross query """
         
         cube = Cube('rwbybworwrwobrogggbryygbrwrgbgoobwowogyryowgybyogwybry')
         self.assertFalse(cube.hasDownCross())
         
     def test_cube_hasDownCross_20020_ShouldReturnTrueForCubeWithDownCross(self):
-        """ a cube with an down cross should return true for hasDownCross query """
+        """ a cube with a down cross should return true for hasDownCross query """
         
         cube = Cube('wywobbrbgrggrrbyrgrgyogoogboyoyogyogbrwryybbbywowwwrww')
         self.assertTrue(cube.hasDownCross())
+        
+    # isDownLayerSolved - POSITIVE TESTS
+    
+    def test_cube_isDownLayerSolved_20010_ShouldReturnFalseForCubeWithUnsolvedDownLayer(self):
+        """ a cube with unsolved down layer should return false for isDownLayerSolved query """
+        
+        cube = Cube('gogobooybrbyyrgyggogwogboygrrrrobygwbwbwywywwbrrrwyobw')
+        self.assertFalse(cube.isDownLayerSolved())
+        
+    def test_cube_isDownLayerSolved_20020_ShouldReturnTrueForCubeWithSolvedDownLayer(self):
+        """ a cube with solved down layer should return true for isDownLayerSolved query """
+        
+        cube = Cube('gyogbobbbybrgrgrrryybrgrgggyyrboyooooobbyoyrgwwwwwwwww')
+        self.assertTrue(cube.isDownLayerSolved())
         
