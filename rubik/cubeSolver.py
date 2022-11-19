@@ -1,4 +1,6 @@
 
+import copy
+
 from rubik.cube import Cube
 from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
@@ -25,7 +27,7 @@ class CubeSolver():
         assert isinstance(state, SolveStage)
         
         self._solution = []
-        self._cube = cube
+        self._cube = copy.deepcopy(cube)
         
         self._solve(state)
         
