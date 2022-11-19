@@ -186,6 +186,15 @@ class CubeTest(TestCase):
         with self.assertRaises(Exception):
             cube[coord] = cubelet
     
+    def test_cube_setitem_20040_ShouldThrowExceptionForInvalidCubelet(self):
+        """ should throw an exception if value supplied to assign is not a Cubelet """
+        
+        cube = Cube('gwbybyyybowbgrryogwyrggrwrgggywoboooyrroygobwborbwwwbr')
+        coord = (0, 1, 2)
+        
+        with self.assertRaises(Exception):
+            cube[coord] = None
+    
     ''' Cube.rotateFace -- POSITIVE TESTS '''
     
     def test_cube_rotateFace_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceInAlternatingDirections(self):
