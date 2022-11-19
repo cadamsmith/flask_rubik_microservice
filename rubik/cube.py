@@ -127,10 +127,12 @@ class Cube:
         if isinstance(cubeCode, str):
             cubeCode = CubeCode(cubeCode)
         
+        # initialize all 27 cubelets without color
         self._cubelets = {}
         for i, j, k in itertools.product(*[range(self.WIDTH)] * self.DIM):
             self[i, j, k] = Cubelet()
         
+        # iterate thru cube code, coloring cubelets accordingly
         codeIndex = 0
         for facePosition in cubeCode.FACE_POSITION_ORDER:
             for coords in Cube.CUBELET_COORDS[facePosition]:
