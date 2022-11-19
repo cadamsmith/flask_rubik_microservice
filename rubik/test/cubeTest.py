@@ -832,19 +832,19 @@ class CubeTest(TestCase):
         cube = Cube('gyogbobbbybrgrgrrryybrgrgggyyrboyooooobbyoyrgwwwwwwwww')
         self.assertTrue(cube.isDownLayerSolved())
         
-    ''' Cube.isDownAndMiddleLayersSolved -- POSITIVE TESTS '''
+    ''' Cube.isMiddleLayerSolved -- POSITIVE TESTS '''
     
-    def test_cube_isDownAndMiddleLayersSolved_20010_ShouldReturnFalseForCubeWithoutSolvedDownAndMiddleLayers(self):
-        """ a cube with unsolved down or middle layers should return false for isDownAndMiddleLayersSolved query """
+    def test_cube_isMiddleLayerSolved_20010_ShouldReturnFalseForCubeWithoutSolvedMiddleLayer(self):
+        """ a cube with unsolved middle layer should return false for isMiddleLayerSolved query """
         
         cube = Cube('ogbbbwgbbwyooryywwbgorgoryywowbowogybyygyogrrrrrwwrgbg')
-        self.assertFalse(cube.isDownAndMiddleLayersSolved())
+        self.assertFalse(cube.isMiddleLayerSolved())
         
-    def test_cube_isDownAndMiddleLayersSolved_20020_ShouldReturnTrueForCubeWithSolvedDownAndMiddleLayers(self):
-        """ a cube with solved down and middle layers should return true for isDownAndMiddleLayersSolved query """
+    def test_cube_isMiddleLayerSolved_20020_ShouldReturnTrueForCubeWithSolvedMiddleLayer(self):
+        """ a cube with solved middle layer should return true for isMiddleLayerSolved query """
         
         cube = Cube('ygrbbbbbbgyyrrrrrrbyoggggggbroooooooybryyogyywwwwwwwww')
-        self.assertTrue(cube.isDownAndMiddleLayersSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
         
     ''' Cube.hasUpCross -- POSITIVE TESTS '''
     

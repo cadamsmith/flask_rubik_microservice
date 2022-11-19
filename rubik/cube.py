@@ -119,7 +119,7 @@ class Cube:
     }
 
     def __init__(self, cubeCode: str | CubeCode):
-        """initializes the cube from a cube code representing the initial state"""
+        """ initializes the cube from a cube code representing the initial state """
         
         assert isinstance(cubeCode, (str, CubeCode))
         
@@ -141,7 +141,7 @@ class Cube:
                 
                 codeIndex += 1
     
-    def __getitem__(self, coord):
+    def __getitem__(self, coord: tuple[int]):
         """ accessor for the cubelets that make up the cube """
         
         # ensure coord is integer tuple (x, y, z), where x, y, z ∈ [0, 2]
@@ -169,11 +169,13 @@ class Cube:
         # ensure value is Cubelet
         assert isinstance(value, Cubelet)
         
+        # congrats, it's a valid assignment
         self._cubelets[coord] = value
     
     def rotateFace(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
-        """Rotates one of the cube's faces either clockwise or counterclockwise"""
+        """ rotates one of the cube's faces either clockwise or counterclockwise """
         
+        # ensure params are the right types
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
         
@@ -232,7 +234,10 @@ class Cube:
         self._cubelets.update(alteredCubelets)
         
     def rotateCoord(self, coord, facePosition: CubeFacePosition, direction: FaceRotationDirection):
-        """determines the new location of a cube coordinate if a specific face rotation was applied to the cube"""
+        """ 
+        determines the new location of a cube coordinate if a specific face rotation was 
+        applied to the cube
+        """
         
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
@@ -294,7 +299,7 @@ class Cube:
         return faceColor
     
     def toCode(self):
-        """Serializes the cube into a cube code"""
+        """ serializes the cube into a cube code """
         
         codeText = ''
         
@@ -305,6 +310,11 @@ class Cube:
                 
         cubeCode = CubeCode(codeText)
         return cubeCode.text
+    
+    '''
+    methods for determining whether the cube satisfies certain conditions
+    that are useful to check for in cube solver algorithms
+    '''
     
     def hasUpDaisy(self):
         """ determines whether the cube has a daisy centered on the up face """
@@ -419,14 +429,10 @@ class Cube:
         
         return True
     
-    def isDownAndMiddleLayersSolved(self):
-        """ determines whether the cube's down and middle layers are solved """
+    def isMiddleLayerSolved(self):
+        """ determines whether the cube's middle layer is solved """
         
-        # first check whether down layer is solved
-        if not self.isDownLayerSolved():
-            return False
-        
-        # now need to check the remaining cubelets in the middle face
+        # face positions that need to be inspected
         verticalFacePositions = [
             CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT
         ]

@@ -189,7 +189,7 @@ class CubeSolver():
             
             i = (i + 1) % 4
             facePosition = facePositions[i]
-            
+    
     def _solveDownLayer(self):
         """ solves down layer of cube """
         
@@ -316,12 +316,12 @@ class CubeSolver():
                 
                 self._handleMatchedLowerRightCandidateColor(facePosition)
                 continue
-                
+    
     def _solveDownAndMiddleLayers(self):
         """ solves the down and middle layers of the cube """
         
         # if down and middle layers already solved, we are done
-        if self._cube.isDownAndMiddleLayersSolved():
+        if self._cube.isDownLayerSolved() and self._cube.isMiddleLayerSolved():
             return
         
         # need to solve down layer first
@@ -331,8 +331,8 @@ class CubeSolver():
         # color of the up face
         upColor = self._cube.getFaceColor(CubeFacePosition.UP)
         
-        # execute algorithm until down and middle layers are solved
-        while not self._cube.isDownAndMiddleLayersSolved():
+        # execute algorithm until middle layer is solved
+        while not self._cube.isMiddleLayerSolved():
             
             # start with front face
             facePosition = CubeFacePosition.FRONT
@@ -403,7 +403,7 @@ class CubeSolver():
         
         # need to solve down and middle layers first
         self._solveDownAndMiddleLayers()
-        assert self._cube.isDownAndMiddleLayersSolved()
+        assert self._cube.isDownLayerSolved() and self._cube.isMiddleLayerSolved()
         
         # petals facing back and right
         backPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.BACK][FaceCubeletPosition.UP]
