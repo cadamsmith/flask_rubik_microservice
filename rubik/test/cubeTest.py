@@ -9,16 +9,16 @@ from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeTest(TestCase):
     
-    ## __init__ - POSITIVE TESTS
+    ''' Cube.__init__ - POSITIVE TESTS '''
     
-    # if valid cubelet faces are provided as input, a cube should be instantiated
-    def testcube_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
+    def test_cube_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
+        """ if valid cubelet faces are provided as input, a cube should be instantiated """
         
         cube = Cube('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         self.assertIsInstance(cube, Cube)
     
-    # if valid cubelet faces are provided as input, the NxNxN cube should have all N^3 cubelets present
-    def testcube_init_10020_ShouldHaveAllCubeletsToFillCube(self):
+    def test_cube_init_10020_ShouldHaveAllCubeletsToFillCube(self):
+        """ if valid cubelet faces are provided as input, the NxNxN cube should have all N^3 cubelets present """
         
         cube = Cube('obwgbrbyorgryrwgrrggwbgygrbbywboooorowyoyrgobygywwbyww')
         
@@ -26,46 +26,48 @@ class CubeTest(TestCase):
             cubelet = cube.cubelets[i, j, k]
             self.assertIsInstance(cubelet, Cubelet)
     
-    # solved cube should have all cubelets setup correctly
-    def testcube_init_10030_ShouldSetupSolvedCubeCorrectly(self):
+    def test_cube_init_10030_ShouldSetupSolvedCubeCorrectly(self):
+        """ solved cube should have all cubelets setup correctly """
         
         code = 'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww'
         cube = Cube(code)
         
         self.assertEqual(code, cube.toCode())
-        
-    # unsolved cube should have all cubelets setup correctly
-    def testcube_init_10040_ShouldSetupUnsolvedCubeCorrectly(self):
+    
+    def test_cube_init_10040_ShouldSetupUnsolvedCubeCorrectly(self):
+        """ unsolved cube should have all cubelets setup correctly """
         
         code = 'bwgbbgrgoybwrrbgybbygwggyoowyryooywwoooryrwrrgoygwbbwr'
         cube = Cube(code)
         
         self.assertEqual(cube.toCode(), code)
-        
-    # another unsolved cube should have all cubelets setup correctly
-    def testcube_init_10050_ShouldSetupAnotherUnsolvedCubeCorrectly(self):
+    
+    def test_cube_init_10050_ShouldSetupAnotherUnsolvedCubeCorrectly(self):
+        """ another unsolved cube should have all cubelets setup correctly """
         
         code = 'bbrybggbrbwrrrbgooyyoygwborgborooyrowgbrygyowywwywwggw'
         cube = Cube(code)
         
         self.assertEqual(cube.toCode(), code)
     
-    ## __init__ - NEGATIVE TESTS
+    ''' Cube.__init__ - NEGATIVE TESTS '''
     
-    # supplying invalid cube code should throw exception
-    def testcube_init_20010_ShouldThrowExceptionForInvalidCubeCode(self):
+    def test_cube_init_20010_ShouldThrowExceptionForInvalidCubeCode(self):
+        """ supplying invalid cube code should throw exception """
+        
         with self.assertRaises(Exception):
             Cube(2.3)
     
-    # supplying no cube code should throw exception
-    def testcube_init_20020_ShouldThrowExceptionForNonSuppliedCubeCode(self):
+    def test_cube_init_20020_ShouldThrowExceptionForNonSuppliedCubeCode(self):
+        """ supplying no cube code should throw exception """
+        
         with self.assertRaises(Exception):
             Cube()
             
-    ## rotateFace - POSITIVE TESTS
+    ''' Cube.rotateFace - POSITIVE TESTS '''
     
-    # rotating same face twice, but in alternating directions should result in unchanged cube
-    def testcube_rotateFace_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
+    def test_cube_rotateFace_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
+        """ rotating same face twice, but in alternating directions should result in unchanged cube """
         
         code = 'rybybrygyoyrbrwrrygggogybggwbwrobwogorywyobgwowbbwwroo'
         
@@ -75,8 +77,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), code)
     
-    # rotating same face in same direction 4 times should result in unchanged cube
-    def testcube_rotateFace_10020_ShouldBeUnchangedAfterFourIdenticalRotations(self):
+    def test_cube_rotateFace_10020_ShouldBeUnchangedAfterFourIdenticalRotations(self):
+        """ rotating same face in same direction 4 times should result in unchanged cube """
         
         code = 'wrbbbwyyrywbbrgwywobrwggggggorooryrbyowwyrgyorbbgwooyo'
         cube = Cube(code)
@@ -87,8 +89,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), code)
     
-    # rotating front face clockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10030_ShouldHaveUncoloredCenterCubeletAfterFrontClockwiseRotation(self):
+    def test_cube_rotateFace_10030_ShouldHaveUncoloredCenterCubeletAfterFrontClockwiseRotation(self):
+        """ rotating front face clockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -99,9 +101,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating back face clockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10031_ShouldHaveUncoloredCenterCubeletAfterBackClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10031_ShouldHaveUncoloredCenterCubeletAfterBackClockwiseRotation(self):
+        """ rotating back face clockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -112,9 +114,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating left face clockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10032_ShouldHaveUncoloredCenterCubeletAfterLeftClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10032_ShouldHaveUncoloredCenterCubeletAfterLeftClockwiseRotation(self):
+        """ rotating left face clockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -125,9 +127,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating right face clockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10033_ShouldHaveUncoloredCenterCubeletAfterRightClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10033_ShouldHaveUncoloredCenterCubeletAfterRightClockwiseRotation(self):
+        """ rotating right face clockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -138,9 +140,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating up face clockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10034_ShouldHaveUncoloredCenterCubeletAfterUpClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10034_ShouldHaveUncoloredCenterCubeletAfterUpClockwiseRotation(self):
+        """ rotating up face clockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -151,9 +153,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating down face clockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10035_ShouldHaveUncoloredCenterCubeletAfterDownClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10035_ShouldHaveUncoloredCenterCubeletAfterDownClockwiseRotation(self):
+        """ rotating down face clockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -164,9 +166,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating front face counterclockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10040_ShouldHaveUncoloredCenterCubeletAfterFrontCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10040_ShouldHaveUncoloredCenterCubeletAfterFrontCounterclockwiseRotation(self):
+        """ rotating front face counterclockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -177,9 +179,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating back face counterclockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10041_ShouldHaveUncoloredCenterCubeletAfterBackCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10041_ShouldHaveUncoloredCenterCubeletAfterBackCounterclockwiseRotation(self):
+        """ rotating back face counterclockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -190,9 +192,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating left face counterclockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10042_ShouldHaveUncoloredCenterCubeletAfterLeftCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10042_ShouldHaveUncoloredCenterCubeletAfterLeftCounterclockwiseRotation(self):
+        """ rotating left face counterclockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -203,9 +205,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating right face counterclockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10043_ShouldHaveUncoloredCenterCubeletAfterRightCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10043_ShouldHaveUncoloredCenterCubeletAfterRightCounterclockwiseRotation(self):
+        """ rotating right face counterclockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -216,9 +218,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating up face counterclockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10044_ShouldHaveUncoloredCenterCubeletAfterUpClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10044_ShouldHaveUncoloredCenterCubeletAfterUpClockwiseRotation(self):
+        """ rotating up face counterclockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -229,9 +231,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating down face counterclockwise should result in uncolored center cubelet
-    def testcube_rotateFace_10045_ShouldHaveUncoloredCenterCubeletAfterDownClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10045_ShouldHaveUncoloredCenterCubeletAfterDownClockwiseRotation(self):
+        """ rotating down face counterclockwise should result in uncolored center cubelet """
         
         expected = {cf: None for cf in CubeFacePosition}
         
@@ -242,9 +244,9 @@ class CubeTest(TestCase):
         actual = cube.cubelets[centerCoords].faces
         
         self.assertEqual(actual, expected)
-        
-    # rotating front face clockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10050_ShouldHaveUncoloredFaceCenterCubeletsAfterFrontClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10050_ShouldHaveUncoloredFaceCenterCubeletsAfterFrontClockwiseRotation(self):
+        """ rotating front face clockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -253,9 +255,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating back face clockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10051_ShouldHaveUncoloredFaceCenterCubeletsAfterBackClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10051_ShouldHaveUncoloredFaceCenterCubeletsAfterBackClockwiseRotation(self):
+        """ rotating back face clockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -264,9 +266,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating left face clockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10052_ShouldHaveUncoloredFaceCenterCubeletsAfterLeftClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10052_ShouldHaveUncoloredFaceCenterCubeletsAfterLeftClockwiseRotation(self):
+        """ rotating left face clockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -275,9 +277,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating right face clockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10053_ShouldHaveUncoloredFaceCenterCubeletsAfterRightClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10053_ShouldHaveUncoloredFaceCenterCubeletsAfterRightClockwiseRotation(self):
+        """ rotating right face clockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -286,9 +288,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating up face clockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10054_ShouldHaveUncoloredFaceCenterCubeletsAfterUpClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10054_ShouldHaveUncoloredFaceCenterCubeletsAfterUpClockwiseRotation(self):
+        """ rotating up face clockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -297,9 +299,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating down face clockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10055_ShouldHaveUncoloredFaceCenterCubeletsAfterDownClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10055_ShouldHaveUncoloredFaceCenterCubeletsAfterDownClockwiseRotation(self):
+        """ rotating down face clockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -308,9 +310,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating front face counterclockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10060_ShouldHaveUncoloredFaceCenterCubeletsAfterFrontCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10060_ShouldHaveUncoloredFaceCenterCubeletsAfterFrontCounterclockwiseRotation(self):
+        """ rotating front face counterclockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -319,9 +321,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating back face counterclockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10061_ShouldHaveUncoloredFaceCenterCubeletsAfterBackCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10061_ShouldHaveUncoloredFaceCenterCubeletsAfterBackCounterclockwiseRotation(self):
+        """ rotating back face counterclockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -330,9 +332,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating left face counterclockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10062_ShouldHaveUncoloredFaceCenterCubeletsAfterLeftCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10062_ShouldHaveUncoloredFaceCenterCubeletsAfterLeftCounterclockwiseRotation(self):
+        """ rotating left face counterclockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -341,9 +343,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating right face counterclockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10063_ShouldHaveUncoloredFaceCenterCubeletsAfterRightCounterclockwiseRotation(self):
+    
+    def test_cube_rotateFace_10063_ShouldHaveUncoloredFaceCenterCubeletsAfterRightCounterclockwiseRotation(self):
+        """ rotating right face counterclockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -352,9 +354,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating up face counterclockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10064_ShouldHaveUncoloredFaceCenterCubeletsAfterUpClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10064_ShouldHaveUncoloredFaceCenterCubeletsAfterUpClockwiseRotation(self):
+        """ rotating up face counterclockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -363,9 +365,9 @@ class CubeTest(TestCase):
         actual = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
         
         self.assertEqual(actual, expected)
-        
-    # rotating down face counterclockwise should result in unchanged face center cubelets
-    def testcube_rotateFace_10065_ShouldHaveUncoloredFaceCenterCubeletsAfterDownClockwiseRotation(self):
+    
+    def test_cube_rotateFace_10065_ShouldHaveUncoloredFaceCenterCubeletsAfterDownClockwiseRotation(self):
+        """ rotating down face counterclockwise should result in unchanged face center cubelets """
         
         cube = Cube('obbwbrwoworygrogyrgyyggygyrrwyoobbgrggooywbrwbbowwrybw')
         expected = list(map(lambda coord : cube.cubelets[coord], cube.FACE_CENTER_CUBELET_COORDS.values()))
@@ -375,8 +377,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(actual, expected)
     
-    # rotating a solved cube front clockwise should work correctly
-    def testcube_rotateFace_10070_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
+    def test_cube_rotateFace_10070_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube front clockwise should work correctly """
         
         cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbbbbbbbbyrryrryrrgggggggggoowoowoowyyyyyyooorrrwwwwww'
@@ -385,8 +387,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    # rotating a solved cube back clockwise should work correctly
-    def testcube_rotateFace_10071_ShouldBackClockwiseRotateSolvedCubeCorrectly(self):
+    def test_cube_rotateFace_10071_ShouldBackClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube back clockwise should work correctly """
         
         cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbbbbbbbbrrwrrwrrwgggggggggyooyooyoorrryyyyyywwwwwwooo'
@@ -394,9 +396,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a solved cube left clockwise should work correctly
-    def testcube_rotateFace_10072_ShouldLeftClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10072_ShouldLeftClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube left clockwise should work correctly """
         
         cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'ybbybbybbrrrrrrrrrggwggwggwooooooooogyygyygyybwwbwwbww'
@@ -404,9 +406,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a solved cube right clockwise should work correctly
-    def testcube_rotateFace_10073_ShouldRightClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10073_ShouldRightClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube right clockwise should work correctly """
         
         cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbwbbwbbwrrrrrrrrryggyggyggoooooooooyybyybyybwwgwwgwwg'
@@ -414,9 +416,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a solved cube up clockwise should work correctly
-    def testcube_rotateFace_10074_ShouldUpClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10074_ShouldUpClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube up clockwise should work correctly """
         
         cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'rrrbbbbbbgggrrrrrroooggggggbbbooooooyyyyyyyyywwwwwwwww'
@@ -424,9 +426,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a solved cube down clockwise should work correctly
-    def testcube_rotateFace_10075_ShouldDownClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10075_ShouldDownClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube down clockwise should work correctly """
         
         cube = Cube('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww')
         expected = 'bbbbbbooorrrrrrbbbggggggrrroooooogggyyyyyyyyywwwwwwwww'
@@ -434,9 +436,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a random cube front clockwise should work correctly
-    def testcube_rotateFace_10080_ShouldFrontClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10080_ShouldFrontClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube front clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wbwgbwggyroobrorbybooggwgywggrroyorowyyrywgybywbbwobrr'
@@ -445,8 +447,8 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
     
-    # rotating a random cube back clockwise should work correctly
-    def testcube_rotateFace_10081_ShouldBackClockwiseRotateRandomCubeCorrectly(self):
+    def test_cube_rotateFace_10081_ShouldBackClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube back clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgwggborwrrybbggbygowwoygbyoywrgooyrywrbrryobwogro'
@@ -454,9 +456,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a random cube left clockwise should work correctly
-    def testcube_rotateFace_10082_ShouldLeftClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10082_ShouldLeftClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube left clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwyrbgrggboowroybybobggbgyrorgroggybwyywywobrwyobwowrr'
@@ -464,9 +466,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a random cube right clockwise should work correctly
-    def testcube_rotateFace_10083_ShouldRightClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10083_ShouldRightClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube right clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwobbowgrywbbroyooroowgwyywggbroyorgwyyrygrbgrygbwgbrb'
@@ -474,9 +476,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a random cube up clockwise should work correctly
-    def testcube_rotateFace_10084_ShouldUpClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10084_ShouldUpClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube up clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'boobbgwggboowroybyggbggwgywwwyroyorgrrwbyyrwyryobwobrr'
@@ -484,9 +486,9 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
         
         self.assertEqual(cube.toCode(), expected)
-        
-    # rotating a random cube down clockwise should work correctly
-    def testcube_rotateFace_10085_ShouldDownClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_cube_rotateFace_10085_ShouldDownClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube down clockwise should work correctly """
         
         cube = Cube('wwybbgwggboowroybybooggwgywggbroyorgwyyrywrbrryobwobrr')
         expected = 'wwybbgorgboowrowggbooggwybyggbroygywwyyrywrbrbbrrwyroo'
@@ -495,49 +497,49 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
             
-    # rotateFace - NEGATIVE TESTS
+    ''' Cube.rotateFace - NEGATIVE TESTS '''
     
-    # supplying neither cube face position or face rotation direction should throw exception
-    def testcube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
+    def test_cube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
+        """ supplying neither cube face position or face rotation direction should throw exception """
         
         cube = Cube('bbrybggbrbwrrrbgooyyoygwborgborooyrowgbrygyowywwywwggw')
         
         with self.assertRaises(Exception):
             cube.rotateFace()
     
-    # supplying only cube face position should throw exception
-    def testcube_rotateFace_20020_ShouldThrowExceptionForOnlyCubeFacePositionSupplied(self):
+    def test_cube_rotateFace_20020_ShouldThrowExceptionForOnlyCubeFacePositionSupplied(self):
+        """ supplying only cube face position should throw exception """
         
         cube = Cube('yygrbwowbwrrgrbryoyrgogwgrwyoboowrywrgbgyyobobbwowggby')
         
         with self.assertRaises(Exception):
             cube.rotateFace(CubeFacePosition.DOWN)
-            
-    # supplying only face rotation direction should throw exception
-    def testcube_rotateFace_20030_ShouldThrowExceptionForOnlyFaceRotationDirectionSupplied(self):
+    
+    def test_cube_rotateFace_20030_ShouldThrowExceptionForOnlyFaceRotationDirectionSupplied(self):
+        """ supplying only face rotation direction should throw exception """
         
         cube = Cube('yygbbowwyrwbgrroyrwrgbgrbooyobgoybyorwrwygoowgbgrwgwby')
         
         with self.assertRaises(Exception):
             cube.rotateFace(FaceRotationDirection.CLOCKWISE)
-            
-    # supplying invalid cube face position should throw exception
-    def testcube_rotateFace_20040_ShouldThrowExceptionForInvalidCubeFacePosition(self):
+    
+    def test_cube_rotateFace_20040_ShouldThrowExceptionForInvalidCubeFacePosition(self):
+        """ supplying invalid cube face position should throw exception """
         
         cube = Cube('gwwwboryrgrygrrybrobwygybybogyooowgbgwbryborrwbgwwoogy')
         
         with self.assertRaises(Exception):
             cube.rotateFace("DOWN", FaceRotationDirection.COUNTERCLOCKWISE)
-            
-    # supplying invalid face rotation direction should throw exception
-    def testcube_rotateFace_20050_ShouldThrowExceptionForInvalidFaceRotationDirection(self):
+    
+    def test_cube_rotateFace_20050_ShouldThrowExceptionForInvalidFaceRotationDirection(self):
+        """ supplying invalid face rotation direction should throw exception """
         
         cube = Cube('orywbwwgrgorrrgwoyybyygrbyorbbyobwwggrboyywgorobgwwgbo')
         
         with self.assertRaises(Exception):
             cube.rotateFace(CubeFacePosition.RIGHT, False)
     
-    # hasUpDaisy - POSITIVE TESTS
+    ''' Cube.hasUpDaisy - POSITIVE TESTS '''
     
     def test_cube_hasUpDaisy_20010_ShouldReturnFalseForCubeWithoutUpDaisy(self):
         """ a cube without an up daisy should return false for hasUpDaisy query """
@@ -551,7 +553,7 @@ class CubeTest(TestCase):
         cube = Cube('gogobooybrbyyrgyggogwogboygrrrrobygwbwbwywywwbrrrwyobw')
         self.assertTrue(cube.hasUpDaisy())
     
-    # hasDownCross - POSITIVE TESTS
+    ''' Cube.hasDownCross - POSITIVE TESTS '''
     
     def test_cube_hasDownCross_20010_ShouldReturnFalseForCubeWithoutDownCross(self):
         """ a cube without a down cross should return false for hasDownCross query """
@@ -565,7 +567,7 @@ class CubeTest(TestCase):
         cube = Cube('wywobbrbgrggrrbyrgrgyogoogboyoyogyogbrwryybbbywowwwrww')
         self.assertTrue(cube.hasDownCross())
         
-    # isDownLayerSolved - POSITIVE TESTS
+    ''' Cube.isDownLayerSolved - POSITIVE TESTS '''
     
     def test_cube_isDownLayerSolved_20010_ShouldReturnFalseForCubeWithUnsolvedDownLayer(self):
         """ a cube with unsolved down layer should return false for isDownLayerSolved query """
@@ -579,7 +581,7 @@ class CubeTest(TestCase):
         cube = Cube('gyogbobbbybrgrgrrryybrgrgggyyrboyooooobbyoyrgwwwwwwwww')
         self.assertTrue(cube.isDownLayerSolved())
         
-    # isDownAndMiddleLayersSolved - POSITIVE TESTS
+    ''' Cube.isDownAndMiddleLayersSolved - POSITIVE TESTS '''
     
     def test_cube_isDownAndMiddleLayersSolved_20010_ShouldReturnFalseForCubeWithoutSolvedDownAndMiddleLayers(self):
         """ a cube with unsolved down or middle layers should return false for isDownAndMiddleLayersSolved query """
@@ -593,7 +595,7 @@ class CubeTest(TestCase):
         cube = Cube('ygrbbbbbbgyyrrrrrrbyoggggggbroooooooybryyogyywwwwwwwww')
         self.assertTrue(cube.isDownAndMiddleLayersSolved())
         
-    # hasUpCross - POSITIVE TESTS
+    ''' Cube.hasUpCross - POSITIVE TESTS '''
     
     def test_cube_hasUpCross_20010_ShouldReturnFalseForCubeWithoutUpCross(self):
         """ a cube without up cross should return false for hasUpCross query """
