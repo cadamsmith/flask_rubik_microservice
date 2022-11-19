@@ -50,6 +50,14 @@ class CubeSolver():
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
     
+    """
+    algorithms to solve cube for various cube states,
+    the _solve method will start executing one of these
+    
+    can be viewed as a series of consecutive stages, e.g.
+    _solveDownLayer will execute _solveDownCross first
+    """
+    
     def _solveUpDaisy(self):
         """ constructs an up daisy on the cube """
         
@@ -308,7 +316,122 @@ class CubeSolver():
                 
                 self._handleMatchedLowerRightCandidateColor(facePosition)
                 continue
+                
+    def _solveDownAndMiddleLayers(self):
+        """ solves the down and middle layers of the cube """
+        
+        # if down and middle layers already solved, we are done
+        if self._cube.isDownAndMiddleLayersSolved():
+            return
+        
+        # need to solve down layer first
+        self._solveDownLayer()
+        assert self._cube.isDownLayerSolved()
+        
+        # color of the up face
+        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
+        
+        # execute algorithm until down and middle layers are solved
+        while not self._cube.isDownAndMiddleLayersSolved():
             
+            # start with front face
+            facePosition = CubeFacePosition.FRONT
+            candidateCoord = (1, 0, 0)
+            
+            # find an up petal cubelet that does not include the up face's color
+            found = False
+            
+            for _ in range(4):
+                
+                # the 2 colors we need to look at
+                candidateColor = self._cube[candidateCoord][CubeFacePosition.UP]
+                adjacentColor = self._cube[candidateCoord][facePosition]
+                
+                if candidateColor != upColor and adjacentColor != upColor:
+                    found = True
+                    break
+                
+                # update our reference points
+                facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+                candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+            # if we didn't find a petal cubelet we can transform, then one of the middle cubelets is messed up
+            if not found:
+                self._fixMalformedMiddleLayer()
+                self._solveDownLayer()
+                continue
+                
+            # spin up petal until the adjacent color and its face color match
+            for _ in range(4):
+                
+                adjacentColor = self._cube[candidateCoord][facePosition]
+                faceColor = self._cube.getFaceColor(facePosition)
+                
+                if adjacentColor == faceColor:
+                    break
+                
+                # spin cube and update reference points
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+                facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+                candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
+            relRightFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_RIGHTWARD)
+            
+            # either the left or right face has color same as the candidate color
+            relLeftFaceColor = self._cube.getFaceColor(relLeftFacePosition)
+            candidateColor = self._cube[candidateCoord][CubeFacePosition.UP]
+            
+            # this determines whether a left or right trigger will be executed
+            isLeft = (relLeftFaceColor == candidateColor)
+            
+            # rotate up face one more time, followed by a trigger
+            
+            if isLeft:
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
+                self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
+            else:
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                self._trigger(relRightFacePosition, FaceRotationDirection.CLOCKWISE)
+            
+            # clean up down layer
+            self._solveDownLayer()
+            
+    def _solveDownAndMiddleLayersAndUpCross(self):
+        """ solves down layer, middle layer, and up cross on the cube """
+        
+        # need to solve down and middle layers first
+        self._solveDownAndMiddleLayers()
+        assert self._cube.isDownAndMiddleLayersSolved()
+        
+        # petals facing back and right
+        backPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.BACK][FaceCubeletPosition.UP]
+        rightPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.RIGHT][FaceCubeletPosition.UP]
+        
+        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
+        
+        # execute until up cross solved
+        while not self._cube.hasUpCross():
+            
+            # rotate until front petal color is up color
+            for _ in range(4):
+                if upColor == self._cube[backPetalCoord][CubeFacePosition.UP]:
+                    break
+                
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+                
+            # if the 2 up colors are at 12 and 3 o'clock they need to be 9 and 12 instead
+            if upColor == self._cube[rightPetalCoord][CubeFacePosition.UP]:
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
+            
+            # now we're ready for a FURurf!
+            self._executeFururf()
+    
+    """
+    various auxiliary methods used by the cube solver algorithms
+    """
+       
     def _handleMatchedUpperLeftCandidateColor(self, facePosition: CubeFacePosition):
         """
         handles a color found on the upper left tile of vertical faces, 
@@ -455,88 +578,7 @@ class CubeSolver():
         
         relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
         self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE, 2)
-                
-    def _solveDownAndMiddleLayers(self):
-        """ solves the down and middle layers of the cube """
-        
-        # if down and middle layers already solved, we are done
-        if self._cube.isDownAndMiddleLayersSolved():
-            return
-        
-        # need to solve down layer first
-        self._solveDownLayer()
-        assert self._cube.isDownLayerSolved()
-        
-        # color of the up face
-        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
-        
-        # execute algorithm until down and middle layers are solved
-        while not self._cube.isDownAndMiddleLayersSolved():
-            
-            # start with front face
-            facePosition = CubeFacePosition.FRONT
-            candidateCoord = (1, 0, 0)
-            
-            # find an up petal cubelet that does not include the up face's color
-            found = False
-            
-            for _ in range(4):
-                
-                # the 2 colors we need to look at
-                candidateColor = self._cube[candidateCoord][CubeFacePosition.UP]
-                adjacentColor = self._cube[candidateCoord][facePosition]
-                
-                if candidateColor != upColor and adjacentColor != upColor:
-                    found = True
-                    break
-                
-                # update our reference points
-                facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
-                candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                
-            # if we didn't find a petal cubelet we can transform, then one of the middle cubelets is messed up
-            if not found:
-                self._fixMalformedMiddleLayer()
-                self._solveDownLayer()
-                continue
-                
-            # spin up petal until the adjacent color and its face color match
-            for _ in range(4):
-                
-                adjacentColor = self._cube[candidateCoord][facePosition]
-                faceColor = self._cube.getFaceColor(facePosition)
-                
-                if adjacentColor == faceColor:
-                    break
-                
-                # spin cube and update reference points
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                
-                facePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
-                candidateCoord = self._cube.rotateCoord(candidateCoord, CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-            
-            relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
-            relRightFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_RIGHTWARD)
-            
-            # either the left or right face has color same as the candidate color
-            relLeftFaceColor = self._cube.getFaceColor(relLeftFacePosition)
-            candidateColor = self._cube[candidateCoord][CubeFacePosition.UP]
-            
-            # this determines whether a left or right trigger will be executed
-            isLeft = (relLeftFaceColor == candidateColor)
-            
-            # rotate up face one more time, followed by a trigger
-            
-            if isLeft:
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-                self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE)
-            else:
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                self._trigger(relRightFacePosition, FaceRotationDirection.CLOCKWISE)
-            
-            # clean up down layer
-            self._solveDownLayer()
-            
+    
     def _fixMalformedMiddleLayer(self):
         """ an auxiliary method for solveDownAndMiddleLayers that fixes the state of the middle layer """
         
@@ -562,41 +604,11 @@ class CubeSolver():
             if not isLeftInPlace or not isRightInPlace:
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
-            
-    def _solveDownAndMiddleLayersAndUpCross(self):
-        """ solves down layer, middle layer, and up cross on the cube """
-        
-        # need to solve down and middle layers first
-        self._solveDownAndMiddleLayers()
-        assert self._cube.isDownAndMiddleLayersSolved()
-        
-        # petals facing back and right
-        backPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.BACK][FaceCubeletPosition.UP]
-        rightPetalCoord = self._cube.FACE_ORIENTATION_COORDS[CubeFacePosition.RIGHT][FaceCubeletPosition.UP]
-        
-        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
-        
-        # execute until up cross solved
-        while not self._cube.hasUpCross():
-            
-            # rotate until front petal color is up color
-            for _ in range(4):
-                if upColor == self._cube[backPetalCoord][CubeFacePosition.UP]:
-                    break
-                
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-                
-            # if the 2 up colors are at 12 and 3 o'clock they need to be 9 and 12 instead
-            if upColor == self._cube[rightPetalCoord][CubeFacePosition.UP]:
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
-            
-            # now we're ready for a FURurf!
-            self._executeFururf()
     
-    #--------------------------------------------------------------
-    # methods for executing special rotation sequences on the cube,
-    # ones that repeatedly come up in cube solver algorithms
-    #--------------------------------------------------------------
+    """
+    methods for executing special rotation sequences on the cube,
+    ones that repeatedly come up in cube solver algorithms
+    """
     
     def _trigger(self, facePosition: CubeFacePosition, direction: FaceRotationDirection, degree: int = 1):
         """ adds a clockwise or counterclockwise trigger of some degree on a cube face to the solution """
@@ -638,9 +650,9 @@ class CubeSolver():
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
-    #--------------------------------------------------
-    # methods dealing with manipulating _solution field
-    #--------------------------------------------------
+    """
+    methods dealing with manipulating _solution field
+    """
     
     def getSolution(self):
         """ accessor for _solution field """
