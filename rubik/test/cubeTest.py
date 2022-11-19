@@ -99,6 +99,18 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             cube[coord]
+    
+    def test_cube_getitem_20030_ShouldThrowExceptionFor3DCoordinateOutOfRange(self):
+        """
+        trying to index cube with integer tuple of form (x, y, z) where either x, y, z
+        is outside of range [0, 2] should throw exception
+        """
+        
+        cube = Cube('bgyobrgoworgwrbgogrrrygbygbygrwobwoybbwryywybrwogwyowo')
+        coord = (3, 1, -2)
+        
+        with self.assertRaises(Exception):
+            cube[coord]
        
     ''' Cube.rotateFace -- POSITIVE TESTS '''
     
