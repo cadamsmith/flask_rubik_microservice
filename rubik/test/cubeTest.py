@@ -540,14 +540,26 @@ class CubeTest(TestCase):
     # hasUpDaisy - POSITIVE TESTS
     
     def test_cube_hasUpDaisy_20010_ShouldReturnFalseForCubeWithoutUpDaisy(self):
-        """ a cube without an up daisy should return false for hasUpDaisy execution """
+        """ a cube without an up daisy should return false for hasUpDaisy query """
         
         cube = Cube('bywobwrrbgboorgwboybwyggybwooywoybgggwggyyrrryworworrb')
         self.assertFalse(cube.hasUpDaisy())
         
     def test_cube_hasUpDaisy_20020_ShouldReturnTrueForCubeWithUpDaisy(self):
-        """ a cube with an up daisy should return true for hasUpDaisy execution """
+        """ a cube with an up daisy should return true for hasUpDaisy query """
         
         cube = Cube('gogobooybrbyyrgyggogwogboygrrrrobygwbwbwywywwbrrrwyobw')
         self.assertTrue(cube.hasUpDaisy())
+        
+    def test_cube_hasDownCross_20010_ShouldReturnFalseForCubeWithoutDownCross(self):
+        """ a cube without an down cross should return false for hasDownCross query """
+        
+        cube = Cube('rwbybworwrwobrogggbryygbrwrgbgoobwowogyryowgybyogwybry')
+        self.assertFalse(cube.hasDownCross())
+        
+    def test_cube_hasDownCross_20020_ShouldReturnTrueForCubeWithDownCross(self):
+        """ a cube with an down cross should return true for hasDownCross query """
+        
+        cube = Cube('wywobbrbgrggrrbyrgrgyogoogboyoyogyogbrwryybbbywowwwrww')
+        self.assertTrue(cube.hasDownCross())
         
