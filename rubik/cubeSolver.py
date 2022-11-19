@@ -39,19 +39,19 @@ class CubeSolver():
         
         # execute solve algorithm corresponding to the cube state provided
         solveFunctions = {
-            CubeState.UP_DAISY: self._constructUpDaisy,
-            CubeState.DOWN_CROSS: self._constructDownCross,
+            CubeState.UP_DAISY: self._solveUpDaisy,
+            CubeState.DOWN_CROSS: self._solveDownCross,
             CubeState.DOWN_LAYER_SOLVED: self._solveDownLayer,
             CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED: self._solveDownAndMiddleLayers,
-            CubeState.DOWN_MID_LAYERS_AND_UP_CROSS: self._constructUpCross
+            CubeState.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross
         }
         solveFunctions[state]()
         
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
     
-    def _constructUpDaisy(self):
-        """ makes an up daisy on the cube """
+    def _solveUpDaisy(self):
+        """ constructs an up daisy on the cube """
         
         # if cube already has an up daisy, we're done
         if self._cube.hasUpDaisy():
@@ -129,15 +129,15 @@ class CubeSolver():
                     
             index += 1
     
-    def _constructDownCross(self):
-        """ makes a down cross on the cube """
+    def _solveDownCross(self):
+        """ constructs a down cross on the cube """
         
         # if cube already has a down cross, we're done
         if self._cube.hasDownCross():
             return
         
         # have to construct up daisy first
-        self._constructUpDaisy()
+        self._solveUpDaisy()
         assert self._cube.hasUpDaisy()
         
         flippedPetalCount = 0
@@ -190,7 +190,7 @@ class CubeSolver():
             return
         
         # have to construct down cross first
-        self._constructDownCross()
+        self._solveDownCross()
         assert self._cube.hasDownCross()
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
@@ -563,8 +563,8 @@ class CubeSolver():
                 self._trigger(facePosition, FaceRotationDirection.CLOCKWISE)
                 return
             
-    def _constructUpCross(self):
-        """ makes up cross on the cube, preserving the state of the bottom 2 layers """
+    def _solveDownAndMiddleLayersAndUpCross(self):
+        """ solves down layer, middle layer, and up cross on the cube """
         
         # need to solve down and middle layers first
         self._solveDownAndMiddleLayers()
