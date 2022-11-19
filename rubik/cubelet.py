@@ -40,15 +40,6 @@ class Cubelet:
         
         self._faces[facePosition] = color
     
-    def setFaceColor(self, facePosition: CubeFacePosition, color: CubeColor):
-        """ colors one of the cubelet's faces """
-        
-        # ensure params are valid types
-        assert (isinstance(facePosition, CubeFacePosition))
-        assert (isinstance(color, CubeColor))
-        
-        self._faces[facePosition] = color
-    
     def getFaceColors(self):
         """ returns the face colors of the cubelet """
         
