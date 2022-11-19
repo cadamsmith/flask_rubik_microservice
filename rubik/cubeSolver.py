@@ -49,20 +49,6 @@ class CubeSolver():
         
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
-        
-    def _addToSolution(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
-        """ executes cube rotation and adds it to the solve directions """
-        
-        assert (isinstance(facePosition, CubeFacePosition))
-        assert (isinstance(direction, FaceRotationDirection))
-        
-        self._cube.rotateFace(facePosition, direction)
-        self._solution.append((facePosition, direction))
-        
-    def getSolution(self):
-        """ accessor for _solution field """
-        
-        return self._solution
     
     def _constructUpDaisy(self):
         """ makes an up daisy on the cube """
@@ -645,7 +631,25 @@ class CubeSolver():
         
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
+    
+    #--------------------------------------------------
+    # methods dealing with manipulating _solution field
+    #--------------------------------------------------
+    
+    def getSolution(self):
+        """ accessor for _solution field """
         
+        return self._solution
+    
+    def _addToSolution(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
+        """ executes cube rotation and adds it to the solve directions """
+        
+        assert (isinstance(facePosition, CubeFacePosition))
+        assert (isinstance(direction, FaceRotationDirection))
+        
+        self._cube.rotateFace(facePosition, direction)
+        self._solution.append((facePosition, direction))
+    
     def _optimizeSolution(self):
         """ optimizes solution, removing redundancy """
         
