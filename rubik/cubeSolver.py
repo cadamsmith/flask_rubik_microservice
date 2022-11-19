@@ -44,7 +44,8 @@ class CubeSolver():
             SolveStage.DOWN_CROSS: self._solveDownCross,
             SolveStage.DOWN_LAYER: self._solveDownLayer,
             SolveStage.DOWN_AND_MIDDLE_LAYERS: self._solveDownAndMiddleLayers,
-            SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross
+            SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross,
+            SolveStage.DOWN_MID_LAYERS_AND_UP_FACE: self._solveDownAndMiddleLayersAndUpFace
         }
         solveFunctions[state]()
         
@@ -434,6 +435,9 @@ class CubeSolver():
             
             # now we're ready for a FURurf!
             self._executeFururf()
+    
+    def _solveDownAndMiddleLayersAndUpFace(self):
+        pass
     
     """
     various auxiliary methods used by the cube solver algorithms
