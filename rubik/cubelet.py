@@ -13,6 +13,7 @@ class Cubelet:
         # - keys K are of type CubeFacePosition
         # - values V are of type CubeColor
         assert (isinstance(coloredFaces, dict))
+        
         assert (all(isinstance(face, CubeFacePosition) for face in coloredFaces.keys()))
         assert (all(isinstance(color, CubeColor) for color in coloredFaces.values()))
         
@@ -44,88 +45,12 @@ class Cubelet:
         # make sure direction is a CubeRotationDirection
         assert (isinstance(direction, CubeRotationDirection))
         
-        if direction is CubeRotationDirection.FLIP_FORWARD:
-            self.__flipForward__()
-        elif direction is CubeRotationDirection.FLIP_BACKWARD:
-            self.__flipBackward__()
-        elif direction is CubeRotationDirection.FLIP_LEFTWARD:
-            self.__flipLeftward__()
-        elif direction is CubeRotationDirection.FLIP_RIGHTWARD:
-            self.__flipRightward__()
-        elif direction is CubeRotationDirection.SPIN_LEFTWARD:
-            self.__spinLeftward__()
-        elif direction is CubeRotationDirection.SPIN_RIGHTWARD:
-            self.__spinRightward__()
+        # go thru each face position, and calculate its new color based on the rotation
+        alteredFaces = {}
+        for facePosition in list(CubeFacePosition):
+            newFacePosition = CubeFacePosition.rotate(facePosition, direction)
+            
+            alteredFaces[newFacePosition] = self[facePosition]
+        
+        self.faces.update(alteredFaces)
     
-    def __flipForward__(self):
-        """ flips the cubelet forward """
-        
-        alteredFaces = {
-            CubeFacePosition.UP: self.faces[CubeFacePosition.BACK],
-            CubeFacePosition.BACK: self.faces[CubeFacePosition.DOWN],
-            CubeFacePosition.DOWN: self.faces[CubeFacePosition.FRONT],
-            CubeFacePosition.FRONT: self.faces[CubeFacePosition.UP]
-        }
-        
-        self.faces.update(alteredFaces)
-        
-    def __flipBackward__(self):
-        """ flips the cubelet backward """
-        
-        alteredFaces = {
-            CubeFacePosition.UP: self.faces[CubeFacePosition.FRONT],
-            CubeFacePosition.FRONT: self.faces[CubeFacePosition.DOWN],
-            CubeFacePosition.DOWN: self.faces[CubeFacePosition.BACK],
-            CubeFacePosition.BACK: self.faces[CubeFacePosition.UP]
-        }
-        
-        self.faces.update(alteredFaces)
-        
-    def __flipLeftward__(self):
-        """ flips the cubelet leftward """
-        
-        alteredFaces = {
-            CubeFacePosition.UP: self.faces[CubeFacePosition.RIGHT],
-            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.DOWN],
-            CubeFacePosition.DOWN: self.faces[CubeFacePosition.LEFT],
-            CubeFacePosition.LEFT: self.faces[CubeFacePosition.UP]
-        }
-        
-        self.faces.update(alteredFaces)
-        
-    def __flipRightward__(self):
-        """ flips the cubelet rightward """
-        
-        alteredFaces = {
-            CubeFacePosition.UP: self.faces[CubeFacePosition.LEFT],
-            CubeFacePosition.LEFT: self.faces[CubeFacePosition.DOWN],
-            CubeFacePosition.DOWN: self.faces[CubeFacePosition.RIGHT],
-            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.UP]
-        }
-        
-        self.faces.update(alteredFaces)
-        
-    def __spinLeftward__(self):
-        """ spins the cubelet leftward """
-        
-        alteredFaces = {
-            CubeFacePosition.FRONT: self.faces[CubeFacePosition.RIGHT],
-            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.BACK],
-            CubeFacePosition.BACK: self.faces[CubeFacePosition.LEFT],
-            CubeFacePosition.LEFT: self.faces[CubeFacePosition.FRONT]
-        }
-        
-        self.faces.update(alteredFaces)
-        
-    def __spinRightward__(self):
-        """ spins the cubelet rightward """
-        
-        alteredFaces = {
-            CubeFacePosition.FRONT: self.faces[CubeFacePosition.LEFT],
-            CubeFacePosition.LEFT: self.faces[CubeFacePosition.BACK],
-            CubeFacePosition.BACK: self.faces[CubeFacePosition.RIGHT],
-            CubeFacePosition.RIGHT: self.faces[CubeFacePosition.FRONT]
-        }
-        
-        self.faces.update(alteredFaces)
-        
