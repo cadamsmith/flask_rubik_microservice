@@ -3,6 +3,7 @@ import re
 from unittest import TestCase
 
 import rubik.solve as solve
+from rubik.cubeFacePosition import CubeFacePosition
 
 class SolveTest(TestCase):
     
@@ -107,8 +108,8 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         
         # make sure rotation codes are valid
-        isInvalid = bool(re.search('[^FfBbLlRrUuDd]', result['rotations']))
-        self.assertFalse(isInvalid)
+        for letter in result['rotations']:
+            self.assertTrue(CubeFacePosition.hasValue(letter.upper()))
     
     def test_solve_20030_ASolvedCubeShouldYieldNoSolveDirections(self):
         """ an already solved cube should yield no rotations to solve down cross """
