@@ -2,8 +2,8 @@
 from enum import Enum, unique
 
 @unique
-class CubeState(Enum):
-    """ Represents a way to "solve" a cube, or a stage that the cube is in """
+class SolveStage(Enum):
+    """ Represents one of the stages in the process to solve a cube """
     
     # these 5 stages are in order in the algorithm to solve the cube
     UP_DAISY = 1

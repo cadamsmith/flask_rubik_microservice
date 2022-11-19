@@ -3,15 +3,15 @@ from rubik.cube import Cube
 from rubik.cubeCode import CubeCode
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
-from rubik.cubeState import CubeState
+from rubik.solveStage import SolveStage
 from rubik.faceCubeletPosition import FaceCubeletPosition
 from rubik.cubeRotationDirection import CubeRotationDirection
 
 class CubeSolver():
     """ An entity capable of determining a solution for solving a 3x3x3 Rubik's Cube """
     
-    def __init__(self, cube: str | CubeCode | Cube, state = CubeState.DOWN_MID_LAYERS_AND_UP_CROSS):
-        """ instantiates a CubeSolver, supplied only a Cube and CubeState """
+    def __init__(self, cube: str | CubeCode | Cube, state = SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS):
+        """ instantiates a CubeSolver, supplied only a Cube and SolveStage """
         
         # if cube is a string, turn it into a CubeCode
         if isinstance(cube, str):
@@ -22,28 +22,28 @@ class CubeSolver():
             cube = Cube(cube)
         
         assert isinstance(cube, Cube)
-        assert isinstance(state, CubeState)
+        assert isinstance(state, SolveStage)
         
         self._solution = []
         self._cube = cube
         
         self._solve(state)
         
-    def _solve(self, state: CubeState):
+    def _solve(self, state: SolveStage):
         """ produces a list of rotation directions to reach a certain cube state """
         
-        assert isinstance(state, CubeState)
+        assert isinstance(state, SolveStage)
         
         # directions are not retained from previous solves
         self._clearSolution()
         
         # execute solve algorithm corresponding to the cube state provided
         solveFunctions = {
-            CubeState.UP_DAISY: self._solveUpDaisy,
-            CubeState.DOWN_CROSS: self._solveDownCross,
-            CubeState.DOWN_LAYER_SOLVED: self._solveDownLayer,
-            CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED: self._solveDownAndMiddleLayers,
-            CubeState.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross
+            SolveStage.UP_DAISY: self._solveUpDaisy,
+            SolveStage.DOWN_CROSS: self._solveDownCross,
+            SolveStage.DOWN_LAYER_SOLVED: self._solveDownLayer,
+            SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED: self._solveDownAndMiddleLayers,
+            SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross
         }
         solveFunctions[state]()
         
