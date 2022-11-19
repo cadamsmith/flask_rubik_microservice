@@ -35,10 +35,13 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_init_20020_ACubeWithUpDaisyShouldYieldNoDirectionsToSolveUpDaisy(self):
         """ a cube with an up daisy should yield no solve directions """
         
-        solver = CubeSolver('ybrrbggrobgborobyoyrobgbwyyyoryobgorgwowywbwwwgwywgrrg', SolveStage.UP_DAISY)
-        expected = []
+        solver = CubeSolver(
+            'ybrrbggrobgborobyoyrobgbwyyyoryobgorgwowywbwwwgwywgrrg',
+            SolveStage.UP_DAISY
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
     
     def test_cubeSolver_init_20030_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveUpDaisy(self):
         """ a cube without an up daisy should yield correct solve directions """
@@ -88,68 +91,54 @@ class CubeSolverTest(TestCase):
     def test_cubeSolver_init_20040_ASolvedCubeShouldYieldNoDirectionsToSolveDownCross(self):
         """ an already solved cube should give no solve directions """
         
-        solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww', SolveStage.DOWN_CROSS)
+        solver = CubeSolver(
+            'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
+            SolveStage.DOWN_CROSS
+        )
+        solution = solver.getSolution()
         
-        expected = []
-        
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
     
-    def test_cubeSolver_init_20041_ACubeWithADownCrossAlreadyShouldYieldNoDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20041_ACubeWithDownCrossShouldYieldNoDirectionsToSolveDownCross(self):
         """ a cube with a down cross should give no solve directions """
         
-        solver = CubeSolver('bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy', SolveStage.DOWN_CROSS)
+        solver = CubeSolver(
+            'bowybbybrrgwrrgbrooywygbggwbrooorrorobggyoyybgwywwwgwy',
+            SolveStage.DOWN_CROSS
+        )
+        solution = solver.getSolution()
         
-        expected = []
-        
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
     
     def test_cubeSolver_init_20050_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ a cube with an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg', SolveStage.DOWN_CROSS)
+        cube = Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
         
-        expected = [
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_CROSS)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved up daisy
+        self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20051_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ another cube with an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb', SolveStage.DOWN_CROSS)
+        cube = Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
         
-        expected = [
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_CROSS)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved up daisy
+        self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20052_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube with an up daisy should yield correct solve directions """
