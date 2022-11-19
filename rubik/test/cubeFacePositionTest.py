@@ -5,19 +5,35 @@ from rubik.cubeFacePosition import CubeFacePosition
 
 class CubeFaceTest(TestCase):
     
-    # GENERAL TESTS
+    ''' CubeFacePosition -- GENERAL TESTS '''
     
-    # there should be only 6 cube faces (by nature of a cube)
-    def test_cubeFace_00010_ShouldHaveExactlySixItems(self):
+    def test_cubeFacePosition_00010_ShouldHaveExactlySixItems(self):
+        """ there should be only 6 cube face positions (by nature of a cube) """
+        
         expected = 6
         actual = len(list(CubeFacePosition))
         
         self.assertEqual(expected, actual)
     
-    # POSITIVE TESTS
+    ''' CubeFacePosition -- NEGATIVE TESTS '''
     
-    # 'F' should translate to front face
-    def test_cubeFace_10010_ShouldCorrectlyParseFrontFaceCode(self):
+    def test_cubeFacePosition_10010_ShouldThrowExceptionIfNoFaceCodeSupplied(self):
+        """ supplying no face code should result in exception """
+        
+        with self.assertRaises(Exception):
+            CubeFacePosition()
+    
+    def test_cubeFacePosition_10020_ShouldThrowExceptionIfInvalidFaceCodeSupplied(self):
+        """ supplying invalid face code should result in exception """
+        
+        with self.assertRaises(Exception):
+            CubeFacePosition('H')
+    
+    ''' CubeFacePosition -- POSITIVE TESTS '''
+    
+    def test_cubeFacePosition_20010_ShouldCorrectlyParseFrontFaceCode(self):
+        """ 'F' should translate to front face """
+        
         faceCode = 'F'
         
         expected = CubeFacePosition.FRONT
@@ -25,8 +41,9 @@ class CubeFaceTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'B' should translate to back face
-    def test_cubeFace_10020_ShouldCorrectlyParseBackFaceCode(self):
+    def test_cubeFacePosition_20020_ShouldCorrectlyParseBackFaceCode(self):
+        """ 'B' should translate to back face """
+        
         faceCode = 'B'
         
         expected = CubeFacePosition.BACK
@@ -34,8 +51,9 @@ class CubeFaceTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'L' should translate to left face
-    def test_cubeFace_10030_ShouldCorrectlyParseLeftFaceCode(self):
+    def test_cubeFacePosition_20030_ShouldCorrectlyParseLeftFaceCode(self):
+        """ 'L' should translate to left face """
+        
         faceCode = 'L'
         
         expected = CubeFacePosition.LEFT
@@ -43,8 +61,9 @@ class CubeFaceTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'R' should translate to right face
-    def test_cubeFace_10040_ShouldCorrectlyParseRightFaceCode(self):
+    def test_cubeFacePosition_20040_ShouldCorrectlyParseRightFaceCode(self):
+        """ 'R' should translate to right face """
+        
         faceCode = 'R'
         
         expected = CubeFacePosition.RIGHT
@@ -52,8 +71,9 @@ class CubeFaceTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'U' should translate to up face
-    def test_cubeFace_10050_ShouldCorrectlyParseUpFaceCode(self):
+    def test_cubeFacePosition_20050_ShouldCorrectlyParseUpFaceCode(self):
+        """ 'U' should translate to up face """
+        
         faceCode = 'U'
         
         expected = CubeFacePosition.UP
@@ -61,23 +81,13 @@ class CubeFaceTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'D' should translate to down face
-    def test_cubeFace_10060_ShouldCorrectlyParseDownFaceCode(self):
+    def test_cubeFacePosition_20060_ShouldCorrectlyParseDownFaceCode(self):
+        """ 'D' should translate to down face """
+        
         faceCode = 'D'
         
         expected = CubeFacePosition.DOWN
         actual = CubeFacePosition(faceCode)
         
         self.assertEqual(expected, actual)
-        
-    # NEGATIVE TESTS
     
-    # supplying no face code should result in exception
-    def test_cubeFace_20010_ShouldThrowExceptionIfNoFaceCodeSupplied(self):
-        with self.assertRaises(Exception):
-            CubeFacePosition()
-    
-    # supplying invalid face code should result in exception
-    def test_cubeFace_20020_ShouldThrowExceptionIfInvalidFaceCodeSupplied(self):
-        with self.assertRaises(Exception):
-            CubeFacePosition('H')
