@@ -5,19 +5,35 @@ from rubik.cubeColor import CubeColor
 
 class CubeColorTest(TestCase):
     
-    # GENERAL TESTS
+    ''' CubeColor -- GENERAL TESTS '''
     
-    # there should be only 6 cube colors
     def test_cubeColor_00010_ShouldHaveExactlySixColors(self):
+        """ there should be only 6 cube colors """
+        
         expected = 6
         actual = len(list(CubeColor))
         
         self.assertEqual(expected, actual)
-        
-    # POSITIVE TESTS
     
-    # 'b' should translate to blue
-    def test_cubeColor_10010_ShouldCorrectlyParseBlueCode(self):
+    ''' CubeColor -- NEGATIVE TESTS '''
+    
+    def test_cubeColor_10010_ShouldThrowExceptionIfNoColorCodeSupplied(self):
+        """ supplying no color code should result in exception """
+        
+        with self.assertRaises(Exception):
+            CubeColor()
+    
+    def test_cubeColor_10020_ShouldThrowExceptionIfInvalidColorCodeSupplied(self):
+        """ supplying invalid color code should result in exception """
+        
+        with self.assertRaises(Exception):
+            CubeColor('p')
+        
+    ''' CubeColor -- POSITIVE TESTS '''
+    
+    def test_cubeColor_20010_ShouldCorrectlyParseBlueCode(self):
+        """ 'b' should translate to blue """
+        
         colorCode = 'b'
         
         expected = CubeColor.BLUE
@@ -25,8 +41,9 @@ class CubeColorTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'r' should translate to red
-    def test_cubeColor_10020_ShouldCorrectlyParseRedCode(self):
+    def test_cubeColor_20020_ShouldCorrectlyParseRedCode(self):
+        """ 'r' should translate to red """
+        
         colorCode = 'r'
         
         expected = CubeColor.RED
@@ -34,8 +51,9 @@ class CubeColorTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'g' should translate to green
-    def test_cubeColor_10030_ShouldCorrectlyParseGreenCode(self):
+    def test_cubeColor_20030_ShouldCorrectlyParseGreenCode(self):
+        """ 'g' should translate to green """
+        
         colorCode = 'g'
         
         expected = CubeColor.GREEN
@@ -43,8 +61,9 @@ class CubeColorTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'o' should translate to orange
-    def test_cubeColor_10040_ShouldCorrectlyParseOrangeCode(self):
+    def test_cubeColor_20040_ShouldCorrectlyParseOrangeCode(self):
+        """ 'o' should translate to orange """
+        
         colorCode = 'o'
         
         expected = CubeColor.ORANGE
@@ -52,8 +71,9 @@ class CubeColorTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'y' should translate to yellow
-    def test_cubeColor_10050_ShouldCorrectlyParseYellowCode(self):
+    def test_cubeColor_20050_ShouldCorrectlyParseYellowCode(self):
+        """ 'y' should translate to yellow """
+        
         colorCode = 'y'
         
         expected = CubeColor.YELLOW
@@ -61,23 +81,12 @@ class CubeColorTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'w' should translate to white
-    def test_cubeColor_10060_ShouldCorrectlyParseWhiteCode(self):
+    def test_cubeColor_20060_ShouldCorrectlyParseWhiteCode(self):
+        """ 'w' should translate to white """
+        
         colorCode = 'w'
         
         expected = CubeColor.WHITE
         actual = CubeColor(colorCode)
         
         self.assertEqual(expected, actual)
-        
-    # NEGATIVE TESTS
-    
-    # supplying no color code should result in exception
-    def test_cubeColor_20010_ShouldThrowExceptionIfNoColorCodeSupplied(self):
-        with self.assertRaises(Exception):
-            CubeColor()
-    
-    # supplying invalid color code should result in exception
-    def test_cubeColor_20020_ShouldThrowExceptionIfInvalidColorCodeSupplied(self):
-        with self.assertRaises(Exception):
-            CubeColor('p')
