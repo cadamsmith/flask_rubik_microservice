@@ -32,63 +32,7 @@ class CubeSolverTest(TestCase):
         
         self.assertIsInstance(solver, CubeSolver)
     
-    def test_cubeSolver_init_20020_ACubeWithUpDaisyShouldYieldNoDirectionsToSolveUpDaisy(self):
-        """ a cube with an up daisy should yield no solve directions """
-        
-        solver = CubeSolver(
-            'ybrrbggrobgborobyoyrobgbwyyyoryobgorgwowywbwwwgwywgrrg',
-            SolveStage.UP_DAISY
-        )
-        solution = solver.getSolution()
-        
-        self.assertEqual(len(solution), 0)
-    
-    def test_cubeSolver_init_20030_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveUpDaisy(self):
-        """ a cube without an up daisy should yield correct solve directions """
-        
-        cube = Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
-        
-        solver = CubeSolver(cube, SolveStage.UP_DAISY)
-        solution = solver.getSolution()
-        
-        # execute all of the solution rotations
-        for (facePosition, direction) in solution:
-            cube.rotateFace(facePosition, direction)
-        
-        # check whether it actually solved up daisy
-        self.assertTrue(cube.hasUpDaisy())
-    
-    def test_cubeSolver_init_20031_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveUpDaisy(self):
-        """ another cube without an up daisy should yield correct solve directions """
-        
-        cube = Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
-        
-        solver = CubeSolver(cube, SolveStage.UP_DAISY)
-        solution = solver.getSolution()
-        
-        # execute all of the solution rotations
-        for (facePosition, direction) in solution:
-            cube.rotateFace(facePosition, direction)
-        
-        # check whether it actually solved up daisy
-        self.assertTrue(cube.hasUpDaisy())
-    
-    def test_cubeSolver_init_20032_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveUpDaisy(self):
-        """ yet another cube without an up daisy should yield correct solve directions """
-        
-        cube = Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
-        
-        solver = CubeSolver(cube, SolveStage.UP_DAISY)
-        solution = solver.getSolution()
-        
-        # execute all of the solution rotations
-        for (facePosition, direction) in solution:
-            cube.rotateFace(facePosition, direction)
-        
-        # check whether it actually solved up daisy
-        self.assertTrue(cube.hasUpDaisy())
-    
-    def test_cubeSolver_init_20040_ASolvedCubeShouldYieldNoDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20020_ASolvedCubeShouldYieldNoDirectionsToSolveDownCross(self):
         """ an already solved cube should give no solve directions """
         
         solver = CubeSolver(
@@ -99,7 +43,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(len(solution), 0)
     
-    def test_cubeSolver_init_20041_ACubeWithDownCrossShouldYieldNoDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20021_ACubeWithDownCrossShouldYieldNoDirectionsToSolveDownCross(self):
         """ a cube with a down cross should give no solve directions """
         
         solver = CubeSolver(
@@ -110,7 +54,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(len(solution), 0)
     
-    def test_cubeSolver_init_20050_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20030_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ a cube with an up daisy should yield correct solve directions """
         
         cube = Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
@@ -125,7 +69,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
-    def test_cubeSolver_init_20051_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20031_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ another cube with an up daisy should yield correct solve directions """
         
         cube = Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
@@ -140,7 +84,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
-    def test_cubeSolver_init_20052_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20032_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube with an up daisy should yield correct solve directions """
         
         cube = Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
@@ -155,7 +99,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
-    def test_cubeSolver_init_20060_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20040_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ a cube without an up daisy should yield correct solve directions """
         
         cube = Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
@@ -170,7 +114,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
-    def test_cubeSolver_init_20061_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20041_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ another cube without an up daisy should yield correct solve directions """
         
         cube = Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
@@ -185,7 +129,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
-    def test_cubeSolver_init_20062_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
+    def test_cubeSolver_init_20042_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube without an up daisy should yield correct solve directions """
         
         cube = Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
@@ -200,7 +144,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
         
-    def test_cubeSolver_init_20070_ASolvedCubeShouldYieldNoDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20050_ASolvedCubeShouldYieldNoDirectionsToSolveDownLayer(self):
         """ an already solved cube should give no solve directions """
         
         solver = CubeSolver(
@@ -211,7 +155,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(len(solution), 0)
         
-    def test_cubeSolver_init_20071_ACubeWithASolvedDownLayerShouldYieldNoDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20051_ACubeWithASolvedDownLayerShouldYieldNoDirectionsToSolveDownLayer(self):
         """ a cube with a solved down layer should give no solve directions """
         
         solver = CubeSolver(
@@ -222,7 +166,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(len(solution), 0)
     
-    def test_cubeSolver_init_20080_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20060_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ a cube with an up daisy should yield correct solve directions """
         
         cube = Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
@@ -237,7 +181,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down layer
         self.assertTrue(cube.isDownLayerSolved())
     
-    def test_cubeSolver_init_20081_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20061_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ another cube with an up daisy should yield correct solve directions """
         
         cube = Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
@@ -252,7 +196,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down layer
         self.assertTrue(cube.isDownLayerSolved())
     
-    def test_cubeSolver_init_20082_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20062_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ yet another cube with an up daisy should yield correct solve directions """
         
         cube = Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
@@ -267,7 +211,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down layer
         self.assertTrue(cube.isDownLayerSolved())
     
-    def test_cubeSolver_init_20090_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20070_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ a cube without an up daisy should yield correct solve directions """
         
         cube = Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
@@ -282,7 +226,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down layer
         self.assertTrue(cube.isDownLayerSolved())
     
-    def test_cubeSolver_init_20091_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20071_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ another cube without an up daisy should yield correct solve directions """
         
         cube = Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
@@ -297,7 +241,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down layer
         self.assertTrue(cube.isDownLayerSolved())
     
-    def test_cubeSolver_init_20092_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+    def test_cubeSolver_init_20072_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ yet another cube without an up daisy should yield correct solve directions """
         
         cube = Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
@@ -312,7 +256,7 @@ class CubeSolverTest(TestCase):
         # check whether it actually solved down layer
         self.assertTrue(cube.isDownLayerSolved())
         
-    def test_cubeSolver_init_20100_ShouldSolveDownAndMiddleLayersAndUpCrossByDefault(self):
+    def test_cubeSolver_init_20080_ShouldSolveDownAndMiddleLayersAndUpCrossByDefault(self):
         """ if no cube state supplied, should solve down and middle layers and the up cross """
         
         cube = Cube('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg')
@@ -322,7 +266,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(firstSolver.getSolution(), secondSolver.getSolution())
     
-    def test_cubeSolver_init_20110_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayers(self):
+    def test_cubeSolver_init_20090_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayers(self):
         """ a solved cube should give no rotations to solve down and middle layers """
         
         solver = CubeSolver(
@@ -333,7 +277,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(len(solution), 0)
         
-    def test_cubeSolver_init_20111_ACubeWithSolvedDownAndMiddleLayersShouldYieldNoRotationsToSolveThoseTwoLayers(self):
+    def test_cubeSolver_init_20091_ACubeWithSolvedDownAndMiddleLayersShouldYieldNoRotationsToSolveThoseTwoLayers(self):
         """ a cube with solved down, mid layers should give no directions to solve down, mid layers """
         
         solver = CubeSolver(
@@ -344,7 +288,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(len(solution), 0)
         
-    def test_cubeSolver_init_20120_ACubeWithSolvedDownLayerShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+    def test_cubeSolver_init_20100_ACubeWithSolvedDownLayerShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with solved down layer should yield correct rotations to solve down and middle layers """
         
         cube = Cube('gorybybbbyoybrrrrroggbgygggobrrogoooyrboyyygbwwwwwwwww')
@@ -360,7 +304,7 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isDownLayerSolved())
         self.assertTrue(cube.isMiddleLayerSolved())
     
-    def test_cubeSolver_init_20121_AnotherCubeWithSolvedDownLayerShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+    def test_cubeSolver_init_20101_AnotherCubeWithSolvedDownLayerShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ another cube with solved down layer should yield correct rotations to solve down and middle layers """
         
         cube = Cube('roggbybbboorrrbrrryyorgbgggbgyooroooybbyyyggywwwwwwwww')
@@ -376,7 +320,7 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isDownLayerSolved())
         self.assertTrue(cube.isMiddleLayerSolved())
     
-    def test_cubeSolver_init_20130_ACubeWithDownCrossShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+    def test_cubeSolver_init_20110_ACubeWithDownCrossShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with down cross should yield correct rotations to solve down and middle layers """
         
         cube = Cube('rggbbggbyrrbrrygrboygbgyogbwywgooyooorwoybbowywrwwwrwy')
@@ -392,7 +336,7 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isDownLayerSolved())
         self.assertTrue(cube.isMiddleLayerSolved())
     
-    def test_cubeSolver_init_20140_ACubeWithUpDaisyShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+    def test_cubeSolver_init_20120_ACubeWithUpDaisyShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with down cross should yield correct rotations to solve down and middle layers """
         
         cube = Cube('brogbbbowggryrgbrywoyrgroyorbwbooyorgwgwywowwyyrbwybgg')
@@ -408,7 +352,7 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isDownLayerSolved())
         self.assertTrue(cube.isMiddleLayerSolved())
     
-    def test_cubeSolver_init_20150_AnUnsolvedCubeWithoutAnyProgressShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
+    def test_cubeSolver_init_20130_AnUnsolvedCubeWithoutAnyProgressShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with down cross should yield correct rotations to solve down and middle layers """
         
         cube = Cube('rorwbrrgwwgrbrygwoyogoggbgyoywworbygywbbyobbgyrorwboyw')
@@ -424,7 +368,7 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isDownLayerSolved())
         self.assertTrue(cube.isMiddleLayerSolved())
         
-    def test_cubeSolver_init_20160_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayersAndUpCross(self):
+    def test_cubeSolver_init_20140_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayersAndUpCross(self):
         """ a solved cube should give no rotations to solve down and middle layers """
         
         solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww', SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS)
@@ -432,7 +376,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
         
-    def test_cubeSolver_init_20161_ACubeWithSolvedDownAndMiddleLayersAndUpCrossShouldYieldNoRotationsToSolveThose(self):
+    def test_cubeSolver_init_20141_ACubeWithSolvedDownAndMiddleLayersAndUpCrossShouldYieldNoRotationsToSolveThose(self):
         """ a cube with solved down, mid layers and up cross should give no directions to solve down, mid layers and up cross """
         
         solver = CubeSolver('ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww', SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS)
@@ -440,7 +384,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
         
-    def test_cubeSolver_init_20170_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveDownMidLayersAndUpCross(self):
+    def test_cubeSolver_init_20150_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveDownMidLayersAndUpCross(self):
         """ a cube with solved down, mid layers should give correct directions to solve down, mid layers and up cross """
         
         solver = CubeSolver(
@@ -469,7 +413,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
         
-    def test_cubeSolver_init_20180_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveDownMidLayersAndUpCross(self):
+    def test_cubeSolver_init_20160_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveDownMidLayersAndUpCross(self):
         
         solver = CubeSolver(
             'gyyobgbbbbborryrrrybobgggggbrryogoooyogyyryorwwwwwwwww',
@@ -537,7 +481,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
     
-    def test_cubeSolver_init_20190_InputCubeShouldNotBeModified(self):
+    def test_cubeSolver_init_20170_InputCubeShouldNotBeModified(self):
         """ the cube supplied to the cube solver should not be modified """
         
         code = 'rbgobbogbwyboroywwyggwgrbbyroywogogwwyoyyrgyobrrwwbgrr'

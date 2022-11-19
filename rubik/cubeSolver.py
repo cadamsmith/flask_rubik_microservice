@@ -41,7 +41,6 @@ class CubeSolver():
         
         # execute solve algorithm corresponding to the cube state provided
         solveFunctions = {
-            SolveStage.UP_DAISY: self._solveUpDaisy,
             SolveStage.DOWN_CROSS: self._solveDownCross,
             SolveStage.DOWN_LAYER: self._solveDownLayer,
             SolveStage.DOWN_AND_MIDDLE_LAYERS: self._solveDownAndMiddleLayers,
