@@ -122,7 +122,7 @@ class CubeSolverTest(TestCase):
         for (facePosition, direction) in solution:
             cube.rotateFace(facePosition, direction)
         
-        # check whether it actually solved up daisy
+        # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20051_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
@@ -137,538 +137,212 @@ class CubeSolverTest(TestCase):
         for (facePosition, direction) in solution:
             cube.rotateFace(facePosition, direction)
         
-        # check whether it actually solved up daisy
+        # check whether it actually solved down cross
         self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20052_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube with an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg', SolveStage.DOWN_CROSS)
+        cube = Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
         
-        expected = [
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_CROSS)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down cross
+        self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20060_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ a cube without an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo', SolveStage.DOWN_CROSS)
+        cube = Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
         
-        expected = [
-            # solve up daisy
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            # make down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_CROSS)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down cross
+        self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20061_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ another cube without an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb', SolveStage.DOWN_CROSS)
+        cube = Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
         
-        expected = [
-            # solve up daisy
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            # make down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_CROSS)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down cross
+        self.assertTrue(cube.hasDownCross())
     
     def test_cubeSolver_init_20062_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownCross(self):
         """ yet another cube without an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby', SolveStage.DOWN_CROSS)
+        cube = Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
         
-        expected = [
-            # solve up daisy
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            # make down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_CROSS)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down cross
+        self.assertTrue(cube.hasDownCross())
         
     def test_cubeSolver_init_20070_ASolvedCubeShouldYieldNoDirectionsToSolveDownLayer(self):
         """ an already solved cube should give no solve directions """
         
-        solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww', SolveStage.DOWN_LAYER_SOLVED)
-        expected = []
+        solver = CubeSolver(
+            'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
+            SolveStage.DOWN_LAYER_SOLVED
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
         
     def test_cubeSolver_init_20071_ACubeWithASolvedDownLayerShouldYieldNoDirectionsToSolveDownLayer(self):
         """ a cube with a solved down layer should give no solve directions """
         
-        solver = CubeSolver('yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww', SolveStage.DOWN_LAYER_SOLVED)
-        expected = []
+        solver = CubeSolver(
+            'yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww',
+            SolveStage.DOWN_LAYER_SOLVED
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
     
     def test_cubeSolver_init_20080_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ a cube with an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg', SolveStage.DOWN_LAYER_SOLVED)
+        cube = Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
         
-        expected = [
-            # solve down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down layer
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down layer
+        self.assertTrue(cube.isDownLayerSolved())
     
     def test_cubeSolver_init_20081_AnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ another cube with an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb', SolveStage.DOWN_LAYER_SOLVED)
+        cube = Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
         
-        expected = [
-            # solve down cross
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down layer
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down layer
+        self.assertTrue(cube.isDownLayerSolved())
     
     def test_cubeSolver_init_20082_YetAnotherCubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ yet another cube with an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg', SolveStage.DOWN_LAYER_SOLVED)
+        cube = Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
         
-        expected = [
-            # solve down cross
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down layer
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down layer
+        self.assertTrue(cube.isDownLayerSolved())
     
     def test_cubeSolver_init_20090_ACubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ a cube without an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo', SolveStage.DOWN_LAYER_SOLVED)
+        cube = Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
         
-        expected = [
-            # solve up daisy
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            # solve down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down layer
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down layer
+        self.assertTrue(cube.isDownLayerSolved())
     
     def test_cubeSolver_init_20091_AnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ another cube without an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb', SolveStage.DOWN_LAYER_SOLVED)
+        cube = Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
         
-        expected = [
-            # solve up daisy
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down layer
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down layer
+        self.assertTrue(cube.isDownLayerSolved())
     
     def test_cubeSolver_init_20092_YetAnotherCubeWithoutUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ yet another cube without an up daisy should yield correct solve directions """
         
-        solver = CubeSolver('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby', SolveStage.DOWN_LAYER_SOLVED)
+        cube = Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
         
-        expected = [
-            # solve up daisy
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            # solve down cross
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            # solve down layer
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE),
-            
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
-        ]
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down layer
+        self.assertTrue(cube.isDownLayerSolved())
         
     def test_cubeSolver_init_20100_ShouldSolveDownAndMiddleLayersAndUpCrossByDefault(self):
         """ if no cube state supplied, should solve down and middle layers and the up cross """
         
-        firstSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg', SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS)
+        cube = Cube('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg')
         
-        secondSolver = CubeSolver('rrgoborgorgwyroygobrgwgwwryogybobrbbyboryogwwwwbywybyg')
+        firstSolver = CubeSolver(cube, SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS)
+        secondSolver = CubeSolver(cube)
         
         self.assertEqual(firstSolver.getSolution(), secondSolver.getSolution())
     
     def test_cubeSolver_init_20110_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayers(self):
         """ a solved cube should give no rotations to solve down and middle layers """
         
-        solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww', SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
-        expected = []
+        solver = CubeSolver(
+            'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
+            SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
         
     def test_cubeSolver_init_20111_ACubeWithSolvedDownAndMiddleLayersShouldYieldNoRotationsToSolveThoseTwoLayers(self):
         """ a cube with solved down, mid layers should give no directions to solve down, mid layers """
         
-        solver = CubeSolver('ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww', SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
-        expected = []
+        solver = CubeSolver(
+            'ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww',
+            SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
         
     def test_cubeSolver_init_20120_ACubeWithSolvedDownLayerShouldYieldCorrectRotationsToSolveDownAndMiddleLayers(self):
         """ a cube with solved down layer should yield correct rotations to solve down and middle layers """
