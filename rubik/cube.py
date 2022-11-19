@@ -285,3 +285,174 @@ class Cube:
                 
         cubeCode = CubeCode(codeText)
         return cubeCode.text
+    
+    def hasUpDaisy(self):
+        """ determines whether the cube has a daisy centered on the up face """
+        
+        # center coordinate of up face
+        (centerX, centerY, centerZ) = self.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.UP]
+        
+        # down color, also the colors the daisy petals should be
+        downColor = self.getFaceColor(CubeFacePosition.DOWN)
+        
+        # coordinates of each petal cubelet
+        petalCoords = [
+            (centerX - 1, centerY, centerZ),
+            (centerX, centerY, centerZ - 1),
+            (centerX + 1, centerY, centerZ),
+            (centerX, centerY, centerZ + 1)
+        ]
+        
+        # check all petal cubelet coords
+        for coord in petalCoords:
+            
+            # determine whether the up face color is the _cube's down color
+            color = self[coord][CubeFacePosition.UP]
+            
+            if color != downColor:
+                return False
+        
+        return True
+    
+    def hasDownCross(self):
+        """ determines whether the cube has a cross centered on the down face """
+        
+        # center coordinate of down face
+        (centerX, centerY, centerZ) = self.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.DOWN]
+        
+        # down color, also the color that the plus sign of the down cross should be
+        downColor = self.getFaceColor(CubeFacePosition.DOWN)
+        
+        # coordinates of each petal cubelet around the cross
+        petalCoords = [
+            (centerX - 1, centerY, centerZ),
+            (centerX, centerY, centerZ - 1),
+            (centerX + 1, centerY, centerZ),
+            (centerX, centerY, centerZ + 1)
+        ]
+        
+        # check all petal cubelet coords
+        for coord in petalCoords:
+            
+            # determine whether its down face color is the cube's down color
+            color = self[coord][CubeFacePosition.DOWN]
+            
+            if color != downColor:
+                return False
+        
+        # need to check a pair of cubelet faces on all vertical side face positions of the cube
+        otherFacesToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
+        
+        # go thru each face position
+        for facePosition in otherFacesToCheck:
+            
+            # pair to check is center cubelet and cubelet below it
+            (centerX, centerY, centerZ) = self.FACE_CENTER_CUBELET_COORDS[facePosition]
+            (belowX, belowY, belowZ) = (centerX, centerY + 1, centerZ)
+            
+            # determine whether their color is the same
+            faceColor = self[(centerX, centerY, centerZ)][facePosition]
+            belowColor = self[(belowX, belowY, belowZ)][facePosition]
+            
+            if faceColor != belowColor:
+                return False
+        
+        return True
+    
+    def isDownLayerSolved(self):
+        """ determines whether the cube's down layer is solved """
+        
+        # down color, also the color that every tile on down face should be
+        downColor = self.getFaceColor(CubeFacePosition.DOWN)
+        
+        # check all colors on down face
+        for coord in self.CUBELET_COORDS[CubeFacePosition.DOWN]:
+             
+            # determine whether each is the right color
+            color = self[coord][CubeFacePosition.DOWN]
+            
+            if color != downColor:
+                return False
+        
+        # need to check more colors on each of the 4 vertical side face positions of the cube
+        otherFacePositionsToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
+        
+        # check that the center tile and lower 3 tiles are the same color on each face
+        lowerCoords = [(0, 2, 0), (1, 2, 0), (2, 2, 0)]
+        
+        for facePosition in otherFacePositionsToCheck:
+            
+            # center color
+            faceColor = self.getFaceColor(facePosition)
+            
+            # determine whether all 3 lower colors are the same
+            lowerColors = list(map(lambda coord : self[coord][facePosition], lowerCoords))
+            
+            if any(color != faceColor for color in lowerColors):
+                return False
+            
+            # get next 3 lower coords
+            lowerCoords = list(map(
+                lambda coord : self.rotateCoord(coord, CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE),
+                lowerCoords
+            ))
+        
+        return True
+    
+    def isDownAndMiddleLayersSolved(self):
+        """ determines whether the cube's down and middle layers are solved """
+        
+        # first check whether down layer is solved
+        if not self.isDownLayerSolved():
+            return False
+        
+        # now need to check the remaining cubelets in the middle face
+        verticalFacePositions = [
+            CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT
+        ]
+        
+        # check that the all 3 middle layer cubelet face colors are the same for each vertical cube face
+        for facePosition in verticalFacePositions:
+            
+            # center color
+            faceColor = self.getFaceColor(facePosition)
+            
+            # these are the cubelets to the left and right of the center cubelet
+            middleCoords = [
+                self.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.LEFT],
+                self.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.RIGHT]
+            ]
+            
+            # determine whether the 2 middle coords have same color as face
+            middleColors = list(map(lambda coord : self[coord][facePosition], middleCoords))
+            
+            if any(color != faceColor for color in middleColors):
+                return False
+        
+        return True
+    
+    def hasUpCross(self):
+        """ determines whether an up cross is present on the cube """
+        
+        # center coordinate of down face
+        (centerX, centerY, centerZ) = self.FACE_CENTER_CUBELET_COORDS[CubeFacePosition.UP]
+        upColor = self.getFaceColor(CubeFacePosition.UP)
+        
+        # coordinates of each cubelet on petals of the cross
+        petalCoords = [
+            (centerX - 1, centerY, centerZ),
+            (centerX, centerY, centerZ - 1),
+            (centerX + 1, centerY, centerZ),
+            (centerX, centerY, centerZ + 1)
+        ]
+        
+        # check all petal cubelet coords
+        for coord in petalCoords:
+            
+            # determine whether its down face color is the cube's down color
+            color = self[coord][CubeFacePosition.UP]
+            
+            if color != upColor:
+                return False
+        
+        return True
