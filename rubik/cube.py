@@ -137,7 +137,7 @@ class Cube:
         for facePosition in cubeCode.FACE_POSITION_ORDER:
             for coords in Cube.CUBELET_COORDS[facePosition]:
                 color = CubeColor(cubeCode.text[codeIndex])
-                self[coords].setFaceColor(facePosition, color)
+                self[coords][facePosition] = color
                 
                 codeIndex += 1
     
