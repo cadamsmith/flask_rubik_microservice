@@ -375,21 +375,27 @@ class CubeSolverTest(TestCase):
     
     ''' CubeSolver.__init__ -- Solve Down, Middle Layers and Up Face -- POSITIVE TESTS '''
     
-    def test_cubeSolver_init_60040_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayersAndUpCross(self):
-        """ a solved cube should give no rotations to solve down and middle layers """
+    def test_cubeSolver_init_60010_ASolvedCubeShouldYieldNoRotationsToSolveDownAndMiddleLayersAndUpFace(self):
+        """ a solved cube should give no rotations to solve down, middle layers and up face """
         
-        solver = CubeSolver('bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww', SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS)
-        expected = []
+        solver = CubeSolver(
+            'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
+            SolveStage.DOWN_MID_LAYERS_AND_UP_FACE
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
         
-    def test_cubeSolver_init_60041_ACubeWithSolvedDownAndMiddleLayersAndUpCrossShouldYieldNoRotationsToSolveThose(self):
-        """ a cube with solved down, mid layers and up cross should give no directions to solve down, mid layers and up cross """
+    def test_cubeSolver_init_60011_ACubeWithSolvedDownAndMiddleLayersAndUpFaceShouldYieldNoRotationsToSolveThose(self):
+        """ a cube with solved down, mid layers and up face should give no rotations to solve down, mid layers and up face """
         
-        solver = CubeSolver('ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww', SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS)
-        expected = []
+        solver = CubeSolver(
+            'ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww',
+            SolveStage.DOWN_MID_LAYERS_AND_UP_FACE
+        )
+        solution = solver.getSolution()
         
-        self.assertEqual(solver.getSolution(), expected)
+        self.assertEqual(len(solution), 0)
         
     def test_cubeSolver_init_60050_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveDownMidLayersAndUpCross(self):
         """ a cube with solved down, mid layers should give correct directions to solve down, mid layers and up cross """
@@ -512,5 +518,4 @@ class CubeSolverTest(TestCase):
             
             self.assertIsInstance(facePosition, CubeFacePosition)
             self.assertIsInstance(rotationDirection, FaceRotationDirection)
-    
     
