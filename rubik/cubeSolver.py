@@ -443,7 +443,7 @@ class CubeSolver():
         self._solveDownAndMiddleLayersAndUpCross()
         assert (
             self._cube.isDownLayerSolved() and self._cube.isMiddleLayerSolved()
-            and self._cube.isUpFaceSolved()
+            and self._cube.hasUpCross()
         )
         
         # upper left corner coords of each vertical face position,
