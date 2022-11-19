@@ -5,19 +5,35 @@ from rubik.faceRotationDirection import FaceRotationDirection
 
 class FaceRotationDirectionTest(TestCase):
     
-    # GENERAL TESTS
+    ''' FaceRotationDirection -- GENERAL TESTS '''
     
-    # there should be only 2 face rotation directions (by nature of a cube face)
     def test_faceRotationDirection_00010_ShouldHaveExactlyTwoItems(self):
+        """ there should be only 2 face rotation directions (by nature of a cube face) """
+        
         expected = 2
         actual = len(list(FaceRotationDirection))
         
         self.assertEqual(expected, actual)
-        
-    # POSITIVE TESTS
     
-    # 'CW' should translate to clockwise direction
-    def test_faceRotationDirection_10010_ShouldCorrectlyParseClockwiseDirectionCode(self):
+    ''' FaceRotationDirection -- NEGATIVE TESTS '''
+    
+    def test_faceRotationDirection_10010_ShouldThrowExceptionIfNoDirectionCodeSupplied(self):
+        """ supplying no face code should result in exception """
+        
+        with self.assertRaises(Exception):
+            FaceRotationDirection()
+    
+    def test_faceRotationDirection_10020_ShouldThrowExceptionIfInvalidDirectionCodeSupplied(self):
+        """ supplying invalid face code should result in exception """
+        
+        with self.assertRaises(Exception):
+            FaceRotationDirection('L')
+    
+    ''' FaceRotationDirection -- POSITIVE TESTS '''
+    
+    def test_faceRotationDirection_20010_ShouldCorrectlyParseClockwiseDirectionCode(self):
+        """ 'CW' should translate to clockwise direction """
+        
         directionCode = 'CW'
         
         expected = FaceRotationDirection.CLOCKWISE
@@ -25,23 +41,13 @@ class FaceRotationDirectionTest(TestCase):
         
         self.assertEqual(expected, actual)
     
-    # 'CCW' should translate to counterclockwise direction
-    def test_faceRotationDirection_10020_ShouldCorrectlyParseCounterClockwiseDirectionCode(self):
+    def test_faceRotationDirection_20020_ShouldCorrectlyParseCounterClockwiseDirectionCode(self):
+        """ 'CCW' should translate to counterclockwise direction """
+        
         directionCode = 'CCW'
         
         expected = FaceRotationDirection.COUNTERCLOCKWISE
         actual = FaceRotationDirection(directionCode)
         
         self.assertEqual(expected, actual)
-        
-    # NEGATIVE TESTS
     
-    # supplying no face code should result in exception
-    def test_faceRotationDirection_20010_ShouldThrowExceptionIfNoDirectionCodeSupplied(self):
-        with self.assertRaises(Exception):
-            FaceRotationDirection()
-    
-    # supplying invalid face code should result in exception
-    def test_faceRotationDirection_20020_ShouldThrowExceptionIfInvalidDirectionCodeSupplied(self):
-        with self.assertRaises(Exception):
-            FaceRotationDirection('L')
