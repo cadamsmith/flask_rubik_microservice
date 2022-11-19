@@ -13,13 +13,12 @@ class CubeletTest(TestCase):
     # if valid cube faces are provided as input, a cube should be instantiated
     def test_cubelet_init_10010_ShouldInstantiateCubeletForValidInput(self):
     
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP: CubeColor.RED,
             CubeFacePosition.FRONT: CubeColor.BLUE,
             CubeFacePosition.LEFT: CubeColor.WHITE
-        }
+        })
         
-        cubelet = Cubelet(faces)
         self.assertIsInstance(cubelet, Cubelet)
     
     # instantiating with no supplied param faces should create uncolored cubelet
@@ -49,11 +48,9 @@ class CubeletTest(TestCase):
     # front face should be colored correctly if supplied in param faces
     def test_cubelet_init_10040_ShouldColorFrontFaceIfSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.FRONT : CubeColor.GREEN
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = CubeColor.GREEN
         actual = cubelet[CubeFacePosition.FRONT]
@@ -63,11 +60,9 @@ class CubeletTest(TestCase):
     # back face should be colored correctly if supplied in param faces
     def test_cubelet_init_10050_ShouldColorBackFaceIfSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.BACK : CubeColor.RED
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = CubeColor.RED
         actual = cubelet[CubeFacePosition.BACK]
@@ -77,11 +72,9 @@ class CubeletTest(TestCase):
     # left face should be colored correctly if supplied in param faces
     def test_cubelet_init_10060_ShouldColorLeftFaceIfSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.LEFT : CubeColor.YELLOW
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = CubeColor.YELLOW
         actual = cubelet[CubeFacePosition.LEFT]
@@ -91,11 +84,9 @@ class CubeletTest(TestCase):
     # right face should be colored correctly if supplied in param faces
     def test_cubelet_init_10070_ShouldColorRightFaceIfSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.RIGHT : CubeColor.WHITE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = CubeColor.WHITE
         actual = cubelet[CubeFacePosition.RIGHT]
@@ -105,11 +96,9 @@ class CubeletTest(TestCase):
     # up face should be colored correctly if supplied in param faces
     def test_cubelet_init_10080_ShouldColorUpFaceIfSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP : CubeColor.BLUE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = CubeColor.BLUE
         actual = cubelet[CubeFacePosition.UP]
@@ -119,11 +108,9 @@ class CubeletTest(TestCase):
     # down face should be colored correctly if supplied in param faces
     def test_cubelet_init_10090_ShouldColorDownFaceIfSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.DOWN : CubeColor.ORANGE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = CubeColor.ORANGE
         actual = cubelet[CubeFacePosition.DOWN]
@@ -133,12 +120,10 @@ class CubeletTest(TestCase):
     # front face should not be colored if not supplied in param faces
     def test_cubelet_init_10100_ShouldNotColorFrontFaceIfNotSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP : CubeColor.BLUE,
             CubeFacePosition.LEFT : CubeColor.YELLOW
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = None
         actual = cubelet[CubeFacePosition.FRONT]
@@ -148,12 +133,10 @@ class CubeletTest(TestCase):
     # back face should not be colored if not supplied in param faces
     def test_cubelet_init_10110_ShouldNotColorBackFaceIfNotSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP : CubeColor.BLUE,
             CubeFacePosition.LEFT : CubeColor.YELLOW
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = None
         actual = cubelet[CubeFacePosition.BACK]
@@ -163,11 +146,9 @@ class CubeletTest(TestCase):
     # left face should not be colored if not supplied in param faces
     def test_cubelet_init_10120_ShouldNotColorLeftFaceIfNotSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.RIGHT : CubeColor.WHITE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = None
         actual = cubelet[CubeFacePosition.LEFT]
@@ -177,11 +158,9 @@ class CubeletTest(TestCase):
     # right face should not be colored if not supplied in param faces
     def test_cubelet_init_10130_ShouldNotColorRightFaceIfNotSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.LEFT : CubeColor.ORANGE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = None
         actual = cubelet[CubeFacePosition.RIGHT]
@@ -191,11 +170,9 @@ class CubeletTest(TestCase):
     # up face should not be colored if not supplied in param faces
     def test_cubelet_init_10140_ShouldNotColorUpFaceIfNotSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.RIGHT : CubeColor.GREEN
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = None
         actual = cubelet[CubeFacePosition.UP]
@@ -205,13 +182,11 @@ class CubeletTest(TestCase):
     # down face should not be colored if not supplied in param faces
     def test_cubelet_init_10150_ShouldNotColorDownFaceIfNotSupplied(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP: CubeColor.RED,
             CubeFacePosition.FRONT: CubeColor.BLUE,
             CubeFacePosition.LEFT: CubeColor.WHITE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         expected = None
         actual = cubelet[CubeFacePosition.DOWN]
@@ -276,13 +251,11 @@ class CubeletTest(TestCase):
     # a normal cubelet should flip forward correctly
     def test_cubelet_rotate_10010_ShouldFlipForwardCorrectly(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP: CubeColor.BLUE,
             CubeFacePosition.FRONT: CubeColor.ORANGE,
             CubeFacePosition.RIGHT: CubeColor.YELLOW
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         cubelet.rotate(CubeRotationDirection.FLIP_FORWARD)
         
         for face in list(CubeFacePosition):
@@ -301,11 +274,9 @@ class CubeletTest(TestCase):
     # a normal cubelet should flip backward correctly
     def test_cubelet_rotate_10020_ShouldFlipBackwardCorrectly(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP: CubeColor.ORANGE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         cubelet.rotate(CubeRotationDirection.FLIP_BACKWARD)
         
         for face in list(CubeFacePosition):
@@ -320,13 +291,11 @@ class CubeletTest(TestCase):
     # a normal cubelet should flip leftward correctly
     def test_cubelet_rotate_10030_ShouldFlipLeftwardCorrectly(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.LEFT: CubeColor.ORANGE,
             CubeFacePosition.FRONT: CubeColor.GREEN,
             CubeFacePosition.DOWN: CubeColor.WHITE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         cubelet.rotate(CubeRotationDirection.FLIP_LEFTWARD)
         
         for face in list(CubeFacePosition):
@@ -345,12 +314,10 @@ class CubeletTest(TestCase):
     # a normal cubelet should flip rightward correctly
     def test_cubelet_rotate_10040_ShouldFlipRightwardCorrectly(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.FRONT: CubeColor.RED,
             CubeFacePosition.DOWN: CubeColor.BLUE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         cubelet.rotate(CubeRotationDirection.FLIP_RIGHTWARD)
         
         for face in list(CubeFacePosition):
@@ -570,11 +537,9 @@ class CubeletTest(TestCase):
     # supplying no direction param should throw exception
     def test_cubelet_rotate_20010_ShouldThrowExceptionForNonSuppliedDirectionParam(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP : CubeColor.BLUE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         with self.assertRaises(Exception):
             cubelet.rotate()
@@ -582,11 +547,9 @@ class CubeletTest(TestCase):
     # supplying non-CubeRotationDirection param should throw exception
     def test_cubelet_rotate_20020_ShouldThrowExceptionForInvalidDirectionParam(self):
         
-        faces = {
+        cubelet = Cubelet({
             CubeFacePosition.UP : CubeColor.BLUE
-        }
-        
-        cubelet = Cubelet(faces)
+        })
         
         with self.assertRaises(Exception):
             cubelet.rotate(2.46)
