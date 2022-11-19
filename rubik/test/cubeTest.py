@@ -6,6 +6,7 @@ from rubik.cube import Cube
 from rubik.cubelet import Cubelet
 from rubik.cubeFacePosition import CubeFacePosition
 from rubik.faceRotationDirection import FaceRotationDirection
+from rubik.cubeColor import CubeColor
 
 class CubeTest(TestCase):
     
@@ -111,7 +112,63 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             cube[coord]
-       
+    
+    ''' Cube.__setitem__ -- NEGATIVE TESTS '''
+        
+    def test_cube_setitem_20010_ShouldThrowExceptionForCoordinateNotAnIntegerTuple(self):
+        """
+        trying to index cube with invalid coordinate that is not an integer tuple
+        should throw exception
+        """
+        
+        cube = Cube('ygbbbgoogoorrrbwroggywgbgwwbobyorbrgryybygowwwyrwwyroy')
+        coord = 2.3
+        
+        cubelet = Cubelet({
+            CubeFacePosition.UP: CubeColor.RED,
+            CubeFacePosition.FRONT: CubeColor.BLUE,
+            CubeFacePosition.LEFT: CubeColor.WHITE
+        })
+        
+        with self.assertRaises(Exception):
+            cube[coord] = cubelet
+            
+    def test_cube_setitem_20020_ShouldThrowExceptionForNon3DCoordinate(self):
+        """
+        trying to index cube with integer tuple not of form (x, y, z)
+        should throw exception
+        """
+        
+        cube = Cube('grwwbbbgbrygorryworwygggwrogoroobbyyoowyybyybowrgwrwbg')
+        coord = (2, 1, 2, 0)
+        
+        cubelet = Cubelet({
+            CubeFacePosition.UP: CubeColor.RED,
+            CubeFacePosition.FRONT: CubeColor.BLUE,
+            CubeFacePosition.LEFT: CubeColor.WHITE
+        })
+        
+        with self.assertRaises(Exception):
+            cube[coord] = cubelet
+    
+    def test_cube_setitem_20030_ShouldThrowExceptionFor3DCoordinateOutOfRange(self):
+        """
+        trying to index cube with integer tuple of form (x, y, z) where either x, y, z
+        is outside of range [0, 2] should throw exception
+        """
+        
+        cube = Cube('bgyobrgoworgwrbgogrrrygbygbygrwobwoybbwryywybrwogwyowo')
+        coord = (3, 1, -2)
+        
+        cubelet = Cubelet({
+            CubeFacePosition.UP: CubeColor.RED,
+            CubeFacePosition.FRONT: CubeColor.BLUE,
+            CubeFacePosition.LEFT: CubeColor.WHITE
+        })
+        
+        with self.assertRaises(Exception):
+            cube[coord] = cubelet
+    
     ''' Cube.rotateFace -- POSITIVE TESTS '''
     
     def test_cube_rotateFace_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceInAlternatingDirections(self):
