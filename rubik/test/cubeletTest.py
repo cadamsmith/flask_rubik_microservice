@@ -554,3 +554,70 @@ class CubeletTest(TestCase):
             
             self.assertEqual(actualColor, expectedColor)
     
+    ''' Cubelet.__getitem__ -- NEGATIVE TESTS '''
+    
+    def test_cubelet_getitem_10010_ShouldThrowExceptionForNonFacePosition(self):
+        """ supplying an invalid index should throw exception """
+        
+        cubelet = Cubelet({
+            CubeFacePosition.RIGHT: CubeColor.RED
+        })
+        
+        with self.assertRaises(Exception):
+            cubelet[True]
+    
+    ''' Cubelet.__getitem__ -- POSITIVE TESTS '''
+    
+    def test_cubelet_getitem_20010_ShouldYieldCubeColorOrNoneForValidFacePosition(self):
+        """ supplying a valid index should return either a CubeColor or None """
+        
+        cubelet = Cubelet({
+            CubeFacePosition.LEFT: CubeColor.BLUE
+        })
+        
+        color = cubelet[CubeFacePosition.DOWN]
+        self.assertTrue(isinstance(color, CubeColor) or color is None)
+    
+    def test_cubelet_getitem_20020_ShouldReturnExpectedResultsForValidFacePositions(self):
+        """ indexing should yield same colors as ones provided upon Cubelet construction """
+        
+        faceColors = {
+            CubeFacePosition.UP: CubeColor.GREEN,
+            CubeFacePosition.RIGHT: CubeColor.ORANGE
+        }
+        cubelet = Cubelet(faceColors)
+        
+        # iterate over face positions and ensure indexing works as expected
+        for facePosition in list(CubeFacePosition):
+            actual = cubelet[facePosition]
+            
+            expected = None
+            if facePosition in faceColors.keys():
+                expected = faceColors[facePosition]
+            
+            self.assertEqual(actual, expected)
+    
+    ''' Cubelet.__setitem__ -- NEGATIVE TESTS '''
+    
+    def test_cubelet_setitem_10010_ShouldThrowExceptionForNonFacePosition(self):
+        """ supplying an invalid index should throw exception """
+        
+        cubelet = Cubelet({
+            CubeFacePosition.RIGHT: CubeColor.RED
+        })
+        
+        with self.assertRaises(Exception):
+            cubelet[CubeColor.RED] = CubeColor.BLUE
+    
+    def test_cubelet_setitem_10020_ShouldThrowExceptionForNonCubeColor(self):
+        """ supplying invalid cube color should throw exception """
+        
+        cubelet = Cubelet({
+            CubeFacePosition.RIGHT: CubeColor.YELLOW,
+            CubeFacePosition.BACK: CubeColor.WHITE,
+            CubeFacePosition.DOWN: CubeColor.GREEN
+        })
+        
+        with self.assertRaises(Exception):
+            cubelet[CubeFacePosition.UP] = [2.3, 3.2]
+    
