@@ -30,7 +30,7 @@ class CubeSolver():
         self._cube = copy.deepcopy(cube)
         
         self._solve(state)
-        
+    
     def _solve(self, state: SolveStage):
         """ produces a list of rotation directions to reach a certain cube state """
         
@@ -149,8 +149,6 @@ class CubeSolver():
         self._solveUpDaisy()
         assert self._cube.hasUpDaisy()
         
-        flippedPetalCount = 0
-        
         i = 0
         facePositions = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
         
@@ -163,7 +161,7 @@ class CubeSolver():
         facePosition = facePositions[i]
         
         # we need to flip all four daisy petals
-        while (flippedPetalCount < 4):
+        while not self._cube.hasDownCross():
             
             aboveColor = self._cube[(aboveX, aboveY, aboveZ)][facePosition]
             belowColor = self._cube[(belowX, belowY, belowZ)][facePosition]
@@ -182,8 +180,6 @@ class CubeSolver():
                 
             self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
             self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
-            
-            flippedPetalCount += 1
             
             (aboveX, aboveY, aboveZ) = self._cube.rotateCoord((aboveX, aboveY, aboveZ), CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             (belowX, belowY, belowZ) = (aboveX, aboveY + 1, aboveZ)
