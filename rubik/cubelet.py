@@ -19,9 +19,9 @@ class Cubelet:
         assert (len(coloredFaces) <= 3)
         
         # initialize all cubeData to no color
-        self.faces = {cf: None for cf in CubeFacePosition}
+        self._faces = {cf: None for cf in CubeFacePosition}
         
-        self.faces.update(coloredFaces)
+        self._faces.update(coloredFaces)
     
     def __getitem__(self, facePosition: CubeFacePosition) -> CubeColor | None:
         """ accessor for the faces that make up cubelet """
@@ -29,7 +29,7 @@ class Cubelet:
         # ensure param is valid type
         assert isinstance(facePosition, CubeFacePosition)
         
-        return self.faces[facePosition]
+        return self._faces[facePosition]
     
     def setFaceColor(self, facePosition: CubeFacePosition, color: CubeColor):
         """ colors one of the cubelet's faces """
@@ -38,7 +38,15 @@ class Cubelet:
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(color, CubeColor))
         
-        self.faces[facePosition] = color
+        self._faces[facePosition] = color
+    
+    def getFaceColors(self):
+        """ returns the face colors of the cubelet """
+        
+        return {
+            facePosition: self[facePosition]
+            for facePosition in CubeFacePosition
+        }
     
     def rotate(self, direction: CubeRotationDirection):
         """ rotates the cubelet in some direction """
@@ -54,5 +62,5 @@ class Cubelet:
             alteredFaces[newFacePosition] = self[facePosition]
         
         # apply the transform
-        self.faces.update(alteredFaces)
+        self._faces.update(alteredFaces)
     

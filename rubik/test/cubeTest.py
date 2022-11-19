@@ -229,7 +229,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -242,7 +242,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -255,7 +255,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -268,7 +268,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -281,7 +281,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -294,7 +294,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.CLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -307,7 +307,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -320,7 +320,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.BACK, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -333,7 +333,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -346,7 +346,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -359,7 +359,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
@@ -372,7 +372,7 @@ class CubeTest(TestCase):
         cube.rotateFace(CubeFacePosition.DOWN, FaceRotationDirection.COUNTERCLOCKWISE)
         
         centerCoords = (1, 1, 1)
-        actual = cube[centerCoords].faces
+        actual = cube[centerCoords].getFaceColors()
         
         self.assertEqual(actual, expected)
     
