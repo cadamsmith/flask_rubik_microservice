@@ -43,8 +43,8 @@ class CubeSolver():
         solveFunctions = {
             SolveStage.UP_DAISY: self._solveUpDaisy,
             SolveStage.DOWN_CROSS: self._solveDownCross,
-            SolveStage.DOWN_LAYER_SOLVED: self._solveDownLayer,
-            SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED: self._solveDownAndMiddleLayers,
+            SolveStage.DOWN_LAYER: self._solveDownLayer,
+            SolveStage.DOWN_AND_MIDDLE_LAYERS: self._solveDownAndMiddleLayers,
             SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross
         }
         solveFunctions[state]()

@@ -205,7 +205,7 @@ class CubeSolverTest(TestCase):
         
         solver = CubeSolver(
             'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
-            SolveStage.DOWN_LAYER_SOLVED
+            SolveStage.DOWN_LAYER
         )
         solution = solver.getSolution()
         
@@ -216,7 +216,7 @@ class CubeSolverTest(TestCase):
         
         solver = CubeSolver(
             'yryybgbbbgybrryrrrygyogrgggrorbobooogoobygbyowwwwwwwww',
-            SolveStage.DOWN_LAYER_SOLVED
+            SolveStage.DOWN_LAYER
         )
         solution = solver.getSolution()
         
@@ -227,7 +227,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -242,7 +242,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -257,7 +257,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -272,7 +272,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -287,7 +287,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -302,7 +302,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_LAYER_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_LAYER)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -327,7 +327,7 @@ class CubeSolverTest(TestCase):
         
         solver = CubeSolver(
             'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
-            SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED
+            SolveStage.DOWN_AND_MIDDLE_LAYERS
         )
         solution = solver.getSolution()
         
@@ -338,7 +338,7 @@ class CubeSolverTest(TestCase):
         
         solver = CubeSolver(
             'ygrbbbbbbyoyrrrrrrgryggggggrbboooooogyoyyyoybwwwwwwwww',
-            SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED
+            SolveStage.DOWN_AND_MIDDLE_LAYERS
         )
         solution = solver.getSolution()
         
@@ -349,7 +349,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('gorybybbbyoybrrrrroggbgygggobrrogoooyrboyyygbwwwwwwwww')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -365,7 +365,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('roggbybbboorrrbrrryyorgbgggbgyooroooybbyyyggywwwwwwwww')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -381,7 +381,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('rggbbggbyrrbrrygrboygbgyogbwywgooyooorwoybbowywrwwwrwy')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -397,7 +397,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('brogbbbowggryrgbrywoyrgroyorbwbooyorgwgwywowwyyrbwybgg')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
@@ -413,7 +413,7 @@ class CubeSolverTest(TestCase):
         
         cube = Cube('rorwbrrgwwgrbrygwoyogoggbgyoywworbygywbbyobbgyrorwboyw')
         
-        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS_SOLVED)
+        solver = CubeSolver(cube, SolveStage.DOWN_AND_MIDDLE_LAYERS)
         solution = solver.getSolution()
         
         # execute all of the solution rotations
