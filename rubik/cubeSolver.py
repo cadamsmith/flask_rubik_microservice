@@ -164,8 +164,8 @@ class CubeSolver():
         # we need to flip all four daisy petals
         while (flippedPetalCount < 4):
             
-            aboveColor = self._cube[(aboveX, aboveY, aboveZ)].faces[facePosition]
-            belowColor = self._cube[(belowX, belowY, belowZ)].faces[facePosition]
+            aboveColor = self._cube[(aboveX, aboveY, aboveZ)][facePosition]
+            belowColor = self._cube[(belowX, belowY, belowZ)][facePosition]
             
             while aboveColor != belowColor:
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
@@ -176,8 +176,8 @@ class CubeSolver():
                 i = (i + 1) % 4
                 facePosition = facePositions[i]
                 
-                aboveColor = self._cube[(aboveX, aboveY, aboveZ)].faces[facePosition]
-                belowColor = self._cube[(belowX, belowY, belowZ)].faces[facePosition]
+                aboveColor = self._cube[(aboveX, aboveY, aboveZ)][facePosition]
+                belowColor = self._cube[(belowX, belowY, belowZ)][facePosition]
                 
             self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
             self._addToSolution(facePosition, FaceRotationDirection.CLOCKWISE)
