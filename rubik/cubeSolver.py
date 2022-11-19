@@ -456,29 +456,6 @@ class CubeSolver():
         relLeftFacePosition = CubeFacePosition.rotate(facePosition, CubeRotationDirection.SPIN_LEFTWARD)
         self._trigger(relLeftFacePosition, FaceRotationDirection.COUNTERCLOCKWISE, 2)
                 
-    def _trigger(self, facePosition: CubeFacePosition, direction: FaceRotationDirection, degree: int = 1):
-        """ adds a clockwise or counterclockwise trigger of some degree on a cube face to the solution """
-        
-        assert isinstance(facePosition, CubeFacePosition)
-        assert isinstance(direction, FaceRotationDirection)
-        
-        # make sure degree is a positive integer
-        assert isinstance(degree, int)
-        assert degree > 0
-        
-        self._addToSolution(facePosition, direction)
-        
-        for _ in range(degree):
-            self._addToSolution(CubeFacePosition.UP, direction)
-        
-        oppositeDirection = (
-            FaceRotationDirection.CLOCKWISE
-            if direction is FaceRotationDirection.COUNTERCLOCKWISE
-            else FaceRotationDirection.COUNTERCLOCKWISE
-        )
-        
-        self._addToSolution(facePosition, oppositeDirection)
-        
     def _solveDownAndMiddleLayers(self):
         """ solves the down and middle layers of the cube """
         
@@ -616,10 +593,38 @@ class CubeSolver():
             # now we're ready for a FURurf!
             self._executeFururf()
     
+    #--------------------------------------------------------------
+    # methods for executing special rotation sequences on the cube,
+    # ones that repeatedly come up in cube solver algorithms
+    #--------------------------------------------------------------
+    
+    def _trigger(self, facePosition: CubeFacePosition, direction: FaceRotationDirection, degree: int = 1):
+        """ adds a clockwise or counterclockwise trigger of some degree on a cube face to the solution """
+        
+        assert isinstance(facePosition, CubeFacePosition)
+        assert isinstance(direction, FaceRotationDirection)
+        
+        # make sure degree is a positive integer
+        assert isinstance(degree, int)
+        assert degree > 0
+        
+        self._addToSolution(facePosition, direction)
+        
+        for _ in range(degree):
+            self._addToSolution(CubeFacePosition.UP, direction)
+        
+        oppositeDirection = (
+            FaceRotationDirection.CLOCKWISE
+            if direction is FaceRotationDirection.COUNTERCLOCKWISE
+            else FaceRotationDirection.COUNTERCLOCKWISE
+        )
+        
+        self._addToSolution(facePosition, oppositeDirection)
+    
     def _executeFururf(self):
         """ execute a FURurf sequence of rotations, common for solving up cross """
         
-        # the 6 rotations that comprise a FURurf eorRION
+        # the 6 rotations that comprise a FURurf sequence
         rotations = [
             (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
@@ -629,6 +634,7 @@ class CubeSolver():
             (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
         ]
         
+        # add each one to the solution
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
