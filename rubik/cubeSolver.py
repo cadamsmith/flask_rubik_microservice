@@ -437,8 +437,53 @@ class CubeSolver():
             self._executeFurf()
     
     def _solveDownAndMiddleLayersAndUpFace(self):
-        pass
-    
+        """ solves down layer, middle layer, and up face on the cube """
+        
+        # need to solve down, middle layers, and up cross first
+        self._solveDownAndMiddleLayersAndUpCross()
+        assert (
+            self._cube.isDownLayerSolved() and self._cube.isMiddleLayerSolved()
+            and self._cube.isUpFaceSolved()
+        )
+        
+        # upper left corner coords of each vertical face position,
+        # also each of the corners on the up face that need to be filled in
+        upLeftCornerCoords = {
+            facePosition: self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
+            for facePosition in self._cube.FACE_ORIENTATION_COORDS
+        }
+        frontLeftCoord = upLeftCornerCoords[CubeFacePosition.FRONT]
+        
+        upColor = self._cube.getFaceColor(CubeFacePosition.UP)
+        
+        # continue until up face is solved
+        while not self._cube.isUpFaceSolved():
+            
+            # count how many corners match the up color
+            cornerCount = sum(
+                1 for coord in upLeftCornerCoords.values()
+                if self._cube[coord][CubeFacePosition.UP] == upColor
+            )
+            
+            # if only one matched, it's a fish
+            if cornerCount == 1:
+                
+                # get that matched corner in the front left
+                while self._cube[frontLeftCoord][CubeFacePosition.UP] != upColor:
+                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            # otherwise, get the left side of front left cubelet to be the up color
+            else:
+                while self._cube[frontLeftCoord][CubeFacePosition.LEFT] != upColor:
+                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            # now the cube is ready for the Rurr move!
+            self._executeRurr()
+            
+            # these sequences shouldn't affect the down and middle layers
+            assert self._cube.isDownLayerSolved()
+            assert self._cube.isMiddleLayerSolved()
+            
     """
     various auxiliary methods used by the cube solver algorithms
     """
