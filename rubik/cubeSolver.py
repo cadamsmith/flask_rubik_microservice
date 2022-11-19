@@ -37,20 +37,15 @@ class CubeSolver():
         # directions are not retained from previous solves
         self._clearSolution()
         
-        if state is CubeState.UP_DAISY:
-            self._constructUpDaisy()
-            
-        elif state is CubeState.DOWN_CROSS:
-            self._constructDownCross()
-            
-        elif state is CubeState.DOWN_LAYER_SOLVED:
-            self._solveDownLayer()
-        
-        elif state is CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED:
-            self._solveDownAndMiddleLayers()
-            
-        elif state is CubeState.DOWN_MID_LAYERS_AND_UP_CROSS:
-            self._constructUpCross()
+        # execute solve algorithm corresponding to the cube state provided
+        solveFunctions = {
+            CubeState.UP_DAISY: self._constructUpDaisy,
+            CubeState.DOWN_CROSS: self._constructDownCross,
+            CubeState.DOWN_LAYER_SOLVED: self._solveDownLayer,
+            CubeState.DOWN_AND_MIDDLE_LAYERS_SOLVED: self._solveDownAndMiddleLayers,
+            CubeState.DOWN_MID_LAYERS_AND_UP_CROSS: self._constructUpCross
+        }
+        solveFunctions[state]()
         
         # optimize directions, replacing redundant rotations
         self._optimizeSolution()
