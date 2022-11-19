@@ -433,8 +433,8 @@ class CubeSolver():
             if upColor == self._cube[rightPetalCoord][CubeFacePosition.UP]:
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE)
             
-            # now we're ready for a FURurf!
-            self._executeFururf()
+            # now we're ready for a furf!
+            self._executeFurf()
     
     def _solveDownAndMiddleLayersAndUpFace(self):
         pass
@@ -640,6 +640,8 @@ class CubeSolver():
     """
     methods for executing special rotation sequences on the cube,
     ones that repeatedly come up in cube solver algorithms
+    
+    some have abbreviated codenames I have defined for them
     """
     
     def _trigger(self, facePosition: CubeFacePosition, direction: FaceRotationDirection, degree: int = 1):
@@ -665,8 +667,8 @@ class CubeSolver():
         
         self._addToSolution(facePosition, oppositeDirection)
     
-    def _executeFururf(self):
-        """ execute a FURurf sequence of rotations, common for solving up cross """
+    def _executeFurf(self):
+        """ execute a Furf move, defined by the rotation sequence FURurf """
         
         # the 6 rotations that comprise a FURurf sequence
         rotations = [
@@ -676,6 +678,25 @@ class CubeSolver():
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.FRONT, FaceRotationDirection.COUNTERCLOCKWISE)
+        ]
+        
+        # add each one to the solution
+        for (facePosition, direction) in rotations:
+            self._addToSolution(facePosition, direction)
+    
+    def _executeRurr(self):
+        """ execute a Rurr move, defined by the rotation codes RUrURUUr """
+        
+        # the 6 rotations that comprise a FURurf sequence
+        rotations = [
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
         ]
         
         # add each one to the solution
