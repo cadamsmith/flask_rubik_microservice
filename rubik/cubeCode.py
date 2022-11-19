@@ -62,7 +62,10 @@ class CubeCode:
             return False
         
         # check if the center cubelet faces have unique colors
-        centerColors = set(map(lambda index: CubeColor(codeText[index]), cls.FACE_CENTER_INDICES))
+        centerColors = set(map(
+            lambda index: CubeColor(codeText[index]),
+            cls.FACE_CENTER_INDICES
+        ))
         
         if not len(centerColors) == len(list(CubeColor)):
             return False
