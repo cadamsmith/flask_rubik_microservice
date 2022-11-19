@@ -1,4 +1,5 @@
 
+import hashlib
 from unittest import TestCase
 
 import rubik.solve as solve
@@ -123,8 +124,7 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
-    
-    def test_solve_20040_ShouldYieldHashToken(self):
+    def test_solve_20040_ShouldYieldToken(self):
         """ solve result should yield hash token """
         
         result = solve._solve({
@@ -134,7 +134,7 @@ class SolveTest(TestCase):
         
         self.assertIn('token', result)
         
-    def test_solve_20041_ShouldYield8CharacterHashToken(self):
+    def test_solve_20041_ShouldYield8CharacterToken(self):
         """ yielded hash token should be 8 chars long """
         
         result = solve._solve({
@@ -146,6 +146,23 @@ class SolveTest(TestCase):
         actualTokenLength = len(result['token'])
         
         self.assertEqual(actualTokenLength, expectedTokenLength)
+    
+    def test_solve_20042_TokenShouldBeSubstringOfCubeRotationsHash(self):
+        """ yielded token should be a substring of the sha256 hash of the cube and rotations """
+        
+        cube = 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        
+        result = solve._solve({'op': 'solve', 'cube': cube});
+        rotations = result['rotations']
+        token = result['token']
+        
+        hasher = hashlib.sha256()
+        hasher.update(f'{cube}{rotations}'.encode())
+        fullToken = hasher.hexdigest()
+        
+        self.assertIn(token, fullToken)
+    
+    ''' solve -- down cross -- POSITIVE TESTS '''
     
     def test_solve_30010_ACubeWithNoProgressShouldYieldCorrectRotationsToSolveDownCross(self):
         """ supplying a cube with no milestones reached should yield correct rotations to solve down cross """
@@ -212,6 +229,8 @@ class SolveTest(TestCase):
             cube = Cube(rotateResult['cube'])
         
         self.assertTrue(cube.hasDownCross())
+    
+    ''' solve -- down layer -- POSITIVE TESTS '''
     
     def test_solve_40010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveDownLayer(self):
         """ supplying a cube with no reached milestones should yield correct rotations to solve down layer """
@@ -300,7 +319,9 @@ class SolveTest(TestCase):
             cube = Cube(rotateResult['cube'])
         
         self.assertTrue(cube.isDownLayerSolved())
-        
+    
+    ''' solve -- middle layer -- POSITIVE TESTS '''
+    
     def test_solve_50010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveMiddleLayer(self):
         """ supplying a cube with no milestones reached should yield correct rotations to solve middle layer """
         
@@ -410,6 +431,8 @@ class SolveTest(TestCase):
             cube = Cube(rotateResult['cube'])
         
         self.assertTrue(cube.isMiddleLayerSolved())
+    
+    ''' solve -- up face -- POSITIVE TESTS '''
     
     def test_solve_60010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveUpFace(self):
         """ supplying a cube with no milestones reached should yield correct rotations to solve up face """
