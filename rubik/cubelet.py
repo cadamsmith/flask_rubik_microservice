@@ -25,7 +25,10 @@ class Cubelet:
         
         self.faces.update(coloredFaces)
     
-    def __getitem__(self, facePosition):
+    def __getitem__(self, facePosition: CubeFacePosition) -> CubeColor | None:
+        """ accessor for the faces that make up cubelet """
+        
+        # ensure param is valid type
         assert isinstance(facePosition, CubeFacePosition)
         
         return self.faces[facePosition]
@@ -34,6 +37,7 @@ class Cubelet:
     def setFaceColor(self, facePosition: CubeFacePosition, color: CubeColor):
         """ colors one of the cubelet's faces """
         
+        # ensure params are valid types
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(color, CubeColor))
         
@@ -52,5 +56,6 @@ class Cubelet:
             
             alteredFaces[newFacePosition] = self[facePosition]
         
+        # apply the transform
         self.faces.update(alteredFaces)
     
