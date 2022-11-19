@@ -495,7 +495,7 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
             
-    ## rotateFace - NEGATIVE TESTS
+    # rotateFace - NEGATIVE TESTS
     
     # supplying neither cube face position or face rotation direction should throw exception
     def testcube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
@@ -536,4 +536,18 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             cube.rotateFace(CubeFacePosition.RIGHT, False)
+    
+    # hasUpDaisy - POSITIVE TESTS
+    
+    def test_cube_hasUpDaisy_20010_ShouldReturnFalseForCubeWithoutUpDaisy(self):
+        """ a cube without an up daisy should return false for hasUpDaisy execution """
+        
+        cube = Cube('bywobwrrbgboorgwboybwyggybwooywoybgggwggyyrrryworworrb')
+        self.assertFalse(cube.hasUpDaisy())
+        
+    def test_cube_hasUpDaisy_20020_ShouldReturnTrueForCubeWithUpDaisy(self):
+        """ a cube with an up daisy should return true for hasUpDaisy execution """
+        
+        cube = Cube('gogobooybrbyyrgyggogwogboygrrrrobygwbwbwywywwbrrrwyobw')
+        self.assertTrue(cube.hasUpDaisy())
         
