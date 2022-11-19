@@ -537,7 +537,7 @@ class CubeSolverTest(TestCase):
         
         self.assertEqual(solver.getSolution(), expected)
     
-    def test_cubeSolver_init_20190_GettingSolutionShouldNotModifyCube(self):
+    def test_cubeSolver_init_20190_InputCubeShouldNotBeModified(self):
         """ the cube supplied to the cube solver should not be modified """
         
         code = 'rbgobbogbwyboroywwyggwgrbbyroywogogwwyoyyrgyobrrwwbgrr'
