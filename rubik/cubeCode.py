@@ -21,7 +21,7 @@ class CubeCode:
     """ the center tile index in each cube face """
     FACE_CENTER_INDICES = [4, 13, 22, 31, 40, 49]
     
-    def __init__(self, codeText):
+    def __init__(self, codeText: str):
         """ instantiates CubeCode from supplied code string """
         
         # make sure supplied param is a valid cube code text
@@ -30,7 +30,7 @@ class CubeCode:
         self.text = codeText
     
     @classmethod
-    def isValid(cls, codeText):
+    def isValid(cls, codeText: str):
         """ determines whether a string is a valid cube code """
         
         # check if supplied code text is a string
