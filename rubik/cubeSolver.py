@@ -12,7 +12,7 @@ from rubik.cubeRotationDirection import CubeRotationDirection
 class CubeSolver():
     """ An entity capable of determining a solution for solving a 3x3x3 Rubik's Cube """
     
-    def __init__(self, cube: str | CubeCode | Cube, state = SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS):
+    def __init__(self, cube: str | CubeCode | Cube, state = SolveStage.DOWN_MID_LAYERS_AND_UP_FACE):
         """ instantiates a CubeSolver, supplied only a Cube and SolveStage """
         
         # if cube is a string, turn it into a CubeCode
@@ -44,7 +44,6 @@ class CubeSolver():
             SolveStage.DOWN_CROSS: self._solveDownCross,
             SolveStage.DOWN_LAYER: self._solveDownLayer,
             SolveStage.DOWN_AND_MIDDLE_LAYERS: self._solveDownAndMiddleLayers,
-            SolveStage.DOWN_MID_LAYERS_AND_UP_CROSS: self._solveDownAndMiddleLayersAndUpCross,
             SolveStage.DOWN_MID_LAYERS_AND_UP_FACE: self._solveDownAndMiddleLayersAndUpFace
         }
         solveFunctions[state]()

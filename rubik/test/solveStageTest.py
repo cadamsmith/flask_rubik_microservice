@@ -8,9 +8,9 @@ class SolveStageTest(TestCase):
     ''' SolveStage -- GENERAL TESTS '''
     
     def test_solveStage_00010_ShouldHaveExactlySixItems(self):
-        """ there should be only 6 solve stages """
+        """ there should be only 5 solve stages """
         
-        expected = 6
+        expected = 5
         actual = len(list(SolveStage))
         
         self.assertEqual(expected, actual)
