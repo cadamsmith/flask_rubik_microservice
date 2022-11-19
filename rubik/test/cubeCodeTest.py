@@ -81,3 +81,61 @@ class CubeCodeTest(TestCase):
         code = CubeCode('oboybbrrggrborywwroogggbygrooyyorbobygwwygbrwwwrywbywg')
         self.assertIsInstance(code, CubeCode)
     
+    
+    ''' CubeCode.isValid -- POSITIVE TESTS '''
+        
+    def test_cubeCode_isValid_20010_ShouldReturnFalseForNonStringCodeText(self):
+        """ supplying a non-string code text should yield false """
+        
+        result = CubeCode.isValid(2.3)
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20020_ShouldReturnFalseForEmptyCodeText(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20030_ShouldReturnFalseForCodeTextLessThan54CharsLong(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('orgybowrrrrygrywrgggybgrwobywoooybbrwogyggywowbwwbboy')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20040_ShouldReturnFalseForCodeTextMoreThan54CharsLong(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('wowbbwrybryyrrbyygowwygoobowbgrgorgwgogbryggwbyrrbwoyow')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20050_ShouldReturnFalseForCodeTextContainingNonColorCodes(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20060_ShouldReturnFalseForCodeTextNotContainingEveryColor(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20070_ShouldReturnFalseForCodeTextWithUnevenColorDistribution(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20080_ShouldReturnFalseForCodeTextWithNonUniqueCenterFaceColors(self):
+        """ supplying empty code text should yield false """
+        
+        result = CubeCode.isValid('gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr')
+        self.assertFalse(result)
+    
+    def test_cubeCode_isValid_20090_ShouldReturnTrueForValidCodeText(self):
+        """ supplying a valid code text should yield true """
+        
+        result = CubeCode.isValid('bywrborrbbrrgroygogogwgygworwogoywybwbybygybowbrowwgry')
+        self.assertTrue(result)
+    
+    
