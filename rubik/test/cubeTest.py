@@ -9,7 +9,7 @@ from rubik.faceRotationDirection import FaceRotationDirection
 
 class CubeTest(TestCase):
     
-    ''' Cube.__init__ - POSITIVE TESTS '''
+    ''' Cube.__init__ -- POSITIVE TESTS '''
     
     def test_cube_init_10010_ShouldInstantiateCubeForValidCubeCode(self):
         """ if valid cubelet faces are provided as input, a Cube should be instantiated """
@@ -50,7 +50,7 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), code)
     
-    ''' Cube.__init__ - NEGATIVE TESTS '''
+    ''' Cube.__init__ -- NEGATIVE TESTS '''
     
     def test_cube_init_20010_ShouldThrowExceptionForInvalidCubeCode(self):
         """ supplying invalid cube code should throw exception """
@@ -63,8 +63,32 @@ class CubeTest(TestCase):
         
         with self.assertRaises(Exception):
             Cube()
-            
-    ''' Cube.rotateFace - POSITIVE TESTS '''
+    
+    ''' Cube.__getitem__ -- POSITIVE TESTS '''
+    
+    def test_cube_getitem_10010_ShouldYieldCubeletForValidCoordinate(self):
+        """ indexing cube with valid coordinate should return Cubelet """
+        
+        cube = Cube('yrrybgwgogygorrwoyrwwwgrbwybgoyoorwrogwyybgbybrgowbbbo')
+        coord = (2, 1, 2)
+        
+        self.assertIsInstance(cube[coord], Cubelet)
+        
+    ''' Cube.__getitem__ -- NEGATIVE TESTS '''
+        
+    def test_cube_getitem_20010_ShouldThrowExceptionForCoordinateNotAnIntegerTuple(self):
+        """
+        trying to index cube with invalid coordinate that is not an integer tuple
+        should throw exception
+        """
+        
+        cube = Cube('ygbbbgoogoorrrbwroggywgbgwwbobyorbrgryybygowwwyrwwyroy')
+        coord = 2.3
+        
+        with self.assertRaises(Exception):
+            cube[coord]
+       
+    ''' Cube.rotateFace -- POSITIVE TESTS '''
     
     def test_cube_rotateFace_10010_ShouldBeUnchangedAfterTwoRotationsForSameFaceInAlternatingDirections(self):
         """ rotating same face twice in alternating directions should result in unchanged cube """
@@ -617,7 +641,7 @@ class CubeTest(TestCase):
         
         self.assertEqual(cube.toCode(), expected)
             
-    ''' Cube.rotateFace - NEGATIVE TESTS '''
+    ''' Cube.rotateFace -- NEGATIVE TESTS '''
     
     def test_cube_rotateFace_20010_ShouldThrowExceptionForNonSuppliedParams(self):
         """ supplying neither cube face position or face rotation direction should throw exception """
@@ -659,7 +683,7 @@ class CubeTest(TestCase):
         with self.assertRaises(Exception):
             cube.rotateFace(CubeFacePosition.RIGHT, False)
     
-    ''' Cube.hasUpDaisy - POSITIVE TESTS '''
+    ''' Cube.hasUpDaisy -- POSITIVE TESTS '''
     
     def test_cube_hasUpDaisy_20010_ShouldReturnFalseForCubeWithoutUpDaisy(self):
         """ a cube without an up daisy should return false for hasUpDaisy query """
@@ -673,7 +697,7 @@ class CubeTest(TestCase):
         cube = Cube('gogobooybrbyyrgyggogwogboygrrrrobygwbwbwywywwbrrrwyobw')
         self.assertTrue(cube.hasUpDaisy())
     
-    ''' Cube.hasDownCross - POSITIVE TESTS '''
+    ''' Cube.hasDownCross -- POSITIVE TESTS '''
     
     def test_cube_hasDownCross_20010_ShouldReturnFalseForCubeWithoutDownCross(self):
         """ a cube without a down cross should return false for hasDownCross query """
@@ -687,7 +711,7 @@ class CubeTest(TestCase):
         cube = Cube('wywobbrbgrggrrbyrgrgyogoogboyoyogyogbrwryybbbywowwwrww')
         self.assertTrue(cube.hasDownCross())
         
-    ''' Cube.isDownLayerSolved - POSITIVE TESTS '''
+    ''' Cube.isDownLayerSolved -- POSITIVE TESTS '''
     
     def test_cube_isDownLayerSolved_20010_ShouldReturnFalseForCubeWithUnsolvedDownLayer(self):
         """ a cube with unsolved down layer should return false for isDownLayerSolved query """
@@ -701,7 +725,7 @@ class CubeTest(TestCase):
         cube = Cube('gyogbobbbybrgrgrrryybrgrgggyyrboyooooobbyoyrgwwwwwwwww')
         self.assertTrue(cube.isDownLayerSolved())
         
-    ''' Cube.isDownAndMiddleLayersSolved - POSITIVE TESTS '''
+    ''' Cube.isDownAndMiddleLayersSolved -- POSITIVE TESTS '''
     
     def test_cube_isDownAndMiddleLayersSolved_20010_ShouldReturnFalseForCubeWithoutSolvedDownAndMiddleLayers(self):
         """ a cube with unsolved down or middle layers should return false for isDownAndMiddleLayersSolved query """
@@ -715,7 +739,7 @@ class CubeTest(TestCase):
         cube = Cube('ygrbbbbbbgyyrrrrrrbyoggggggbroooooooybryyogyywwwwwwwww')
         self.assertTrue(cube.isDownAndMiddleLayersSolved())
         
-    ''' Cube.hasUpCross - POSITIVE TESTS '''
+    ''' Cube.hasUpCross -- POSITIVE TESTS '''
     
     def test_cube_hasUpCross_20010_ShouldReturnFalseForCubeWithoutUpCross(self):
         """ a cube without up cross should return false for hasUpCross query """
