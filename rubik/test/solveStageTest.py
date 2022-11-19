@@ -5,10 +5,11 @@ from rubik.solveStage import SolveStage
 
 class SolveStageTest(TestCase):
     
-    # GENERAL TESTS
+    ''' SolveStage -- GENERAL TESTS '''
     
-    # there should be only 5 solve stages
     def test_solveStage_00010_ShouldHaveExactlyFiveItems(self):
+        """ there should be only 5 solve stages """
+        
         expected = 5
         actual = len(list(SolveStage))
         
