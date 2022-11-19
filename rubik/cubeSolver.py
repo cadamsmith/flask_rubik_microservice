@@ -222,6 +222,7 @@ class CubeSolver():
             for facePosition in self._cube.FACE_ORIENTATION_COORDS
         }
         
+        # keep executing this process until down layer solved
         while not self._cube.isDownLayerSolved():
             
             # first look for the down color in the upper left tile of all the side faces
@@ -231,14 +232,17 @@ class CubeSolver():
                 for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
+            # if any are found
             if any(color == downColor for (_, color) in upperLeftCandidateColors.items()):
                 
+                # figure out where it is
                 facePosition = next(
                     facePosition for facePosition, color 
                     in upperLeftCandidateColors.items() 
                     if color == downColor
                 )
                 
+                # pass position to handler function, then start over at top
                 self._handleMatchedUpperLeftCandidateColor(facePosition)
                 continue
             
@@ -249,14 +253,17 @@ class CubeSolver():
                 for (facePosition, coord) in upperRightCandidateCoords.items()
             }
             
+            # if any are found
             if any(color == downColor for (_, color) in upperRightCandidateColors.items()):
                 
+                # figure out where it is
                 facePosition = next(
                     facePosition for facePosition, color 
                     in upperRightCandidateColors.items() 
                     if color == downColor
                 )
                 
+                # pass position to handler function, then start over at top
                 self._handleMatchedUpperRightCandidateColor(facePosition)
                 continue
             
@@ -267,6 +274,7 @@ class CubeSolver():
                 for (facePosition, coord) in upperLeftCandidateCoords.items()
             }
             
+            # if any are found
             if any(color == downColor for (_, color) in topCornerCandidateColors.items()):
                 
                 facePosition = next(
@@ -275,6 +283,7 @@ class CubeSolver():
                     if color == downColor
                 )
                 
+                # pass position to handler function, then start over at top
                 self._handleMatchedTopCornerCandidateColor(facePosition)
                 continue
             
@@ -285,6 +294,7 @@ class CubeSolver():
                 for (facePosition, coord) in lowerLeftCandidateCoords.items()
             }
             
+            # if any are found
             if any(color == downColor for (_, color) in lowerLeftCandidateColors.items()):
                 
                 facePosition = next(
@@ -293,6 +303,7 @@ class CubeSolver():
                     if color == downColor
                 )
                 
+                # pass position to handler function, then start over at top
                 self._handleMatchedLowerLeftCandidateColor(facePosition)
                 continue
             
@@ -303,6 +314,7 @@ class CubeSolver():
                 for (facePosition, coord) in lowerRightCandidateCoords.items()
             }
             
+            # if any are found
             if any(color == downColor for (_, color) in lowerRightCandidateColors.items()):
                 
                 facePosition = next(
@@ -311,13 +323,14 @@ class CubeSolver():
                     if color == downColor
                 )
                 
+                # pass position to handler function, then start over at top
                 self._handleMatchedLowerRightCandidateColor(facePosition)
                 continue
             
-            # if all else fails, then the down surface is solved, but at least 2 corners are
-            # in the wrong place
+            # if the down color is not found in any of these locations, then the down FACE is solved,
+            # but at least 2 of the corners are in the wrong place
             
-            # handle one of these misplaced corners
+            # to solve the down LAYER, we need to handle one of these misplaced corners
             self._fixMalformedDownCorner()
     
     def _solveDownAndMiddleLayers(self):
