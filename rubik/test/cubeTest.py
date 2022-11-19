@@ -593,3 +593,17 @@ class CubeTest(TestCase):
         cube = Cube('ygrbbbbbbgyyrrrrrrbyoggggggbroooooooybryyogyywwwwwwwww')
         self.assertTrue(cube.isDownAndMiddleLayersSolved())
         
+    # hasUpCross - POSITIVE TESTS
+    
+    def test_cube_hasUpCross_20010_ShouldReturnFalseForCubeWithoutUpCross(self):
+        """ a cube without up cross should return false for hasUpCross query """
+        
+        cube = Cube('owbobyrbrybygrbbwyrwwoggoygggbooyoobrrgryrwgowyywwbwrg')
+        self.assertFalse(cube.hasUpCross())
+        
+    def test_cube_hasUpCross_20020_ShouldReturnTrueForCubeWithUpCross(self):
+        """ a cube with up cross should return true for hasUpCross query """
+        
+        cube = Cube('ybrbbbbbbgrorrrrrryobggggggygroooooooygyyybyywwwwwwwww')
+        self.assertTrue(cube.hasUpCross())
+        
