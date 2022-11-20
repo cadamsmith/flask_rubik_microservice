@@ -513,14 +513,14 @@ class CubeSolver():
         for _ in range(2):
             
             # check if corners already aligned
-            isCornersAligned = False
+            isCornersAligned = True
             
             for (facePosition, coord) in leftCornerCoords.items():
                 faceColor = self._cube.getFaceColor(facePosition)
                 cornerColor = self._cube[coord][facePosition]
                 
-                if faceColor == cornerColor:
-                    isCornersAligned = True
+                if faceColor != cornerColor:
+                    isCornersAligned = False
                     break
             
             # if they're already aligned, no need to align them
