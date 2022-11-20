@@ -868,8 +868,22 @@ class CubeTest(TestCase):
         cube = Cube('wworbybbwyooowybggbrywybwgboorooywgorbrgrryrggwrwgbgyy')
         self.assertFalse(cube.isUpFaceSolved())
         
-    def test_cube_isUpFaceSolved_20010_ShouldReturnTrueForCubeWithSolvedUpFace(self):
+    def test_cube_isUpFaceSolved_20020_ShouldReturnTrueForCubeWithSolvedUpFace(self):
         """ a cube with solved up face should return true for isUpFaceSolved query """
         
         cube = Cube('wyybbbbbbobowwwwwwbowyyyyyyywboooooorrrrrrrrrggggggggg')
         self.assertTrue(cube.isUpFaceSolved())
+    ''' Cube.isUpLayerSolved -- POSITIVE TESTS '''
+    
+    def test_cube_isUpLayerSolved_20010_ShouldReturnFalseForCubeWithUnsolvedUpLayer(self):
+        """ an cube with unsolved up layer should return false for isUpLayerSolved query """
+        
+        cube = Cube('bbrybowybggogrorogyrowggwwbbgyyorwooywgwyrrrygbwbwyobr')
+        self.assertFalse(cube.isUpLayerSolved())
+    
+    def test_cube_isUpLayerSolved_20020_ShouldReturnTrueForCubeWithSolvedUpLayer(self):
+        """ a cube with solved up layer should return true for isUpLayerSolved query """
+        
+        cube = Cube('bbbbbbwwgrrrwrworogggoggbowooororbbgyyyyyyyyyrgwowwrgw')
+        self.assertTrue(cube.isUpLayerSolved())
+        

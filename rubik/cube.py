@@ -500,3 +500,6 @@ class Cube:
         
         return True
     
+    def isUpLayerSolved(self):
+        pass
+    
