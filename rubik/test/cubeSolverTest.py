@@ -499,6 +499,122 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isMiddleLayerSolved())
         self.assertTrue(cube.isUpFaceSolved())
     
+    
+    ''' CubeSolver.__init__ -- Solve Entire Cube -- POSITIVE TESTS '''
+    
+    def test_cubeSolver_init_70010_ASolvedCubeShouldYieldNoRotationsToSolveEntireCube(self):
+        """ a solved cube should give no rotations to solve down, middle layers and up face """
+        
+        solver = CubeSolver(
+            'bbbbbbbbbrrrrrrrrrgggggggggoooooooooyyyyyyyyywwwwwwwww',
+            SolveStage.ENTIRE_CUBE
+        )
+        solution = solver.getSolution()
+        
+        self.assertEqual(len(solution), 0)
+    
+    def test_cubeSolver_init_70020_ACubeWithoutAnyProgressShouldYieldCorrectRotationsToSolveEntireCube(self):
+        """ a cube with no milestones reached should give correct rotations to solve down, mid layers and up face """
+        
+        cube = Cube('rgbobyywgowrgrbogyggrrgborrbygyobbrowryoybwwwbowwwoyyg')
+        
+        solver = CubeSolver(cube, SolveStage.ENTIRE_CUBE)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down, middle layers and up face
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
+    def test_cubeSolver_init_70030_ACubeWithUpDaisyShouldYieldCorrectRotationsToSolveEntireCube(self):
+        """ a cube with up daisy should give correct rotations to solve down, mid layers and up face """
+        
+        cube = Cube('wbybboorrrrrgrobrywogbgybygogbgoyoywywgwywrwgbbyrwgwoo')
+        
+        solver = CubeSolver(cube, SolveStage.ENTIRE_CUBE)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down, middle layers and up face
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
+    def test_cubeSolver_init_70040_ACubeWithDownCrossShouldYieldCorrectRotationsToSolveEntireCube(self):
+        """ a cube with down cross should give correct rotations to solve down, mid layers and up face """
+        
+        cube = Cube('wbgybrbbyyyogroorrgrwggrbgorbryooboybbwyyggorowgwwwwwy')
+        
+        solver = CubeSolver(cube, SolveStage.ENTIRE_CUBE)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down, middle layers and up face
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
+    def test_cubeSolver_init_70050_ACubeWithDownLayerSolvedShouldYieldCorrectRotationsToSolveEntireCube(self):
+        """ a cube with down layer solved should give correct rotations to solve down, mid layers and up face """
+        
+        cube = Cube('bobybybbbygooryrrryryrgggggrgyyobooogbgryorbowwwwwwwww')
+        
+        solver = CubeSolver(cube, SolveStage.ENTIRE_CUBE)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down, middle layers and up face
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
+    def test_cubeSolver_init_70060_ACubeWithSolvedDownMidLayersShouldYieldCorrectDirectionsToSolveEntireCube(self):
+        """ a cube with solved down, mid layers should give correct directions to solve down, mid layers and up face """
+        
+        cube = Cube('yggbbbbbboyyrrrrrrobrgggggggyrooooooyyboyrbyywwwwwwwww')
+        
+        solver = CubeSolver(cube, SolveStage.ENTIRE_CUBE)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down, middle layers and up face
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
+    def test_cubeSolver_init_70070_ACubeWithSolvedDownMidLayersAndUpCrossShouldYieldCorrectDirectionsToSolveEntireCube(self):
+        """ a cube with solved down, mid layers and up cross should give correct directions to solve down, mid layers and up face """
+        
+        cube = Cube('oobbbbbbbyrgrrrrrrybrggggggyggoooooobyryyyyyowwwwwwwww')
+        
+        solver = CubeSolver(cube, SolveStage.ENTIRE_CUBE)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved down, middle layers and up face
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
     ''' CubeSolver.getSolution -- POSITIVE TESTS '''
     
     def test_cubeSolver_getSolution_20010_ShouldReturnValidDirections(self):
