@@ -494,8 +494,14 @@ class CubeSolver():
             assert self._cube.isMiddleLayerSolved()
     
     def _solveEntireCube(self):
-        pass
-    
+        """ solves entire cube """
+        
+        # need to solve down, middle layers, and up face first
+        self._solveDownAndMiddleLayersAndUpFace()
+        assert (
+            self._cube.isDownLayerSolved() and self._cube.isMiddleLayerSolved()
+            and self._cube.isUpFaceSolved()
+        )
     """
     various auxiliary methods used by the cube solver algorithms
     """
