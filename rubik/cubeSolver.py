@@ -502,6 +502,70 @@ class CubeSolver():
             self._cube.isDownLayerSolved() and self._cube.isMiddleLayerSolved()
             and self._cube.isUpFaceSolved()
         )
+        
+        # first we need to align the up face corners
+        leftCornerCoords = {
+            facePosition: self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
+            for facePosition in self._cube.FACE_ORIENTATION_COORDS
+        }
+        
+        # worst case, we have to execute this twice
+        for _ in range(2):
+            
+            # check if corners already aligned
+            isCornersAligned = False
+            
+            for (facePosition, coord) in leftCornerCoords.items():
+                faceColor = self._cube.getFaceColor(facePosition)
+                cornerColor = self._cube[coord][facePosition]
+                
+                if faceColor == cornerColor:
+                    isCornersAligned = True
+                    break
+            
+            # if they're already aligned, no need to align them
+            if isCornersAligned:
+                break
+            
+            # if one of them is already aligned, put it in the front left corner
+            cornerCoord = leftCornerCoords[CubeFacePosition.FRONT]
+            
+            for _ in range(4):
+                frontColor = self._cube.getFaceColor(CubeFacePosition.FRONT)
+                cornerColor = self._cube[cornerCoord][CubeFacePosition.FRONT]
+                
+                if frontColor == cornerColor:
+                    break
+                
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            # now execute moves lurr and rurr
+            self._executeLurr()
+            self._executeRurr()
+        
+        # now we need to align the vertical side faces of the petal cubelets
+        petalCoords = {
+            facePosition: self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP]
+            for facePosition in self._cube.FACE_ORIENTATION_COORDS
+        }
+        
+        while not self._cube.isUpLayerSolved():
+            
+            # if one of the 4 cubelets is already solved, stick that one in the back
+            for _ in range(4):
+                backPetalCoord = petalCoords[CubeFacePosition.BACK]
+                
+                backColor = self._cube.getFaceColor(CubeFacePosition.BACK)
+                backPetalColor = self._cube[backPetalCoord][CubeFacePosition.BACK]
+                
+                if backColor == backPetalColor:
+                    break
+                
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            # now execute moves ffuf and lruf
+            self._executeFfuf()
+            self._executeLruf()
     """
     various auxiliary methods used by the cube solver algorithms
     """
@@ -750,7 +814,7 @@ class CubeSolver():
     def _executeRurr(self):
         """ execute a Rurr move, defined by the rotation codes RUrURUUr """
         
-        # the 6 rotations that comprise a FURurf sequence
+        # the 8 rotations that comprise a RUrURUUr sequence
         rotations = [
             (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
@@ -766,6 +830,57 @@ class CubeSolver():
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
+    def _executeLurr(self):
+        """ execute a Lurr move, defined by the rotation codes lURuLUr """
+        
+        # the 7 rotations that comprise a lURuLUr sequence
+        rotations = [
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE)
+        ]
+        
+        # add each one to the solution
+        for (facePosition, direction) in rotations:
+            self._addToSolution(facePosition, direction)
+    
+    def _executeFfuf(self):
+        """ execute a Ffuf move, defined by the rotation codes FFUrLFF """
+        
+        # the 7 rotations that comprise a FFUrLFF sequence
+        rotations = [
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+        ]
+        
+        # add each one to the solution
+        for (facePosition, direction) in rotations:
+            self._addToSolution(facePosition, direction)
+    
+    def _executeLruf(self):
+        """ execute a Lruf move, defined by the rotation codes lRUFF """
+        
+        # the 5 rotations that comprise a lRUFF sequence
+        rotations = [
+            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+        ]
+        
+        # add each one to the solution
+        for (facePosition, direction) in rotations:
+            self._addToSolution(facePosition, direction)
     """
     methods dealing with manipulating _solution field
     """
