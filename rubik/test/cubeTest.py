@@ -873,6 +873,7 @@ class CubeTest(TestCase):
         
         cube = Cube('wyybbbbbbobowwwwwwbowyyyyyyywboooooorrrrrrrrrggggggggg')
         self.assertTrue(cube.isUpFaceSolved())
+    
     ''' Cube.isUpLayerSolved -- POSITIVE TESTS '''
     
     def test_cube_isUpLayerSolved_20010_ShouldReturnFalseForCubeWithUnsolvedUpLayer(self):
