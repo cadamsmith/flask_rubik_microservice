@@ -44,7 +44,8 @@ class CubeSolver():
             SolveStage.DOWN_CROSS: self._solveDownCross,
             SolveStage.DOWN_LAYER: self._solveDownLayer,
             SolveStage.DOWN_AND_MIDDLE_LAYERS: self._solveDownAndMiddleLayers,
-            SolveStage.DOWN_MID_LAYERS_AND_UP_FACE: self._solveDownAndMiddleLayersAndUpFace
+            SolveStage.DOWN_MID_LAYERS_AND_UP_FACE: self._solveDownAndMiddleLayersAndUpFace,
+            SolveStage.ENTIRE_CUBE: self._solveEntireCube
         }
         solveFunctions[state]()
         
@@ -491,7 +492,10 @@ class CubeSolver():
             # these sequences shouldn't affect the down and middle layers
             assert self._cube.isDownLayerSolved()
             assert self._cube.isMiddleLayerSolved()
-            
+    
+    def _solveEntireCube(self):
+        pass
+    
     """
     various auxiliary methods used by the cube solver algorithms
     """
