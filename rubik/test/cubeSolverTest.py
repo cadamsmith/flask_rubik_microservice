@@ -41,6 +41,23 @@ class CubeSolverTest(TestCase):
         CubeSolver(cube)
         self.assertEqual(cube.toCode(), code)
     
+    def test_cubeSolver_init_20030_ShouldSolveEntireCubeByDefault(self):
+        """ supplying no cube stage should solve entire cube by default """
+        
+        cube = Cube('rrrobwoyobogrrybwrworbgryygwwbbogywbgbooyyygwygwbwgorg')
+        
+        solver = CubeSolver(cube)
+        solution = solver.getSolution()
+        
+        # execute all of the solution rotations
+        for (facePosition, direction) in solution:
+            cube.rotateFace(facePosition, direction)
+        
+        # check whether it actually solved entire cube
+        self.assertTrue(cube.isDownLayerSolved())
+        self.assertTrue(cube.isMiddleLayerSolved())
+        self.assertTrue(cube.isUpLayerSolved())
+    
     ''' CubeSolver.__init__ -- Solve Down Cross -- POSITIVE TESTS '''
     
     def test_cubeSolver_init_30010_ASolvedCubeShouldYieldNoDirectionsToSolveDownCross(self):
