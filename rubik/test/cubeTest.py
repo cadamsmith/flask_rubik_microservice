@@ -887,4 +887,18 @@ class CubeTest(TestCase):
         
         cube = Cube('bbbbbbwwgrrrwrworogggoggbowooororbbgyyyyyyyyyrgwowwrgw')
         self.assertTrue(cube.isUpLayerSolved())
+    
+    ''' Cube.isUpCornersSolved -- POSITIVE TESTS '''
+    
+    def test_cube_isUpCornersSolved_20010_ShouldReturnFalseForCubeWithUnsolvedUpCorners(self):
+        """ an cube with unsolved up corners should return false for isUpCornersSolved query """
         
+        cube = Cube('rrrbbbbbbgogrrrrrroboggggggbgbooooooyyyyyyyyywwwwwwwww')
+        self.assertFalse(cube.isUpCornersSolved())
+    
+    def test_cube_isUpCornersSolved_20020_ShouldReturnTrueForCubeWithSolvedUpCorners(self):
+        """ a cube with solved up corners should return true for isUpCornersSolved query """
+        
+        cube = Cube('bgbbbbbbbrrrrrrrrrgogggggggoboooooooyyyyyyyyywwwwwwwww')
+        self.assertTrue(cube.isUpCornersSolved())
+    
