@@ -576,7 +576,7 @@ class CubeSolver():
             if len(alignedLeftCornerPositions) == 1:
                 relLeftPosition = alignedLeftCornerPositions[0]
             
-            if len(alignedLeftCornerPositions == 2):
+            if len(alignedLeftCornerPositions) == 2:
                 [cornerPositionA, cornerPositionB] = alignedLeftCornerPositions
                 
                 if CubeFacePosition.rotate(cornerPositionA, CubeRotationDirection.SPIN_LEFTWARD) == cornerPositionB:
