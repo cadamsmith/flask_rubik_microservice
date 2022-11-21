@@ -504,6 +504,39 @@ class Cube:
         
         return True
     
+    def isUpEdgesSolved(self):
+        """ determines whether the faces on the vertical edges of the up layer are solved """
+        
+        pass
+    
+    def isUpCornersSolved(self):
+        """ determines whether the cube's up layer corners are solved """
+        
+        # first check whether up layer is solved
+        if not self.isUpFaceSolved():
+            return False
+        
+        # need to check more colors on each of the 4 vertical side face positions of the cube
+        otherFacePositionsToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
+        
+        # check that the center tile and up corners are the same color on each face
+        for facePosition in otherFacePositionsToCheck:
+            upCornerCoords = [
+                self.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT],
+                self.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_RIGHT]
+            ]
+            
+            # center color
+            faceColor = self.getFaceColor(facePosition)
+            
+            # determine whether all 3 lower colors are the same
+            upLayerColors = list(map(lambda coord : self[coord][facePosition], upCornerCoords))
+            
+            if any(color != faceColor for color in upLayerColors):
+                return False
+        
+        return True
+    
     def isUpLayerSolved(self):
         """ determines whether the cube's up layer is solved """
         
@@ -533,31 +566,3 @@ class Cube:
         
         return True
     
-    def isUpCornersSolved(self):
-        """ determines whether the cube's up layer corners are solved """
-        
-        # first check whether up layer is solved
-        if not self.isUpFaceSolved():
-            return False
-        
-        # need to check more colors on each of the 4 vertical side face positions of the cube
-        otherFacePositionsToCheck = [CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT]
-        
-        # check that the center tile and up corners are the same color on each face
-        for facePosition in otherFacePositionsToCheck:
-            upCornerCoords = [
-                self.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT],
-                self.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_RIGHT]
-            ]
-            
-            # center color
-            faceColor = self.getFaceColor(facePosition)
-            
-            # determine whether all 3 lower colors are the same
-            upLayerColors = list(map(lambda coord : self[coord][facePosition], upCornerCoords))
-            
-            if any(color != faceColor for color in upLayerColors):
-                return False
-        
-        return True
-        
