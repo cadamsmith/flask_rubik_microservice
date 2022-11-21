@@ -499,7 +499,6 @@ class CubeSolverTest(TestCase):
         self.assertTrue(cube.isMiddleLayerSolved())
         self.assertTrue(cube.isUpFaceSolved())
     
-    
     ''' CubeSolver.__init__ -- Solve Entire Cube -- POSITIVE TESTS '''
     
     def test_cubeSolver_init_70010_ASolvedCubeShouldYieldNoRotationsToSolveEntireCube(self):
