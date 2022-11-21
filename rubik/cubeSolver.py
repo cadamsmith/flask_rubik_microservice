@@ -587,6 +587,30 @@ class CubeSolver():
             # now execute moves lurr and rurr
             self._executeLurr(relLeftPosition)
             self._executeRurr(relLeftPosition)
+            
+        # now need to solve the 4 up cubelet faces of each vertical face position
+        
+        while not self._cube.isUpLayerSolved():
+            
+            # if any of these 4 are already solved, the algorithm needs one of these
+            # to serve as the relative back position for the rotation sequence
+            
+            relBackPosition = CubeFacePosition.BACK
+            
+            for facePosition in verticalFacePositions:
+                
+                coord = self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP]
+                
+                color = self._cube[coord][facePosition]
+                faceColor = self._cube.getFaceColor(facePosition)
+                
+                if color == faceColor:
+                    relBackPosition = facePosition
+                    break
+            
+            # execute Ffuf and Lruf moves
+            self._executeFfuf(relBackPosition)
+            self._executeLruf(relBackPosition)
     
     """
     various auxiliary methods used by the cube solver algorithms
@@ -878,34 +902,42 @@ class CubeSolver():
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
-    def _executeFfuf(self):
+    def _executeFfuf(self, relBackPosition: CubeFacePosition = CubeFacePosition.BACK):
         """ execute a Ffuf move, defined by the rotation codes FFUrLFF """
+        
+        relLeftPosition = CubeFacePosition.rotate(relBackPosition, CubeRotationDirection.SPIN_RIGHTWARD)
+        relFrontPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_RIGHTWARD)
+        relRightPosition = CubeFacePosition.rotate(relFrontPosition, CubeRotationDirection.SPIN_RIGHTWARD)
         
         # the 7 rotations that comprise a FFUrLFF sequence
         rotations = [
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
+            (relFrontPosition, FaceRotationDirection.CLOCKWISE),
+            (relFrontPosition, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+            (relRightPosition, FaceRotationDirection.COUNTERCLOCKWISE),
+            (relLeftPosition, FaceRotationDirection.CLOCKWISE),
+            (relFrontPosition, FaceRotationDirection.CLOCKWISE),
+            (relFrontPosition, FaceRotationDirection.CLOCKWISE)
         ]
         
         # add each one to the solution
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
-    def _executeLruf(self):
+    def _executeLruf(self, relBackPosition: CubeFacePosition = CubeFacePosition.BACK):
         """ execute a Lruf move, defined by the rotation codes lRUFF """
+        
+        relLeftPosition = CubeFacePosition.rotate(relBackPosition, CubeRotationDirection.SPIN_RIGHTWARD)
+        relFrontPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_RIGHTWARD)
+        relRightPosition = CubeFacePosition.rotate(relFrontPosition, CubeRotationDirection.SPIN_RIGHTWARD)
         
         # the 5 rotations that comprise a lRUFF sequence
         rotations = [
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (relLeftPosition, FaceRotationDirection.COUNTERCLOCKWISE),
+            (relRightPosition, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.FRONT, FaceRotationDirection.CLOCKWISE)
+            (relFrontPosition, FaceRotationDirection.CLOCKWISE),
+            (relFrontPosition, FaceRotationDirection.CLOCKWISE)
         ]
         
         # add each one to the solution
