@@ -234,13 +234,14 @@ class Cube:
         
         # apply changes to the cubelets
         self._cubelets.update(alteredCubelets)
-        
+    
     def rotateCoord(self, coord, facePosition: CubeFacePosition, direction: FaceRotationDirection):
         """ 
         determines the new location of a cube coordinate if a specific face rotation was 
         applied to the cube
         """
         
+        # ensure params are correct types
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
         
@@ -293,6 +294,7 @@ class Cube:
     def getFaceColor(self, facePosition: CubeFacePosition) -> CubeColor:
         """ get the color of a cube face, i.e. the color of the center tile on that face """
         
+        # ensure params are right types
         assert isinstance(facePosition, CubeFacePosition)
         
         centerCoord = self.FACE_CENTER_CUBELET_COORDS[facePosition]
@@ -309,7 +311,7 @@ class Cube:
             for coords in Cube.CUBELET_COORDS[facePosition]:
                 color = self[coords][facePosition]
                 codeText += color.value
-                
+        
         cubeCode = CubeCode(codeText)
         return cubeCode.text
     
