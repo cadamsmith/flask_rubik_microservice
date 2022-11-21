@@ -32,7 +32,7 @@ class CubeSolver():
         
         self._solve(state)
     
-    def _solve(self, state: SolveStage):
+    def _solve(self, state: SolveStage = SolveStage.ENTIRE_CUBE):
         """ produces a list of rotation directions to reach a certain cube state """
         
         assert isinstance(state, SolveStage)
@@ -623,6 +623,7 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        # ensure params are valid types
         assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
@@ -658,6 +659,7 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        # ensure params are valid types
         assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
@@ -693,6 +695,7 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        # ensure params are valid types
         assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
@@ -714,6 +717,7 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        # ensure params are valid types
         assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
@@ -735,6 +739,7 @@ class CubeSolver():
         as part of the process for solving the down face
         """
         
+        # ensure params are valid types
         assert isinstance(facePosition, CubeFacePosition)
         
         downColor = self._cube.getFaceColor(CubeFacePosition.DOWN)
@@ -821,6 +826,7 @@ class CubeSolver():
     def _trigger(self, facePosition: CubeFacePosition, direction: FaceRotationDirection, degree: int = 1):
         """ adds a clockwise or counterclockwise trigger of some degree on a cube face to the solution """
         
+        # ensure params are valid types
         assert isinstance(facePosition, CubeFacePosition)
         assert isinstance(direction, FaceRotationDirection)
         
@@ -861,6 +867,9 @@ class CubeSolver():
     def _executeRurr(self, relLeftPosition: CubeFacePosition = CubeFacePosition.LEFT):
         """ execute a Rurr move, defined by the rotation codes RUrURUUr """
         
+        # ensure params are valid types
+        assert isinstance(relLeftPosition, CubeFacePosition)
+        
         # figure out relative right position from relative left position
         relRightPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_LEFTWARD)
         relRightPosition = CubeFacePosition.rotate(relRightPosition, CubeRotationDirection.SPIN_LEFTWARD)
@@ -884,6 +893,9 @@ class CubeSolver():
     def _executeLurr(self, relLeftPosition: CubeFacePosition = CubeFacePosition.LEFT):
         """ execute a Lurr move, defined by the rotation codes lURuLUr """
         
+        # ensure params are valid types
+        assert isinstance(relLeftPosition, CubeFacePosition)
+        
         # figure out relative right position from relative left position
         relRightPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_LEFTWARD)
         relRightPosition = CubeFacePosition.rotate(relRightPosition, CubeRotationDirection.SPIN_LEFTWARD)
@@ -906,6 +918,9 @@ class CubeSolver():
     def _executeFfuf(self, relBackPosition: CubeFacePosition = CubeFacePosition.BACK):
         """ execute a Ffuf move, defined by the rotation codes FFUrLFF """
         
+        # ensure params are valid types
+        assert isinstance(relBackPosition, CubeFacePosition)
+        
         relLeftPosition = CubeFacePosition.rotate(relBackPosition, CubeRotationDirection.SPIN_RIGHTWARD)
         relFrontPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_RIGHTWARD)
         relRightPosition = CubeFacePosition.rotate(relFrontPosition, CubeRotationDirection.SPIN_RIGHTWARD)
@@ -927,6 +942,9 @@ class CubeSolver():
     
     def _executeLruf(self, relBackPosition: CubeFacePosition = CubeFacePosition.BACK):
         """ execute a Lruf move, defined by the rotation codes lRUFF """
+        
+        # ensure params are valid types
+        assert isinstance(relBackPosition, CubeFacePosition)
         
         relLeftPosition = CubeFacePosition.rotate(relBackPosition, CubeRotationDirection.SPIN_RIGHTWARD)
         relFrontPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_RIGHTWARD)
@@ -957,6 +975,7 @@ class CubeSolver():
     def _addToSolution(self, facePosition: CubeFacePosition, direction: FaceRotationDirection):
         """ executes cube rotation and adds it to the solve directions """
         
+        # ensure params are valid types
         assert (isinstance(facePosition, CubeFacePosition))
         assert (isinstance(direction, FaceRotationDirection))
         
