@@ -18,10 +18,10 @@ class CubeSolverTest(TestCase):
             CubeSolver()
     
     def test_cubeSolver_init_10020_ShouldThrowExceptionForCubeOfInvalidType(self):
-        """ supplying cube not of type Cube should throw exception """
+        """ supplying cube not of type str, CubeCode, or Cube should throw exception """
         
         with self.assertRaises(Exception):
-            CubeSolver('not a cube', SolveStage.DOWN_LAYER)
+            CubeSolver(False, SolveStage.DOWN_LAYER)
     
     def test_cubeSolver_init_10030_ShouldThrowExceptionForSolveStageOfInvalidType(self):
         """ supplying solve stage not of type SolveStage should throw exception """
