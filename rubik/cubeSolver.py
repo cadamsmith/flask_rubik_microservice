@@ -23,6 +23,7 @@ class CubeSolver():
         if isinstance(cube, CubeCode):
             cube = Cube(cube)
         
+        # ensure params are of valid types
         assert isinstance(cube, Cube)
         assert isinstance(state, SolveStage)
         
@@ -590,7 +591,7 @@ class CubeSolver():
             
         # now need to solve the 4 up cubelet faces of each vertical face position
         
-        while not self._cube.isUpLayerSolved():
+        while not self._cube.isUpEdgesSolved():
             
             # if any of these 4 are already solved, the algorithm needs one of these
             # to serve as the relative back position for the rotation sequence
@@ -943,6 +944,7 @@ class CubeSolver():
         # add each one to the solution
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
+    
     """
     methods dealing with manipulating _solution field
     """
