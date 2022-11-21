@@ -1,6 +1,6 @@
 
 count = 0
-fileName = 'rotate.py'
+fileName = 'cubeSolver.py'
 
 f = open("../" + fileName, "r")
 
