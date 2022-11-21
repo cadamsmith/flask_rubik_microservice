@@ -46,11 +46,6 @@ class CubeCode:
             if not CubeColor.hasValue(letter):
                 return False
         
-        # check if it contains every color
-        for color in list(CubeColor):
-            if not codeText.__contains__(color.value):
-                return False
-        
         # tally up color distributions
         colorDistributions = {c: 0 for c in list(CubeColor)}
         

@@ -1,6 +1,6 @@
 
 count = 0
-fileName = 'cubeRotationDirection.py'
+fileName = 'rotate.py'
 
 f = open("../" + fileName, "r")
 
