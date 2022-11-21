@@ -5,10 +5,139 @@ import rubik.rotate as rotate
 
 class RotateTest(TestCase):
     
-    # rotate - POSITIVE TESTS
+    ''' rotate - NEGATIVE TESTS '''
     
-    # supplying valid params should return a result with status of ok
-    def test_rotate_10010_ShouldReturnStatusOKForValidParams(self):
+    def test_rotate_10010_ShouldErrorOnMissingCube(self):
+        """ supplying no cube param should result in error status """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'dir': 'R'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_MISSING_CUBE)
+    
+    def test_rotate_10020_ShouldErrorOnNonStringDir(self):
+        """ supplying non-string dir param should result in error status """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
+            'dir': {
+                'a': 'b' 
+            }
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
+    
+    def test_rotate_10040_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
+        """ 
+        supplying string dir param with one character should result in error status if the 
+        character is an invalid rotational code
+        """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
+            'dir': 'P'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
+    
+    def test_rotate_10050_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
+        """
+        supplying string dir param with multiple characters should result in error status
+        if any of the characters are invalid rotational codes
+        """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
+            'dir': 'FfRrBbELlUuDd'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
+    
+    def test_rotate_10060_ShouldErrorOnNonStringCube(self):
+        """ supplying non-string cube should result in error status """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': False,
+            'dir': 'l'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    def test_rotate_10070_ShouldErrorOnCubeWithInvalidLength(self):
+        """ supplying string cube not 54 chars long should result in error status """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'ooyyyyyyyyyw',
+            'dir': 'l'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    def test_rotate_10080_ShouldErrorOnCubeContainingNonColorChars(self):
+        """ supplying a string cube not over the alphabet [brgoyw] should throw exception """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor',
+            'dir': 'b'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    def test_rotate_10090_ShouldErrorOnCubeNotContainingEveryColor(self):
+        """ supplying a string cube not containing every color code should throw exception """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg',
+            'dir': 'R'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    def test_rotate_10100_ShouldErrorOnCubeWithUnevenColorDistribution(self):
+        """ supplying a string cube with an uneven distribution of colors should throw exception """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy',
+            'dir': 'd'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    def test_rotate_10110_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
+        """ supplying a string cube with non-unique center cubelet face colors should throw exception """
+        
+        result = rotate._rotate({
+            'op': 'rotate',
+            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr',
+            'dir': 'U'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
+    
+    ''' rotate - POSITIVE TESTS '''
+    
+    def test_rotate_20010_ShouldReturnStatusOKForValidParams(self):
+        """ supplying valid params should return a result with status of ok """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -19,8 +148,8 @@ class RotateTest(TestCase):
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
     
-    # supplying no direction should rotate front clockwise by default
-    def test_rotate_10020_ShouldFrontClockwiseRotateWhenDirectionNotSupplied(self):
+    def test_rotate_20020_ShouldFrontClockwiseRotateWhenDirectionNotSupplied(self):
+        """ supplying no direction should rotate front clockwise by default """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -37,8 +166,8 @@ class RotateTest(TestCase):
         self.assertIn('cube', frontClockwiseResult)
         self.assertEqual(result['cube'], frontClockwiseResult['cube'])
     
-    # rotating a solved cube front clockwise should work correctly
-    def test_rotate_10030_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
+    def test_rotate_20030_ShouldFrontClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube front clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -51,8 +180,8 @@ class RotateTest(TestCase):
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
     
-    # rotating a solved cube back clockwise should work correctly
-    def test_rotate_10031_ShouldBackClockwiseRotateSolvedCubeCorrectly(self):
+    def test_rotate_20031_ShouldBackClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube back clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -64,9 +193,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube left clockwise should work correctly
-    def test_rotate_10032_ShouldLeftClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20032_ShouldLeftClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube left clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -78,9 +207,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube right clockwise should work correctly
-    def test_rotate_10033_ShouldRightClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20033_ShouldRightClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube right clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -92,9 +221,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube up clockwise should work correctly
-    def test_rotate_10034_ShouldUpClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20034_ShouldUpClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube up clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -106,9 +235,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube down clockwise should work correctly
-    def test_rotate_10035_ShouldDownClockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20035_ShouldDownClockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube down clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -120,9 +249,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube front counterclockwise should work correctly
-    def test_rotate_10040_ShouldFrontCounterclockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20040_ShouldFrontCounterclockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube front counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -135,8 +264,8 @@ class RotateTest(TestCase):
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
     
-    # rotating a solved cube back counterclockwise should work correctly
-    def test_rotate_10041_ShouldBackCounterclockwiseRotateSolvedCubeCorrectly(self):
+    def test_rotate_20041_ShouldBackCounterclockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube back counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -148,9 +277,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube left counterclockwise should work correctly
-    def test_rotate_10042_ShouldLeftCounterclockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20042_ShouldLeftCounterclockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube left counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -162,9 +291,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube right counterclockwise should work correctly
-    def test_rotate_10043_ShouldRightCounterclockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20043_ShouldRightCounterclockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube right counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -176,9 +305,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube up counterclockwise should work correctly
-    def test_rotate_10044_ShouldUpCounterclockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20044_ShouldUpCounterclockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube up counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -190,9 +319,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a solved cube down counterclockwise should work correctly
-    def test_rotate_10045_ShouldDownCounterclockwiseRotateSolvedCubeCorrectly(self):
+    
+    def test_rotate_20045_ShouldDownCounterclockwiseRotateSolvedCubeCorrectly(self):
+        """ rotating a solved cube down counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -204,9 +333,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube front clockwise should work correctly
-    def test_rotate_10050_ShouldFrontClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20050_ShouldFrontClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube front clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -219,8 +348,8 @@ class RotateTest(TestCase):
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
     
-    # rotating a random cube back clockwise should work correctly
-    def test_rotate_10051_ShouldBackClockwiseRotateRandomCubeCorrectly(self):
+    def test_rotate_20051_ShouldBackClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube back clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -232,9 +361,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube left clockwise should work correctly
-    def test_rotate_10052_ShouldLeftClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20052_ShouldLeftClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube left clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -246,9 +375,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube right clockwise should work correctly
-    def test_rotate_10053_ShouldRightClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20053_ShouldRightClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube right clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -260,9 +389,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube up clockwise should work correctly
-    def test_rotate_10054_ShouldUpClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20054_ShouldUpClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube up clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -274,9 +403,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube down clockwise should work correctly
-    def test_rotate_10055_ShouldDownClockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20055_ShouldDownClockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube down clockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -288,9 +417,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube front counterclockwise should work correctly
-    def test_rotate_10060_ShouldFrontCounterclockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20060_ShouldFrontCounterclockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube front counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -303,8 +432,8 @@ class RotateTest(TestCase):
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
     
-    # rotating a random cube back counterclockwise should work correctly
-    def test_rotate_10061_ShouldBackCounterclockwiseRotateRandomCubeCorrectly(self):
+    def test_rotate_20061_ShouldBackCounterclockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube back counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -316,9 +445,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube left counterclockwise should work correctly
-    def test_rotate_10062_ShouldLeftCounterclockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20062_ShouldLeftCounterclockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube left counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -330,9 +459,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube right counterclockwise should work correctly
-    def test_rotate_10063_ShouldRightCounterclockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20063_ShouldRightCounterclockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube right counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -344,9 +473,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube up counterclockwise should work correctly
-    def test_rotate_10064_ShouldUpCounterclockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20064_ShouldUpCounterclockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube up counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -358,9 +487,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating a random cube down counterclockwise should work correctly
-    def test_rotate_10065_ShouldDownCounterclockwiseRotateRandomCubeCorrectly(self):
+    
+    def test_rotate_20065_ShouldDownCounterclockwiseRotateRandomCubeCorrectly(self):
+        """ rotating a random cube down counterclockwise should work correctly """
         
         result = rotate._rotate({
             'op': 'rotate',
@@ -372,9 +501,9 @@ class RotateTest(TestCase):
         
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], expected)
-        
-    # rotating same face twice, but in alternating directions should result in unchanged cube
-    def test_rotate_10070_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
+    
+    def test_rotate_20070_ShouldBeUnchangedAfterTwoRotationsForSameFaceButAlternatingDirections(self):
+        """ rotating same face twice, but in alternating directions should result in unchanged cube """
         
         cubeCodeText = 'orbbbgrogwybwrywoyyoorgrobygybgoyrrgwwogyowbrybrwwgbwg'
         
@@ -387,8 +516,8 @@ class RotateTest(TestCase):
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], cubeCodeText)
     
-    # rotating same face in same direction 4 times should result in unchanged cube
-    def test_rotate_10080_ShouldBeUnchangedAfterFourIdenticalRotations(self):
+    def test_rotate_20080_ShouldBeUnchangedAfterFourIdenticalRotations(self):
+        """ rotating same face in same direction 4 times should result in unchanged cube """
         
         cubeCodeText = 'orbbbgrogwybwrywoyyoorgrobygybgoyrrgwwogyowbrybrwwgbwg'
         
@@ -401,132 +530,3 @@ class RotateTest(TestCase):
         self.assertIn('cube', result)
         self.assertEqual(result['cube'], cubeCodeText)
     
-    # rotate - NEGATIVE TESTS
-    
-    # supplying no cube param should result in error status
-    def test_rotate_20010_ShouldErrorOnMissingCube(self):
-        result = rotate._rotate({'op': 'rotate', 'dir': 'R'})
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_MISSING_CUBE)
-    
-    # supplying non-string dir param should result in error status
-    def test_rotate_20020_ShouldErrorOnNonStringDir(self):
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
-            'dir': {
-                'a': 'b' 
-            }
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
-        
-    # supplying empty string dir param should result in error status
-    def test_rotate_20030_ShouldErrorOnEmptyStringDir(self):
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
-            'dir': ''
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
-        
-    # supplying string dir param with one character should result in error status if the character
-    # is an invalid rotational code
-    def test_rotate_20040_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
-            'dir': 'P'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
-        
-    # supplying string dir param with multiple characters should result in error status
-    # if any of the characters are invalid rotational codes
-    def test_rotate_20050_ShouldErrorOnMultipleCharDirWithAnyInvalidRotationalCodes(self):
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'brobbowwybyobroobowbrggwwrybwygoygogwwbrygrgyrogywrryg',
-            'dir': 'FfRrBbELlUuDd'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_DIR)
-        
-    # supplying non-string cube should result in error status
-    def test_rotate_20060_ShouldErrorOnNonStringCube(self):
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': False,
-            'dir': 'l'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
-    
-    # supplying string cube not 54 chars long should result in error status
-    def test_rotate_20070_ShouldErrorOnCubeWithInvalidLength(self):
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'ooyyyyyyyyyw',
-            'dir': 'l'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
-        
-    # supplying a string cube not over the alphabet [brgoyw] should throw exception
-    def test_rotate_20080_ShouldErrorOnCubeContainingNonColorChars(self):
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor',
-            'dir': 'b'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
-    
-    # supplying a string cube not containing every color code should throw exception
-    def test_rotate_20090_ShouldErrorOnCubeNotContainingEveryColor(self):
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg',
-            'dir': 'R'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
-            
-    # supplying a string cube with an uneven distribution of colors should throw exception
-    def test_rotate_20100_ShouldErrorOnCubeWithUnevenColorDistribution(self):
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy',
-            'dir': 'd'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
-            
-    # supplying a string cube with non-unique center cubelet face colors should throw exception
-    def test_rotate_20110_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
-        
-        result = rotate._rotate({
-            'op': 'rotate',
-            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr',
-            'dir': 'U'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], rotate.ERROR_INVALID_CUBE)
-        

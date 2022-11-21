@@ -25,7 +25,7 @@ class CubeFacePosition(Enum):
         assert (isinstance(direction, CubeRotationDirection))
         
         if direction is CubeRotationDirection.FLIP_FORWARD:
-            return cls._flipForward_(facePosition)
+            return cls._flipForward(facePosition)
         
         elif direction is CubeRotationDirection.FLIP_BACKWARD:
             return cls._flipBackward(facePosition)
@@ -43,7 +43,7 @@ class CubeFacePosition(Enum):
             return cls._spinRightward(facePosition)
     
     @classmethod
-    def _flipFrontward(cls, facePosition):
+    def _flipForward(cls, facePosition):
         """ returns the new face position if it were flipped forward """
         
         transform = {
@@ -149,3 +149,17 @@ class CubeFacePosition(Enum):
         
         # otherwise transform it
         return transform[facePosition]
+    
+    @classmethod
+    def isAdjacent(cls, facePositionA, facePositionB, direction: CubeRotationDirection):
+        """ determines whether 2 face positions are adjacent along some rotation direction """
+        
+        # in other words, one of these positions would result in the other if rotated in the
+        # direction specified
+        
+        isAdjacent = (
+            cls.rotate(facePositionA, direction) == facePositionB
+            or cls.rotate(facePositionB, direction) == facePositionA
+        )
+        
+        return isAdjacent

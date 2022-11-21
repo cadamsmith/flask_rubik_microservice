@@ -1,15 +1,94 @@
 
-import re
+import hashlib
 from unittest import TestCase
 
 import rubik.solve as solve
+import rubik.rotate as rotate
+from rubik.cube import Cube
+from rubik.cubeFacePosition import CubeFacePosition
 
 class SolveTest(TestCase):
     
-    # solve - POSITIVE TESTS
+    ''' solve -- NEGATIVE TESTS '''
     
-    # supplying valid params should return a result with status of ok
-    def test_solve_10010_ShouldReturnStatusOKForValidParams(self):
+    def test_solve_10010_ShouldErrorOnMissingCube(self):
+        """ supplying no cube param should result in error status """
+        
+        result = solve._solve({'op': 'solve', 'dir': 'R'})
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_MISSING_CUBE)
+    
+    def test_solve_10020_ShouldErrorOnNonStringCube(self):
+        """ supplying non-string cube should result in error status """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': [1, 2, 3]
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10030_ShouldErrorOnCubeWithInvalidLength(self):
+        """ supplying string cube not 54 chars long should result in error status """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'bryogw'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10040_ShouldErrorOnCubeContainingNonColorChars(self):
+        """ supplying a string cube not over the alphabet [brgoyw] should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10050_ShouldErrorOnCubeNotContainingEveryColor(self):
+        """ supplying a string cube not containing every color code should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10060_ShouldErrorOnCubeWithUnevenColorDistribution(self):
+        """ supplying a string cube with an uneven distribution of colors should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    def test_solve_10070_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
+        """ supplying a string cube with non-unique center cubelet face colors should throw exception """
+        
+        result = solve._solve({
+            'op': 'solve',
+            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr'
+        })
+        
+        self.assertIn('status', result)
+        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+    
+    ''' solve -- POSITIVE TESTS '''
+    
+    def test_solve_20010_ShouldReturnStatusOKForValidParams(self):
+        """ supplying valid params should return a result with status of ok """
         
         result = solve._solve({
             'op': 'solve',
@@ -18,9 +97,9 @@ class SolveTest(TestCase):
         
         self.assertIn('status', result)
         self.assertEqual(result['status'], 'ok')
-        
-    # supplying valid params should return a result with valid rotation codes
-    def test_solve_10020_ShouldReturnValidRotationCodesForValidParams(self):
+    
+    def test_solve_20020_ShouldReturnValidRotationCodesForValidParams(self):
+        """ supplying valid params should return a result with valid rotation codes """
         
         result = solve._solve({
             'op': 'solve',
@@ -31,11 +110,11 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         
         # make sure rotation codes are valid
-        isInvalid = bool(re.search('[^FfBbLlRrUuDd]', result['rotations']))
-        self.assertFalse(isInvalid)
-        
-    # an already solved cube should yield no rotations to solve down cross
-    def test_solve_10030_ASolvedCubeShouldYieldNoSolveDirections(self):
+        for letter in result['rotations']:
+            self.assertTrue(CubeFacePosition.hasValue(letter.upper()))
+    
+    def test_solve_20030_ASolvedCubeShouldYieldNoSolveDirections(self):
+        """ an already solved cube should yield no rotations to solve down cross """
         
         result = solve._solve({
             'op': 'solve',
@@ -45,98 +124,7 @@ class SolveTest(TestCase):
         self.assertIn('rotations', result)
         self.assertEqual(result['rotations'], '')
     
-    # a cube with a down cross should yield no rotations to solve down cross
-    def test_solve_10031_ACubeWithSolvedDownLayerShouldYieldNoSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'brrrbrbbbgbogrorrrbgoygggggyyyooyooogyybyorbywwwwwwwww'
-        })
-        
-        expected = 'uufuFURUrUUFUfuluLUruRUBUbUFURurf'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-        
-    # a cube with a top daisy should yield correct solve directions
-    def test_solve_10040_ACubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'wryrbobgbgbybrgwbrogyrgyyogborrobogwrwbwywgworyoowywyg'
-        })
-        
-        expected = 'uRRULLBBUFFBUbbuuBUbuBluuLfuFUUluuLUluLUUFUfuluLURUrufuFruRUBUbFURurURurfUUFURurf'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-        
-    # another cube with a top daisy should yield correct solve directions
-    def test_solve_10041_AnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'wbyrbybgwrgyorbryrgooygrwowbrgyogorrywowywowgyogbwgbbb'
-        })
-        
-        expected = 'FFUURRULLBBFUfuRUruLUlUruRUfuFURUruuluLUFUfUruRUBUbubuBULUlFURurf'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-        
-    # yet another cube with a top daisy should yield correct solve directions
-    def test_solve_10042_YetAnotherCubeWithTopDaisyShouldYieldCorrectSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'ybgobgbbbrrgyrgoyoogwrggwowbogooybyrowywywrwwyryrwbrbg'
-        })
-        
-        expected = 'FFLLBBRRuRUrbuBruuRUruRluLUluuLUluLFUfuluLUruRUBUbUbuBULUlUURUrufuFUUFURurf'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-    
-    # a cube without a top daisy should yield correct solve directions
-    def test_solve_10050_ACubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'owrwbwybyyywrrybygggorgbygwgbboogborwrrryowobgwogwbryo'
-        })
-        
-        expected = 'FFlRuuFUluRRULLBBUFFbuuBufuFbuuBluLuruRLUluFUfuluLUBUburuRUULUlubuBUFURurfUUFURurf'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-        
-    # another cube without a top daisy should yield correct solve directions
-    def test_solve_10051_AnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'yogrbyyoowobgrgbbrrygrgowgorybwowgbrwrybybogogywwwrywb'
-        })
-        
-        expected = 'FLLuLLBBUBuRRFFLLBBUUFUfUBUbURUrufuFUUFUfuluLLUlubuBuLUlubuBBUburuRuBUburuRuFURurf'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-        
-    # yet another cube without a top daisy should yield correct solve directions
-    def test_solve_10052_YetAnotherCubeWithoutTopDaisyShouldYieldCorrectSolveDirections(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
-        })
-        
-        expected = 'FlbRuRRUfuRRUUBBUULLUUFFUUluuLfuFUUFUfuubuBubuBULUlBUburuRUfuFURUruBUburuR'
-        
-        self.assertIn('rotations', result)
-        self.assertEqual(result['rotations'], expected)
-        
-    def test_solve_10060_ShouldYieldHashToken(self):
+    def test_solve_20040_ShouldYieldToken(self):
         """ solve result should yield hash token """
         
         result = solve._solve({
@@ -146,7 +134,7 @@ class SolveTest(TestCase):
         
         self.assertIn('token', result)
         
-    def test_solve_10061_ShouldYield8CharacterHashToken(self):
+    def test_solve_20041_ShouldYield8CharacterToken(self):
         """ yielded hash token should be 8 chars long """
         
         result = solve._solve({
@@ -159,78 +147,601 @@ class SolveTest(TestCase):
         
         self.assertEqual(actualTokenLength, expectedTokenLength)
     
-    # solve - NEGATIVE TESTS
+    def test_solve_20042_TokenShouldBeSubstringOfCubeRotationsHash(self):
+        """ yielded token should be a substring of the sha256 hash of the cube and rotations """
+        
+        cube = 'owyobygwwowyrrorygbgbbggrrbwwgroywywroroyrybbogggwboby'
+        
+        result = solve._solve({'op': 'solve', 'cube': cube});
+        rotations = result['rotations']
+        token = result['token']
+        
+        hasher = hashlib.sha256()
+        hasher.update(f'{cube}{rotations}'.encode())
+        fullToken = hasher.hexdigest()
+        
+        self.assertIn(token, fullToken)
     
-    # supplying no cube param should result in error status
-    def test_solve_20010_ShouldErrorOnMissingCube(self):
-        result = solve._solve({'op': 'solve', 'dir': 'R'})
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_MISSING_CUBE)
+    ''' solve -- down cross -- POSITIVE TESTS '''
     
-    # supplying non-string cube should result in error status
-    def test_solve_20020_ShouldErrorOnNonStringCube(self):
+    def test_solve_30010_ACubeWithNoProgressShouldYieldCorrectRotationsToSolveDownCross(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve down cross """
         
-        result = solve._solve({
+        cubeCode = 'rorobgggbyrbyrywboyyorgowobywygoyrwrgborybgwbwrogwwwbg'
+        
+        solveResult = solve._solve({
             'op': 'solve',
-            'cube': [1, 2, 3]
+            'cube': cubeCode
         })
+        solution = solveResult['rotations']
         
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-    
-    # supplying string cube not 54 chars long should result in error status
-    def test_solve_20030_ShouldErrorOnCubeWithInvalidLength(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'bryogw'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-        
-    # supplying a string cube not over the alphabet [brgoyw] should throw exception
-    def test_solve_20040_ShouldErrorOnCubeContainingNonColorChars(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'gorbbgobbwgowrrwrbgwwygyyggr!rgowyybbrwwyrybgyyoowboor'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
-    
-    # supplying a string cube not containing every color code should throw exception
-    def test_solve_20050_ShouldErrorOnCubeNotContainingEveryColor(self):
-        
-        result = solve._solve({
-            'op': 'solve',
-            'cube': 'ggwobgrrbrwgorrwggwwoggbrgggbrwobbrwggorgobobggowwbogg'
-        })
-        
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
             
-    # supplying a string cube with an uneven distribution of colors should throw exception
-    def test_solve_20060_ShouldErrorOnCubeWithUnevenColorDistribution(self):
+            cube = Cube(rotateResult['cube'])
         
-        result = solve._solve({
+        self.assertTrue(cube.hasDownCross())
+        
+    def test_solve_30020_ACubeWithUpDaisyShouldYieldCorrectRotationsToSolveDownCross(self):
+        """ supplying a cube with up daisy should yield correct rotations to solve down cross """
+        
+        cubeCode = 'rowgbggbyrgyyrorrborgggywbwobgoorgryywbwywwwbrybywbooo'
+        
+        solveResult = solve._solve({
             'op': 'solve',
-            'cube': 'wobrbrrryyoowrwrggggyggwrrwgyroobobborwbyyggowwbowybyy'
+            'cube': cubeCode
         })
+        solution = solveResult['rotations']
         
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
             
-    # supplying a string cube with non-unique center cubelet face colors should throw exception
-    def test_solve_20070_ShouldErrorOnCubeWithNonUniqueCenterFaceColors(self):
+            cube = Cube(rotateResult['cube'])
         
-        result = solve._solve({
+        self.assertTrue(cube.hasDownCross())
+    
+    def test_solve_30030_ACubeWithDownCrossShouldYieldCorrectRotationsToSolveDownCross(self):
+        """ supplying a cube with down cross should yield correct rotations to solve down cross """
+        
+        cubeCode = 'ggorbowbrgbyyrbbryrywoggbgrrryyoggobbrgbyyoowowywwwwwo'
+        
+        solveResult = solve._solve({
             'op': 'solve',
-            'cube': 'gyyogroywgrygrorbwryyggbbwwbwowoboybrbgoywwooyggrwrbbr'
+            'cube': cubeCode
         })
+        solution = solveResult['rotations']
         
-        self.assertIn('status', result)
-        self.assertEqual(result['status'], solve.ERROR_INVALID_CUBE)
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
         
+        self.assertTrue(cube.hasDownCross())
+    
+    ''' solve -- down layer -- POSITIVE TESTS '''
+    
+    def test_solve_40010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveDownLayer(self):
+        """ supplying a cube with no reached milestones should yield correct rotations to solve down layer """
+        
+        cubeCode = 'bgoobybboyyorrwbrwggrggorrryoowoyybwbrwbygyogrywwwbgwg'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isDownLayerSolved())
+    
+    def test_solve_40020_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveDownLayer(self):
+        """ supplying a cube with up daisy should yield correct rotations to solve down layer """
+        
+        cubeCode = 'bggrbowbgwrwgrbryobbyygyggboorgoyybgbwowywwworoyrworry'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isDownLayerSolved())
+    
+    def test_solve_40030_ACubeWithDownCrossShouldYieldCorrectDirectionsToSolveDownLayer(self):
+        """ supplying a cube with down cross should yield correct rotations to solve down layer """
+        
+        cubeCode = 'ooyrbyobrgobrrbyrwrybrgyrggwybbogoobroygygwboywgwwwwwg'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isDownLayerSolved())
+    
+    def test_solve_40030_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveDownLayer(self):
+        """ supplying a cube with solved down layer should yield correct rotations to solve down layer """
+        
+        cubeCode = 'yoobbbbbbyyrrrgrrryyorgogggbygboyoooygbryorggwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isDownLayerSolved())
+    
+    ''' solve -- middle layer -- POSITIVE TESTS '''
+    
+    def test_solve_50010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveMiddleLayer(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve middle layer """
+        
+        cubeCode = 'wwygbgbgyowwyrborwbryogwbrrrogboogbrgboyyroobywgywywgr'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isMiddleLayerSolved())
+        
+    def test_solve_50020_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveMiddleLayer(self):
+        """ supplying a cube with up daisy should yield correct rotations to solve middle layer """
+        
+        cubeCode = 'yoyobgwyyogrrrogrbwbgbgywygwrrgogyyrowgwywbwbbbrrwbooo'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isMiddleLayerSolved())
+        
+    def test_solve_50030_ACubeWithDownCrossShouldYieldCorrectDirectionsToSolveMiddleLayer(self):
+        """ supplying a cube with down cross should yield correct rotations to solve middle layer """
+        
+        cubeCode = 'gobrbrbbgroggryorbygobggrgwybwyoyooygorryyrbyowwwwwbww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isMiddleLayerSolved())
+    
+    def test_solve_50040_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveMiddleLayer(self):
+        """ supplying a cube with solved down layer should yield correct rotations to solve middle layer """
+        
+        cubeCode = 'ygrbbgbbbyyyyrbrrroyyrgogggrroyooooogrbgybgobwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isMiddleLayerSolved())
+        
+    def test_solve_50050_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveMiddleLayer(self):
+        """ supplying a cube with solved down, middle layers should yield correct rotations to solve middle layer """
+        
+        cubeCode = 'yyybbbbbbrbyrrrrrroooggggggyyroooooogybgyybrgwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isMiddleLayerSolved())
+    
+    ''' solve -- up face -- POSITIVE TESTS '''
+    
+    def test_solve_60010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve up face """
+        
+        cubeCode = 'wwobbywyryobgrrybgrrbggyoggywooorwrroyygybbogbbgwwwrow'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    def test_solve_60020_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve up face """
+        
+        cubeCode = 'rbyobybyrggoorgyyrgobygbgooyrbrogbgwowwwywyworbgrwrwbw'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    def test_solve_60030_ACubeWithDownCrossShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with down cross should yield correct rotations to solve up face """
+        
+        cubeCode = 'gbgybrobwygoyrgorybbwygorgrgoygoowogrrybyroyrwwbwwwbwb'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    def test_solve_60040_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with solved down layer should yield correct rotations to solve up face """
+        
+        cubeCode = 'oyrbbybbbgybgryrrrroorgrgggyoygorooogbygyobbywwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    def test_solve_60050_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with solved down and middle layers should yield correct rotations to solve up face """
+        
+        cubeCode = 'yyybbbbbbbgyrrrrrrrbbggggggyyooooooooygryygorwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    def test_solve_60060_ACubeWithSolvedDownMidLayersAndUpCrossShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with solved down, mid layers and up cross should yield correct rotations to solve up face """
+        
+        cubeCode = 'bbgbbbbbbyrgrrrrrroooggggggbgyooooooyyyyyyryrwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    def test_solve_60070_ACubeWithSolvedDownMidLayersAndUpFaceShouldYieldCorrectDirectionsToSolveUpFace(self):
+        """ supplying a cube with solved down, mid layers and up face should yield correct rotations to solve up face """
+        
+        cubeCode = 'borbbbbbbggbrrrrrrrbgggggggoroooooooyyyyyyyyywwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpFaceSolved())
+    
+    ''' solve -- up edges -- POSITIVE TESTS '''
+    
+    def test_solve_70010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve up edges """
+        
+        cubeCode = 'wwobbywyryobgrrybgrrbggyoggywooorwrroyygybbogbbgwwwrow'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    def test_solve_70020_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve up edges """
+        
+        cubeCode = 'rbyobybyrggoorgyyrgobygbgooyrbrogbgwowwwywyworbgrwrwbw'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    def test_solve_70030_ACubeWithDownCrossShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with down cross should yield correct rotations to solve up edges """
+        
+        cubeCode = 'gbgybrobwygoyrgorybbwygorgrgoygoowogrrybyroyrwwbwwwbwb'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    def test_solve_70040_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down layer should yield correct rotations to solve up edges """
+        
+        cubeCode = 'oyrbbybbbgybgryrrrroorgrgggyoygorooogbygyobbywwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    def test_solve_70050_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down and middle layers should yield correct rotations to solve up edges """
+        
+        cubeCode = 'yyybbbbbbbgyrrrrrrrbbggggggyyooooooooygryygorwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    def test_solve_70060_ACubeWithSolvedDownMidLayersAndUpCrossShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down, mid layers and up cross should yield correct rotations to solve up edges """
+        
+        cubeCode = 'bbgbbbbbbyrgrrrrrroooggggggbgyooooooyyyyyyryrwwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    def test_solve_70070_ACubeWithSolvedDownMidLayersAndUpFaceShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down, mid layers and up face should yield correct rotations to solve up edges """
+        
+        cubeCode = 'borbbbbbbggbrrrrrrrbgggggggoroooooooyyyyyyyyywwwwwwwww'
+        
+        solveResult = solve._solve({
+            'op': 'solve',
+            'cube': cubeCode
+        })
+        solution = solveResult['rotations']
+        
+        cube = Cube(cubeCode)
+        if len(solution) > 1:
+            rotateResult = rotate._rotate({
+                'cube': cubeCode,
+                'dir': solution
+            })
+            
+            cube = Cube(rotateResult['cube'])
+        
+        self.assertTrue(cube.isUpEdgesSolved())
+    
+    

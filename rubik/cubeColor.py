@@ -14,4 +14,6 @@ class CubeColor(Enum):
 
     @classmethod
     def hasValue(cls, value):
+        """ determines whether a value is a valid color code """
+        
         return value in cls._value2member_map_

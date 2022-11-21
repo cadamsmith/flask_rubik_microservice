@@ -1,6 +1,4 @@
 
-import re
-
 from rubik.cubeColor import CubeColor
 from rubik.cubeFacePosition import CubeFacePosition
 
@@ -23,7 +21,7 @@ class CubeCode:
     """ the center tile index in each cube face """
     FACE_CENTER_INDICES = [4, 13, 22, 31, 40, 49]
     
-    def __init__(self, codeText):
+    def __init__(self, codeText: str):
         """ instantiates CubeCode from supplied code string """
         
         # make sure supplied param is a valid cube code text
@@ -32,7 +30,7 @@ class CubeCode:
         self.text = codeText
     
     @classmethod
-    def isValid(cls, codeText):
+    def isValid(cls, codeText: str):
         """ determines whether a string is a valid cube code """
         
         # check if supplied code text is a string
@@ -43,27 +41,31 @@ class CubeCode:
         if len(codeText) != cls.CODE_LENGTH:
             return False
         
-        # check if it's over alphabet [brgoyw]
-        if bool(re.search('[^brgoyw]', codeText)):
-            return False
-        
-        # check if it contains every color
-        for color in list(CubeColor):
-            if not codeText.__contains__(color.value):
+        # check if it's made up of valid cube color codes
+        for letter in codeText:
+            if not CubeColor.hasValue(letter):
                 return False
         
-        # check if it contains even distribution of colors
+        # tally up color distributions
         colorDistributions = {c: 0 for c in list(CubeColor)}
         
         for letter in codeText:
             color = CubeColor(letter)
             colorDistributions[color] += 1
         
+        # check whether any colors are missing
+        if any(count == 0 for count in colorDistributions.values()):
+            return False
+        
+        # check if colors are unevenly distributed
         if not len(set(colorDistributions.values())) == 1:
             return False
         
         # check if the center cubelet faces have unique colors
-        centerColors = set(map(lambda index: CubeColor(codeText[index]), cls.FACE_CENTER_INDICES))
+        centerColors = set(map(
+            lambda index: CubeColor(codeText[index]),
+            cls.FACE_CENTER_INDICES
+        ))
         
         if not len(centerColors) == len(list(CubeColor)):
             return False
