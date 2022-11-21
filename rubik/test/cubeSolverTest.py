@@ -23,6 +23,12 @@ class CubeSolverTest(TestCase):
         with self.assertRaises(Exception):
             CubeSolver(False, SolveStage.DOWN_LAYER)
     
+    def test_cubeSolver_init_10021_ShouldThrowExceptionForInvalidCubeCodeString(self):
+        """ supplying invalid cube code string should throw exception """
+        
+        with self.assertRaises(Exception):
+            CubeSolver('not a valid cube code', SolveStage.DOWN_MID_LAYERS_AND_UP_FACE)
+    
     def test_cubeSolver_init_10030_ShouldThrowExceptionForSolveStageOfInvalidType(self):
         """ supplying solve stage not of type SolveStage should throw exception """
         
