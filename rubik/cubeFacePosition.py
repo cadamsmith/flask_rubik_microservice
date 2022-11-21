@@ -149,3 +149,17 @@ class CubeFacePosition(Enum):
         
         # otherwise transform it
         return transform[facePosition]
+    
+    @classmethod
+    def isAdjacent(cls, facePositionA, facePositionB, direction: CubeRotationDirection):
+        """ determines whether 2 face positions are adjacent along some rotation direction """
+        
+        # in other words, one of these positions would result in the other if rotated in the
+        # direction specified
+        
+        isAdjacent = (
+            cls.rotate(facePositionA, direction) == facePositionB
+            or cls.rotate(facePositionB, direction) == facePositionA
+        )
+        
+        return isAdjacent

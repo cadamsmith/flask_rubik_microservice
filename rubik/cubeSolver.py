@@ -504,68 +504,90 @@ class CubeSolver():
         )
         
         # first we need to align the up face corners
+        
+        verticalFacePositions = [
+            CubeFacePosition.FRONT, CubeFacePosition.LEFT, CubeFacePosition.BACK, CubeFacePosition.RIGHT
+        ]
+        
         leftCornerCoords = {
             facePosition: self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP_LEFT]
-            for facePosition in self._cube.FACE_ORIENTATION_COORDS
+            for facePosition in verticalFacePositions
         }
         
-        # worst case, we have to execute this twice
-        for _ in range(2):
+        while not self._cube.isUpCornersSolved():
             
-            # check if corners already aligned
-            isCornersAligned = True
+            # attempt to align all 4 corners (maybe the up face just has to be rotated N times)
+            # also keep track of the aligned corner count (maximal)
             
-            for (facePosition, coord) in leftCornerCoords.items():
-                faceColor = self._cube.getFaceColor(facePosition)
-                cornerColor = self._cube[coord][facePosition]
-                
-                if faceColor != cornerColor:
-                    isCornersAligned = False
+            maxAlignedCornerCount = -1
+            
+            for _ in range(4):
+                if self._cube.isUpCornersSolved():
+                    maxAlignedCornerCount = 4
                     break
+                
+                alignedCornerCount = sum(
+                    1 for (facePosition, coord) in leftCornerCoords.items()
+                    if self._cube[coord][facePosition] == self._cube.getFaceColor(facePosition)
+                )
+                
+                maxAlignedCornerCount = max(alignedCornerCount, maxAlignedCornerCount)
+                
+                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
             
-            # if they're already aligned, no need to align them
-            if isCornersAligned:
+            # if that solved it, we're done fixing corners
+            if maxAlignedCornerCount == 4:
                 break
             
-            # if one of them is already aligned, put it in the front left corner
-            cornerCoord = leftCornerCoords[CubeFacePosition.FRONT]
+            # rotate up face until aligned corners are maximal
             
             for _ in range(4):
-                frontColor = self._cube.getFaceColor(CubeFacePosition.FRONT)
-                cornerColor = self._cube[cornerCoord][CubeFacePosition.FRONT]
                 
-                if frontColor == cornerColor:
+                alignedCornerCount = sum(
+                    1 for (facePosition, coord) in leftCornerCoords.items()
+                    if self._cube[coord][facePosition] == self._cube.getFaceColor(facePosition)
+                )
+                
+                if alignedCornerCount == maxAlignedCornerCount:
                     break
                 
                 self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            # which corners are aligned?
+            alignedLeftCornerPositions = [
+                facePosition for (facePosition, coord) in leftCornerCoords.items()
+                if self._cube[coord][facePosition] == self._cube.getFaceColor(facePosition)
+            ]
+            
+            # if 2 corners are aligned, and they're not adjacent, need to rotate one more time
+            if maxAlignedCornerCount == 2:
+                [cornerPositionA, cornerPositionB] = alignedLeftCornerPositions
+                
+                if not CubeFacePosition.isAdjacent(cornerPositionA, cornerPositionB, CubeRotationDirection.SPIN_LEFTWARD):
+                    self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
+            
+            # finally in the right position to execute corner swap algorithms
+            
+            # first need to obtain a frame of reference (we want solved corners on the relative 
+            # left side if any exist)
+            
+            relLeftPosition = CubeFacePosition.LEFT
+            
+            if len(alignedLeftCornerPositions) == 1:
+                relLeftPosition = alignedLeftCornerPositions[0]
+            
+            if len(alignedLeftCornerPositions == 2):
+                [cornerPositionA, cornerPositionB] = alignedLeftCornerPositions
+                
+                if CubeFacePosition.rotate(cornerPositionA, CubeRotationDirection.SPIN_LEFTWARD) == cornerPositionB:
+                    relLeftPosition = cornerPositionB
+                else:
+                    relLeftPosition = cornerPositionA
             
             # now execute moves lurr and rurr
-            self._executeLurr()
-            self._executeRurr()
-        
-        # now we need to align the vertical side faces of the petal cubelets
-        petalCoords = {
-            facePosition: self._cube.FACE_ORIENTATION_COORDS[facePosition][FaceCubeletPosition.UP]
-            for facePosition in self._cube.FACE_ORIENTATION_COORDS
-        }
-        
-        while not self._cube.isUpLayerSolved():
-            
-            # if one of the 4 cubelets is already solved, stick that one in the back
-            for _ in range(4):
-                backPetalCoord = petalCoords[CubeFacePosition.BACK]
-                
-                backColor = self._cube.getFaceColor(CubeFacePosition.BACK)
-                backPetalColor = self._cube[backPetalCoord][CubeFacePosition.BACK]
-                
-                if backColor == backPetalColor:
-                    break
-                
-                self._addToSolution(CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE)
-            
-            # now execute moves ffuf and lruf
-            self._executeFfuf()
-            self._executeLruf()
+            self._executeLurr(relLeftPosition)
+            self._executeRurr(relLeftPosition)
+    
     """
     various auxiliary methods used by the cube solver algorithms
     """
@@ -811,37 +833,45 @@ class CubeSolver():
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
-    def _executeRurr(self):
+    def _executeRurr(self, relLeftPosition: CubeFacePosition = CubeFacePosition.LEFT):
         """ execute a Rurr move, defined by the rotation codes RUrURUUr """
+        
+        # figure out relative right position from relative left position
+        relRightPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_LEFTWARD)
+        relRightPosition = CubeFacePosition.rotate(relRightPosition, CubeRotationDirection.SPIN_LEFTWARD)
         
         # the 8 rotations that comprise a RUrURUUr sequence
         rotations = [
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (relRightPosition, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (relRightPosition, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (relRightPosition, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (relRightPosition, FaceRotationDirection.COUNTERCLOCKWISE),
         ]
         
         # add each one to the solution
         for (facePosition, direction) in rotations:
             self._addToSolution(facePosition, direction)
     
-    def _executeLurr(self):
+    def _executeLurr(self, relLeftPosition: CubeFacePosition = CubeFacePosition.LEFT):
         """ execute a Lurr move, defined by the rotation codes lURuLUr """
+        
+        # figure out relative right position from relative left position
+        relRightPosition = CubeFacePosition.rotate(relLeftPosition, CubeRotationDirection.SPIN_LEFTWARD)
+        relRightPosition = CubeFacePosition.rotate(relRightPosition, CubeRotationDirection.SPIN_LEFTWARD)
         
         # the 7 rotations that comprise a lURuLUr sequence
         rotations = [
-            (CubeFacePosition.LEFT, FaceRotationDirection.COUNTERCLOCKWISE),
+            (relLeftPosition, FaceRotationDirection.COUNTERCLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.CLOCKWISE),
+            (relRightPosition, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.COUNTERCLOCKWISE),
-            (CubeFacePosition.LEFT, FaceRotationDirection.CLOCKWISE),
+            (relLeftPosition, FaceRotationDirection.CLOCKWISE),
             (CubeFacePosition.UP, FaceRotationDirection.CLOCKWISE),
-            (CubeFacePosition.RIGHT, FaceRotationDirection.COUNTERCLOCKWISE)
+            (relRightPosition, FaceRotationDirection.COUNTERCLOCKWISE)
         ]
         
         # add each one to the solution
