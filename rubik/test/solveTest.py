@@ -588,10 +588,10 @@ class SolveTest(TestCase):
         
         self.assertTrue(cube.isUpFaceSolved())
     
-    ''' solve -- up layer -- POSITIVE TESTS '''
+    ''' solve -- up edges -- POSITIVE TESTS '''
     
-    def test_solve_70010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with no milestones reached should yield correct rotations to solve up layer """
+    def test_solve_70010_ACubeWithNoProgressShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve up edges """
         
         cubeCode = 'wwobbywyryobgrrybgrrbggyoggywooorwrroyygybbogbbgwwwrow'
         
@@ -610,10 +610,10 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
-    def test_solve_70020_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with no milestones reached should yield correct rotations to solve up layer """
+    def test_solve_70020_ACubeWithUpDaisyShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with no milestones reached should yield correct rotations to solve up edges """
         
         cubeCode = 'rbyobybyrggoorgyyrgobygbgooyrbrogbgwowwwywyworbgrwrwbw'
         
@@ -632,10 +632,10 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
-    def test_solve_70030_ACubeWithDownCrossShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with down cross should yield correct rotations to solve up layer """
+    def test_solve_70030_ACubeWithDownCrossShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with down cross should yield correct rotations to solve up edges """
         
         cubeCode = 'gbgybrobwygoyrgorybbwygorgrgoygoowogrrybyroyrwwbwwwbwb'
         
@@ -654,10 +654,10 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
-    def test_solve_70040_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with solved down layer should yield correct rotations to solve up layer """
+    def test_solve_70040_ACubeWithSolvedDownLayerShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down layer should yield correct rotations to solve up edges """
         
         cubeCode = 'oyrbbybbbgybgryrrrroorgrgggyoygorooogbygyobbywwwwwwwww'
         
@@ -676,10 +676,10 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
-    def test_solve_70050_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with solved down and middle layers should yield correct rotations to solve up layer """
+    def test_solve_70050_ACubeWithSolvedDownAndMiddleLayersShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down and middle layers should yield correct rotations to solve up edges """
         
         cubeCode = 'yyybbbbbbbgyrrrrrrrbbggggggyyooooooooygryygorwwwwwwwww'
         
@@ -698,10 +698,10 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
-    def test_solve_70060_ACubeWithSolvedDownMidLayersAndUpCrossShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with solved down, mid layers and up cross should yield correct rotations to solve up layer """
+    def test_solve_70060_ACubeWithSolvedDownMidLayersAndUpCrossShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down, mid layers and up cross should yield correct rotations to solve up edges """
         
         cubeCode = 'bbgbbbbbbyrgrrrrrroooggggggbgyooooooyyyyyyryrwwwwwwwww'
         
@@ -720,10 +720,10 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
-    def test_solve_70070_ACubeWithSolvedDownMidLayersAndUpFaceShouldYieldCorrectDirectionsToSolveUpLayer(self):
-        """ supplying a cube with solved down, mid layers and up face should yield correct rotations to solve up layer """
+    def test_solve_70070_ACubeWithSolvedDownMidLayersAndUpFaceShouldYieldCorrectDirectionsToSolveUpEdges(self):
+        """ supplying a cube with solved down, mid layers and up face should yield correct rotations to solve up edges """
         
         cubeCode = 'borbbbbbbggbrrrrrrrbgggggggoroooooooyyyyyyyyywwwwwwwww'
         
@@ -742,6 +742,6 @@ class SolveTest(TestCase):
             
             cube = Cube(rotateResult['cube'])
         
-        self.assertTrue(cube.isUpLayerSolved())
+        self.assertTrue(cube.isUpEdgesSolved())
     
     
